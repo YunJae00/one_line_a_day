@@ -1,0 +1,645 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* 아이콘 폰트 추가 */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* 히어로 섹션 스타일 */
+        .hero-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #4288EE 0%, #5b9afa 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23ffffff" fill-opacity="0.05" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-weight: 800;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-lead {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .action-buttons .hero-btn {
+            background: white;
+            color: #4288EE;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background-color: #f8f9fa;
+            color: #3070d9;
+        }
+
+        /* 섹션 공통 스타일 */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+            margin: 0;
+        }
+
+        .features-section {
+            background-color: white;
+            margin-bottom: 0;
+            padding-top: 5rem;
+        }
+
+        .examples-section {
+            background-color: #f6f8fd;
+            margin-bottom: 0;
+            padding-top: 5rem;
+        }
+
+        .categories-section {
+            background-color: white;
+            margin-bottom: 0;
+        }
+
+        .stats-section {
+            background-color: #f6f8fd;
+        }
+
+        .section-title-container {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            color: #2A3B47;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        /* 카드 스타일 */
+        .feature-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            padding: 2rem !important;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: #4288EE;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(66, 136, 238, 0.15);
+        }
+
+        .feature-card:hover .feature-icon i {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: #6c757d;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* 예시 카드 스타일 */
+        .example-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #ffffff;
+            padding: 1.5rem !important;
+            margin-bottom: 2rem;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.15);
+        }
+
+        .example-card .question {
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #4288EE;
+            padding-left: 15px;
+        }
+
+        .example-card .answer {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .example-card .answer:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4288EE;
+            font-weight: bold;
+        }
+
+        /* 통계 섹션 스타일 */
+        .counter-box {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stats-section p {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        .stats-cta {
+            margin-top: 4rem;
+        }
+
+        .action-buttons .btn-primary {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+            position: relative;
+            top: -3px;
+        }
+
+        /* 인기 배지 */
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .slide-up {
+            opacity: 0;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .slide-up {
+                animation: slideUp 0.8s ease-out forwards;
+            }
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 991.98px) {
+            .hero-section {
+                padding: 5rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .hero-section {
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-lead {
+                font-size: 1.1rem;
+            }
+
+            .hero-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto 1.2rem;
+            }
+
+            .feature-icon i {
+                font-size: 1.8rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem !important;
+                text-align: center;
+            }
+
+            .counter-box {
+                font-size: 3rem;
+            }
+
+            .hero-icon {
+                width: 45px;
+                height: 45px;
+                margin-right: 10px;
+                top: -2px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card {
+                margin: 0 1rem;
+            }
+
+            .stats-cta .btn-primary {
+                width: 100%;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .hero-icon {
+                width: 35px;
+                height: 35px;
+                margin-right: 8px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- 히어로 섹션 -->
+    <section class="hero-section full-width-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="action-buttons col-md-8 col-12 hero-content">
+                    <h1 class="hero-title">
+                        <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">
+                        하루 한 줄
+                    </h1>
+                    <p class="hero-lead">바쁜 일상 속에서도 꾸준히 성장할 수 있도록<br class="d-none d-md-block">매일 이메일로 유용한 지식을 받아보세요.
+                    </p>
+                    <a href="{% url 'accounts:register' %}" class="btn hero-btn pulse">지금 시작하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 예시 섹션 -->
+    <section class="examples-section section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">이런 내용을 매일 받아보세요</h2>
+            </div>
+
+            <div class="row">
+                <!-- 예시 2: 영어 숙어 -->
+                <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.3s;">
+                    <div class="example-card">
+                        <div class="question">"Break the ice (얼음을 깨다)"</div>
+                        <div class="answer">어색한 분위기를 풀어주다. 이 표현은 얼어붙은 바다를 뚫고 가는 배에서 유래했습니다. 예문: "The funny story helped...</div>
+                    </div>
+                </div>
+
+                <!-- 예시 4: 일반 상식 -->
+                <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.5s;">
+                    <div class="example-card">
+                        <div class="question">"인간의 DNA는 바나나와 얼마나 유사할까?"</div>
+                        <div class="answer">인간과 바나나의 유전자 구성은 약 60%가 동일하며, 이는 모든 생명체가 공통의 조상에서 진화했음을 보여줍니다.</div>
+                    </div>
+                </div>
+
+                <!-- 예시 3: 면접 질문 (백엔드 중간 수준) -->
+                <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.4s;">
+                    <div class="example-card">
+                        <div class="question">"데이터베이스 인덱스의 작동 원리와 장단점은 무엇인가요?"</div>
+                        <div class="answer">인덱스는 B-트리 구조로 데이터 검색 속도를 향상시키지만, 추가/수정/삭제 시 성능 저하와...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 예시 1: 개발 지식 (새로운 주제) -->
+                <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.2s;">
+                    <div class="example-card">
+                        <div class="question">"인간의 뼈는 태어날 때보다 죽을 때 더 적다"</div>
+                        <div class="answer">아기가 태어날 때는 많은 뼈가 분리된 상태로 존재하지만, 성장하면서 여러 뼈들이 합쳐집니다. 대표적인 예로 두개골은...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 특징 섹션 -->
+    <section class="features-section section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">왜 하루 한 줄을 구독해야 할까요?</h2>
+            </div>
+
+            <div class="row">
+                <!-- 특징 1 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>단 1분으로 충분한 학습</h3>
+                        <p>읽는데 단 1분, 이해하는데 5분이면 충분합니다. 바쁜 일상 속에서도 꾸준히 지식을 쌓으세요.</p>
+                    </div>
+                </div>
+
+                <!-- 특징 2 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>다양한 지식 습득</h3>
+                        <p>개발 지식부터 영어 숙어, 일반 상식까지 다양한 분야의 핵심 정보를 매일 한 줄씩 배울 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 특징 3 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>복리로 쌓이는 성장</h3>
+                        <p>매일 1%씩 성장하면 1년 후에는 37.8배 성장합니다. 지금 바로 시작하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 카테고리 섹션 -->
+    <section class="categories-section section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">다양한 지식 카테고리</h2>
+            </div>
+
+            <div class="row">
+                <!-- 카테고리 3 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>일반 상식</h3>
+                        <p>역사, 과학, 경제, 시사 등 다양한 분야의 상식을 습득하여 더 넓은 시야를 가져보세요.</p>
+                    </div>
+                </div>
+
+                <!-- 카테고리 2 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>영어 숙어</h3>
+                        <p>실생활에서 자주 사용되는 영어 표현과 숙어를 배워 자연스러운 영어 회화 실력을 키워보세요.</p>
+                    </div>
+                </div>
+
+                <!-- 카테고리 1 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>개발 지식</h3>
+                        <p>프로그래밍 언어, 알고리즘, 프레임워크, 면접 팁 등 개발자에게 유용한 핵심 지식을 매일 배워보세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 통계 섹션 -->
+    <section class="stats-section section">
+        <div class="container">
+            {#            <div class="section-title-container">#}
+            {#                <h2 class="section-title">믿고 구독하는 사람들</h2>#}
+            {#            </div>#}
+            {##}
+            {#            <div class="row text-center">#}
+            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">#}
+            {#                    <div class="counter-box">5,200+</div>#}
+            {#                    <p>현재 구독자 수</p>#}
+            {#                </div>#}
+            {##}
+            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">#}
+            {#                    <div class="counter-box">300+</div>#}
+            {#                    <p>공유된 지식 수</p>#}
+            {#                </div>#}
+            {##}
+            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">#}
+            {#                    <div class="counter-box">98%</div>#}
+            {#                    <p>구독 유지율</p>#}
+            {#                </div>#}
+            {#            </div>#}
+
+            <div class="action-buttons text-center stats-cta slide-up" style="animation-delay: 0.8s;">
+                <a href="{% url 'accounts:register' %}" class="btn btn-primary pulse">무료로 시작하기</a>
+                <p class="mt-3 text-muted">언제든지 구독 취소가 가능합니다</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // 화면에 요소가 나타났을 때 애니메이션 실행
+        document.addEventListener('DOMContentLoaded', function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.slide-up').forEach(element => {
+                element.style.animationPlayState = 'paused';
+                observer.observe(element);
+            });
+        });
+    </script>
+{% endblock %}

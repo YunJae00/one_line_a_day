@@ -1,0 +1,535 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .subscription-form-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .form-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.8rem 1.5rem 0.8rem;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .form-icon svg {
+            color: #4288EE;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .form-card:hover .form-icon svg {
+            transform: scale(1.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control, .form-select {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e1e5eb;
+            font-size: 1rem;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #4288EE;
+            background-color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(66, 136, 238, 0.15);
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        /* 라디오 버튼 커스텀 스타일 */
+        .custom-radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .custom-radio-item {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .custom-radio-input {
+            display: none;
+        }
+
+        .custom-radio-label {
+            display: block;
+            padding: 0.75rem 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #e1e5eb;
+            border-radius: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .custom-radio-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
+        }
+
+        .custom-radio-input:checked + .custom-radio-label {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            border-color: #4288EE;
+            box-shadow: 0 4px 12px rgba(66, 136, 238, 0.2);
+        }
+
+        /* 시간 선택기 스타일 */
+        .time-picker {
+            position: relative;
+        }
+
+        .time-display {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e1e5eb;
+            border-radius: 0.75rem;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-display:hover {
+            border-color: #4288EE;
+            background-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
+        }
+
+        .time-display-icon {
+            margin-right: 0.5rem;
+            color: #4288EE;
+        }
+
+        .time-picker-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            max-height: 250px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #e1e5eb;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+            margin-top: 5px;
+            box-shadow: 0 10px 25px rgba(66, 136, 238, 0.15);
+        }
+
+        .time-option {
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .time-option:hover {
+            background-color: #f0f5ff;
+        }
+
+        .time-option.selected {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .active-buttons .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+            min-width: 100px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-outline-secondary {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            min-width: 100px;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(108, 117, 125, 0.15);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 767.98px) {
+            .subscription-form-page {
+                padding: 2rem 0;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .form-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .form-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .custom-radio-group {
+                flex-direction: column;
+            }
+
+            .custom-radio-item {
+                width: 100%;
+            }
+
+            .time-picker-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .action-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .form-card {
+                margin: 0 1rem 1.5rem;
+            }
+
+            .time-picker-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="subscription-form-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="form-card">
+                        <div class="card-header text-center">
+                            <h3>{{ title }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-envelope-paper" viewBox="0 0 16 16">
+                                    <path d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2H4Zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6v-2.55Zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v5.417Zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267v2.55Zm13 .566v5.734l-4.778-2.867L15 7.383Zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083l6.965 4.18ZM1 8.383l4.778 2.867L1 14.117V8.383Z"/>
+                                </svg>
+                            </div>
+
+                            <p class="text-center text-muted mb-4">
+                                원하는 카테고리를 선택하고 이메일 수신 설정을 맞춰보세요.
+                            </p>
+
+                            <form method="post" id="subscriptionForm">
+                                {% csrf_token %}
+
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger mb-4">
+                                        {{ form.non_field_errors }}
+                                    </div>
+                                {% endif %}
+
+                                <div class="form-group">
+                                    <label for="{{ form.category.id_for_label }}" class="form-label">카테고리</label>
+                                    <select name="{{ form.category.html_name }}" id="{{ form.category.id_for_label }}" class="form-select">
+                                        {% for value, text in form.category.field.choices %}
+                                            <option value="{{ value }}" {% if form.category.value == value|stringformat:"s" %}selected{% endif %}>
+                                                {{ text }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% if form.category.errors %}
+                                        <div class="invalid-feedback d-block mt-2">
+                                            {{ form.category.errors }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.category.help_text %}
+                                        <div class="form-text">{{ form.category.help_text }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">수신 주기</label>
+                                    <div class="custom-radio-group">
+                                        {% for value, text in form.frequency.field.choices %}
+                                            <div class="custom-radio-item">
+                                                <input type="radio" name="{{ form.frequency.html_name }}" id="frequency_{{ value }}"
+                                                       value="{{ value }}" class="custom-radio-input"
+                                                       {% if form.frequency.value == value|stringformat:"s" %}checked{% endif %}>
+                                                <label for="frequency_{{ value }}" class="custom-radio-label">{{ text }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% if form.frequency.errors %}
+                                        <div class="invalid-feedback d-block mt-2">
+                                            {{ form.frequency.errors }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.frequency.help_text %}
+                                        <div class="form-text">{{ form.frequency.help_text }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">선호 시간</label>
+                                    <div class="time-picker mb-2">
+                                        <div class="time-display" id="timeDisplay">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock time-display-icon" viewBox="0 0 16 16">
+                                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                            </svg>
+                                            <span id="selectedTime">
+                                            {% if form.preferred_time.value %}
+                                                {{ form.preferred_time.value|time:"H:00" }}
+                                            {% else %}
+                                                09:00
+                                            {% endif %}
+                                            </span>
+                                        </div>
+                                        <input type="hidden" name="{{ form.preferred_time.html_name }}"
+                                               id="{{ form.preferred_time.id_for_label }}"
+                                               value="{% if form.preferred_time.value %}{{ form.preferred_time.value|time:'H:00' }}{% else %}09:00{% endif %}">
+                                        <div class="time-picker-container" id="timeOptions" style="display: none;">
+                                            <!-- 시간 옵션들은 JavaScript로 생성됩니다 -->
+                                        </div>
+                                    </div>
+                                    {% if form.preferred_time.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.preferred_time.errors }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.preferred_time.help_text %}
+                                        <div class="form-text">{{ form.preferred_time.help_text }}</div>
+                                    {% endif %}
+                                    <div class="form-text">이메일은 매일 선택한 시간에 발송됩니다.</div>
+                                </div>
+
+                                <div class="active-buttons action-buttons d-flex justify-content-between mt-4">
+                                    <a href="{% url 'subscription:subscription_list' %}" class="btn btn-outline-secondary">취소</a>
+                                    <button type="submit" class="btn btn-primary">저장</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-muted">
+                        <small>필요한 경우 언제든지 구독 설정을 변경하거나 취소할 수 있습니다.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeDisplay = document.getElementById('timeDisplay');
+            const timeOptions = document.getElementById('timeOptions');
+            const selectedTimeSpan = document.getElementById('selectedTime');
+            const timeInput = document.getElementById('{{ form.preferred_time.id_for_label }}');
+            const formControls = document.querySelectorAll('.form-control, .form-select');
+
+            // 폼 필드에 포커스 효과 추가
+            formControls.forEach(input => {
+                // 이미 값이 있는 경우 배경색 변경
+                if (input.value && input.value.trim() !== '') {
+                    input.style.backgroundColor = '#fff';
+                }
+
+                input.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#fff';
+                });
+
+                input.addEventListener('blur', function() {
+                    if (!this.value || this.value.trim() === '') {
+                        this.style.backgroundColor = '#f8f9fa';
+                    }
+                });
+            });
+
+            // 시간 옵션 생성 (00:00 ~ 23:00, 1시간 간격)
+            function generateTimeOptions() {
+                timeOptions.innerHTML = '';
+                for (let hour = 0; hour < 24; hour++) {
+                    const formattedHour = hour.toString().padStart(2, '0');
+                    const timeString = `${formattedHour}:00`;
+
+                    const option = document.createElement('div');
+                    option.className = 'time-option';
+                    option.textContent = timeString;
+
+                    if (timeInput.value === timeString) {
+                        option.classList.add('selected');
+                    }
+
+                    option.addEventListener('click', function() {
+                        // 이전 선택 제거
+                        const selectedOptions = timeOptions.querySelectorAll('.selected');
+                        selectedOptions.forEach(el => el.classList.remove('selected'));
+
+                        // 새로운 선택 추가
+                        option.classList.add('selected');
+
+                        // 선택된 시간 업데이트
+                        selectedTimeSpan.textContent = timeString;
+                        timeInput.value = timeString;
+
+                        // 드롭다운 닫기
+                        timeOptions.style.display = 'none';
+                    });
+
+                    timeOptions.appendChild(option);
+                }
+            }
+
+            // 시간 선택기 토글
+            timeDisplay.addEventListener('click', function() {
+                if (timeOptions.style.display === 'none') {
+                    generateTimeOptions();
+                    timeOptions.style.display = 'grid';
+
+                    // 선택된 시간으로 스크롤
+                    const selectedOption = timeOptions.querySelector('.selected');
+                    if (selectedOption) {
+                        selectedOption.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                    }
+                } else {
+                    timeOptions.style.display = 'none';
+                }
+            });
+
+            // 바깥영역 클릭시 드롭다운 닫기
+            document.addEventListener('click', function(event) {
+                if (!timeDisplay.contains(event.target) && !timeOptions.contains(event.target)) {
+                    timeOptions.style.display = 'none';
+                }
+            });
+
+            // 카테고리 선택시 아이콘 변경 (향후 구현)
+            const categorySelect = document.getElementById('{{ form.category.id_for_label }}');
+            if (categorySelect) {
+                categorySelect.addEventListener('change', function() {
+                    // 카테고리 선택에 따른 아이콘 변경 로직
+                });
+            }
+        });
+    </script>
+{% endblock %}

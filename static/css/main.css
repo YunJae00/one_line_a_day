@@ -1,0 +1,663 @@
+/* 기본 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #F1F2F9;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 헤더 스타일 */
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.logo {
+    height: 40px;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 2rem 0;
+    margin-top: 0;
+    position: relative;
+    border-top: 1px solid #e1e5eb;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 푸터 링크 스타일 */
+.footer-link {
+    color: #4288EE;
+    font-weight: 500;
+    position: relative;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-link:first-child {
+    margin-left: 0;
+}
+
+.footer-link:hover {
+    color: #3070d9;
+    transform: translateY(-2px);
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #4288EE, #5b9afa);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* 푸터 텍스트 스타일 */
+.footer-copyright {
+    font-size: 0.95rem;
+    color: #2A3B47;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* 푸터 섹션 스타일 */
+.footer-heading {
+    font-weight: 600;
+    color: #2A3B47;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #4288EE;
+    border-color: #4288EE;
+    transition: all 0.3s ease;
+    color: white; /* 텍스트 색상 명시적 지정 */
+}
+
+.btn-primary:hover {
+    background-color: #3070d9;
+    border-color: #2968cc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+}
+
+.btn-outline-primary {
+    color: #4288EE;
+    border-color: #4288EE;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4288EE;
+    color: #fff;
+}
+
+.btn-login {
+    background-color: #4288EE;
+    border-color: #4288EE;
+    padding: 0.75rem;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    color: white; /* 텍스트 색상 명시적 지정 */
+}
+
+.btn-login:hover {
+    background-color: #3070d9;
+    border-color: #2968cc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+}
+
+/* 카드 스타일 */
+.card {
+    border-radius: 0.5rem;
+    border: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    overflow: hidden;
+    height: 100%;
+    margin-bottom: 2rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card {
+    padding: 2rem;
+    text-align: center;
+    height: 100%;
+}
+
+.feature-card .feature-icon {
+    font-size: 3rem;
+    color: #4288EE;
+    margin-bottom: 1.5rem;
+}
+
+/* 로그인 카드 스타일 */
+.login-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* 카드와 하단 사이 여백 줄임 */
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+}
+
+.login-header {
+    padding: 1.5rem;
+    background-color: white;
+    border-bottom: none;
+}
+
+.login-title {
+    color: #2A3B47;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.login-body {
+    padding: 2rem;
+}
+
+.login-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+    padding: 1.2rem;
+}
+
+/* 섹션 스타일 */
+.hero-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #4288EE 0%, #5b9afa 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23ffffff" fill-opacity="0.05" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+.features-section {
+    padding: 6rem 0;
+    background-color: #fff;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.categories-section {
+    padding: 6rem 0;
+    background-color: #f6f8fd;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.stats-section {
+    padding: 6rem 0;
+    background-color: #F1F2F9;
+    text-align: center;
+    width: 100%;
+}
+
+.login-page {
+    padding: 4rem 0;
+    background-color: #f6f8fd;
+    min-height: calc(100vh - 210px); /* 푸터 높이를 고려하여 조정 */
+}
+
+.section-title-container {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #4288EE;
+}
+
+.counter-box {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #4288EE;
+    margin-bottom: 1rem;
+}
+
+/* 섹션 구분선 */
+.section-divider {
+    height: 4rem;
+    background-color: transparent;
+}
+
+/* 폼 스타일 */
+.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e1e5eb;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #4288EE;
+    box-shadow: 0 0 0 0.25rem rgba(66, 136, 238, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+/* 로그인 페이지 구분선 */
+.or-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.2rem 0; /* 조금 줄임 */
+}
+
+.or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+.or-divider span {
+    padding: 0 1rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 여기에 추가 */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+/* 페이지 전체 래퍼 */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #f6f8fd;
+    min-height: calc(100vh - 350px); /* 푸터 높이 고려해서 조정 */
+}
+
+/* 전체 컨테이너 스타일 */
+.full-width-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.message-box .messages {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    z-index: 9999999;
+    opacity: 1;
+}
+
+.alert {
+    position: relative;
+    border-radius: 10px;
+    padding: 15px 40px 15px 15px; /* 닫기 버튼을 위한 오른쪽 여백 추가 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.alert .btn-close {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.alert .btn-close:hover {
+    opacity: 1;
+}
+
+/* 배경색 불투명하게 변경 */
+.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+/* 텍스트 스타일 */
+.display-4 {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.lead {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+}
+
+/* 특징 블록 */
+.feature-block {
+    padding: 3rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.feature-block:last-child {
+    border-bottom: none;
+}
+
+.feature-icon-container {
+    background-color: #f6f8fd;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-title {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #2A3B47;
+}
+
+.feature-description {
+    color: #5A6B77;
+    margin-bottom: 0;
+}
+
+/* 레이아웃 유틸리티 */
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-5 {
+    margin-bottom: 3rem;
+}
+
+.py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.px-5 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1199.98px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .hero-section {
+        padding: 5rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .features-section, .categories-section, .stats-section {
+        padding: 5rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .section-title-container {
+        margin-bottom: 3rem;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .container {
+        max-width: 540px;
+    }
+
+    .hero-section {
+        padding: 4rem 0;
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .hero-image-container {
+        margin-top: 2rem;
+    }
+
+    .features-section, .categories-section, .stats-section {
+        padding: 4rem 0;
+        margin-bottom: 2.5rem;
+    }
+
+    .section-title-container {
+        margin-bottom: 2.5rem;
+    }
+
+    .feature-block {
+        padding: 2rem 0;
+    }
+
+    .display-4 {
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    footer {
+        padding: 2rem 0;
+        text-align: center;
+    }
+
+    .footer-links {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-link {
+        margin: 0 0.75rem;
+    }
+
+    .login-page {
+        padding: 2rem 0;
+        min-height: calc(100vh - 180px);
+    }
+
+    .login-body {
+        padding: 1.5rem;
+    }
+
+    .login-card {
+        margin: 0 1rem 15px 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-section {
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .features-section, .categories-section, .stats-section {
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .section-title-container {
+        margin-bottom: 2rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    .btn-lg {
+        padding: 0.5rem 2rem;
+        font-size: 1rem;
+    }
+}

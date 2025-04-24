@@ -1,0 +1,322 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}회원가입 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .register-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px); /* 푸터 높이를 고려하여 조정 */
+        }
+
+        .register-card {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px; /* 카드와 하단 사이 여백 줄임 */
+        }
+
+        .register-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+        }
+
+        .register-header {
+            padding: 1.5rem;
+            background-color: white;
+            border-bottom: none;
+        }
+
+        .register-title {
+            color: #2A3B47;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .register-body {
+            padding: 2rem;
+        }
+
+        .register-footer {
+            background-color: #f8f9fa;
+            border-top: none;
+            padding: 1.2rem;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e1e5eb;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4288EE;
+            box-shadow: 0 0 0 0.25rem rgba(66, 136, 238, 0.15);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        .btn-register {
+            background-color: #4288EE;
+            border-color: #4288EE;
+            padding: 0.75rem;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            color: white; /* 텍스트 색상 명시적 지정 */
+        }
+
+        .btn-register:hover {
+            background-color: #3070d9;
+            border-color: #2968cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+        }
+
+        .register-links a {
+            color: #4288EE;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .register-links a:hover {
+            color: #3070d9;
+            text-decoration: underline;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .step-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 1.5rem;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #e1e5eb;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 3rem;
+            height: 3rem;
+            line-height: 3rem;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            margin: 0 auto 0.5rem;
+            position: relative;
+            z-index: 2;
+            border: 2px solid #e1e5eb;
+        }
+
+        .step-active .step-number {
+            background-color: #4288EE;
+            color: white;
+            border-color: #4288EE;
+        }
+
+        .step-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .step-active .step-text {
+            color: #4288EE;
+            font-weight: 500;
+        }
+
+        @media (max-width: 767.98px) {
+            .register-page {
+                padding: 2rem 0;
+                min-height: calc(100vh - 280px);
+            }
+
+            .register-body {
+                padding: 1.5rem;
+            }
+
+            .register-card {
+                margin: 0 1rem 15px 1rem;
+            }
+
+            .step-number {
+                width: 2.5rem;
+                height: 2.5rem;
+                line-height: 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            .step-text {
+                font-size: 0.75rem;
+                display: none;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="register-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="register-card card">
+                        <div class="register-header text-center">
+                            <h3 class="register-title">회원가입</h3>
+                            <p class="text-muted mb-0 mt-2">하루 한 줄로 매일 새로운 지식을 만나보세요</p>
+                        </div>
+
+                        <div class="register-body">
+                            <!-- 가입 단계 표시 -->
+                            <div class="steps-container">
+                                <div class="step-item step-active">
+                                    <div class="step-number">1</div>
+                                    <div class="step-text">정보 입력</div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <div class="step-text">이메일 인증</div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <div class="step-text">가입 완료</div>
+                                </div>
+                            </div>
+
+                            <!-- 폼 시작 -->
+                            <form method="post" id="registerForm" onsubmit="return validateForm('registerForm')">
+                                {% csrf_token %}
+
+                                <div class="mb-4">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label">이메일</label>
+                                    <input type="email" name="{{ form.email.html_name }}"
+                                           id="{{ form.email.id_for_label }}" class="form-control"
+                                           {% if form.email.value %}value="{{ form.email.value }}"{% endif %} required
+                                           placeholder="example@domain.com">
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback d-block mt-1">
+                                            {{ form.email.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-info-circle me-1" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                        </svg>
+                                        입력하신 이메일로 매일 유용한 지식이 발송됩니다.
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="{{ form.password1.id_for_label }}" class="form-label">비밀번호</label>
+                                    <input type="password" name="{{ form.password1.html_name }}"
+                                           id="{{ form.password1.id_for_label }}" class="form-control" required>
+                                    {% if form.password1.errors %}
+                                        <div class="invalid-feedback d-block mt-1">
+                                            {{ form.password1.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-shield-lock me-1" viewBox="0 0 16 16">
+                                            <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+                                            <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
+                                        </svg>
+                                        8자 이상의 영문, 숫자 조합으로 입력해주세요.
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="{{ form.password2.id_for_label }}" class="form-label">비밀번호 확인</label>
+                                    <input type="password" name="{{ form.password2.html_name }}"
+                                           id="{{ form.password2.id_for_label }}" class="form-control" required>
+                                    {% if form.password2.errors %}
+                                        <div class="invalid-feedback d-block mt-1">
+                                            {{ form.password2.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-register">가입하기</button>
+                                </div>
+                            </form>
+                        </div>
+
+{#                        <div class="register-footer text-center">#}
+{#                            <div class="register-links">#}
+{#                                이미 계정이 있으신가요? <a href="{% url 'accounts:login' %}">로그인</a>#}
+{#                            </div>#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // 폼 유효성 검사 및 애니메이션 효과
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.classList.add('focused');
+                });
+                input.addEventListener('blur', function () {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+
+            // 비밀번호 일치 확인
+            const password1 = document.getElementById('{{ form.password1.id_for_label }}');
+            const password2 = document.getElementById('{{ form.password2.id_for_label }}');
+
+            function checkPasswordMatch() {
+                if (password1.value && password2.value) {
+                    if (password1.value !== password2.value) {
+                        password2.setCustomValidity('비밀번호가 일치하지 않습니다.');
+                    } else {
+                        password2.setCustomValidity('');
+                    }
+                }
+            }
+
+            if (password1 && password2) {
+                password1.addEventListener('change', checkPasswordMatch);
+                password2.addEventListener('keyup', checkPasswordMatch);
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,753 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}구독 관리 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .subscription-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .subscription-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .subscription-title {
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .subscription-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .subscription-subtitle {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .subscription-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            margin-bottom: 2rem;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .category-card {
+            border-radius: 1rem;
+            border: none;
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(66, 136, 238, 0.08);
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(66, 136, 238, 0.12);
+        }
+
+        .category-card .card-title {
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 1.25rem;
+        }
+
+        .category-card .card-text {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .card-header h5 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h5:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-footer {
+            background-color: white;
+            border-top: none;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .table-custom {
+            margin-bottom: 0;
+        }
+
+        .table-custom th {
+            font-weight: 600;
+            color: #495057;
+            border-top: none;
+            border-bottom: 2px solid #e9ecef;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom td {
+            vertical-align: middle;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #2A3B47;
+            transition: all 0.2s ease;
+        }
+
+        .table-custom tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-custom tr {
+            transition: all 0.3s ease;
+        }
+
+        .table-custom tr:hover {
+            background-color: rgba(66, 136, 238, 0.05);
+            box-shadow: inset 4px 0 0 #4288EE;
+        }
+
+        .badge {
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .badge-success {
+            background: linear-gradient(135deg, #28a745, #5cc375);
+            color: white;
+        }
+
+        .badge-warning {
+            background: linear-gradient(135deg, #ffc107, #ffdb6d);
+            color: #212529;
+        }
+
+        .badge-secondary {
+            background: linear-gradient(135deg, #6c757d, #9aa0a6);
+            color: white;
+        }
+
+        .active-buttons .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-lg {
+            padding: 0.8rem 1.8rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-group .btn {
+            margin-left: 0.25rem;
+        }
+
+        .btn-outline-primary {
+            color: #4288EE;
+            border: 1px solid #4288EE;
+            background-color: transparent;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #4288EE;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-outline-secondary {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(108, 117, 125, 0.15);
+        }
+
+        .btn-outline-warning {
+            color: #ffc107;
+            border: 1px solid #ffc107;
+            background-color: transparent;
+        }
+
+        .btn-outline-warning:hover {
+            background-color: #ffc107;
+            color: #212529;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-outline-success {
+            color: #28a745;
+            border: 1px solid #28a745;
+            background-color: transparent;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-outline-danger {
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            background-color: transparent;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .empty-state-icon svg {
+            color: #4288EE;
+            width: 60px;
+            height: 60px;
+        }
+
+        .empty-state-title {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .empty-state-subtitle {
+            color: #6c757d;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-icon svg {
+            color: #4288EE;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(66, 136, 238, 0.15);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-icon svg {
+            color: #4288EE;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item {
+            padding: 1.2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .faq-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+            border-color: #e9ecef;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-question:before {
+            content: 'Q';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            color: #6c757d;
+            margin-left: 2.5rem;
+            position: relative;
+        }
+
+        .faq-answer:before {
+            content: 'A';
+            position: absolute;
+            left: -2.5rem;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+            color: #6c757d;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .subscription-page {
+                padding: 2rem 0;
+            }
+
+            .subscription-header {
+                margin-bottom: 2rem;
+            }
+
+            .card-header {
+                padding: 1.25rem;
+            }
+
+            .card-body {
+                padding: 1.25rem;
+            }
+
+            .card-footer {
+                padding: 1.25rem;
+            }
+
+            .subscription-title {
+                font-size: 1.5rem;
+            }
+
+            .table-custom th,
+            .table-custom td {
+                padding: 1rem;
+            }
+
+            .table-responsive {
+                border-radius: 1rem;
+                overflow: hidden;
+            }
+
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btn-group .btn {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                border-radius: 0.75rem !important;
+            }
+
+            .btn-group .btn:first-child {
+                margin-top: 0;
+            }
+
+            .table-custom tr:hover {
+                transform: none;
+            }
+
+            .empty-state-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .empty-state-icon svg {
+                width: 50px;
+                height: 50px;
+            }
+
+            .faq-item:hover {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .subscription-card {
+                margin: 0 1rem 1.5rem;
+            }
+
+            .table-custom th,
+            .table-custom td {
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+
+            .badge {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .table-custom th:nth-child(3),
+            .table-custom td:nth-child(3),
+            .table-custom th:nth-child(4),
+            .table-custom td:nth-child(4) {
+                display: none;
+            }
+
+            .empty-state {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="subscription-page">
+        <div class="container">
+            <div class="subscription-header">
+                <h1 class="subscription-title">구독 관리</h1>
+                <p class="subscription-subtitle">구독 중인 카테고리 및 설정을 관리할 수 있습니다.</p>
+            </div>
+
+            {% if subscriptions %}
+                <div class="subscription-card">
+                    <div class="active-buttons card-header d-flex justify-content-between align-items-center">
+                        <h5>구독 중인 카테고리</h5>
+                        <a href="{% url 'subscription:subscribe' %}" class="btn btn-primary btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-lg me-1" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>
+                            새 구독
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                            <tr>
+                                <th>카테고리</th>
+                                <th>상태</th>
+                                <th class="d-none d-md-table-cell">수신 주기</th>
+                                <th class="d-none d-md-table-cell">수신 시간</th>
+                                <th class="d-none d-md-table-cell">시작일</th>
+                                <th class="text-end">관리</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for subscription in subscriptions %}
+                                {% if subscription.status != 'cancelled' %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if subscription.category.name == '개발 지식' %}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#4288EE" class="bi bi-code-square me-2"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                                        <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
+                                                    </svg>
+                                                {% elif subscription.category.name == '영어 숙어' %}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#4288EE" class="bi bi-translate me-2"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+                                                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z"/>
+                                                    </svg>
+                                                {% else %}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                         fill="#4288EE" class="bi bi-book me-2" viewBox="0 0 16 16">
+                                                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                                                    </svg>
+                                                {% endif %}
+                                                <span>{{ subscription.category.name }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {% if subscription.status == 'active' %}
+                                                <span class="badge badge-success">활성</span>
+                                            {% elif subscription.status == 'paused' %}
+                                                <span class="badge badge-warning">일시정지</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ subscription.get_frequency_display }}</td>
+                                        <td class="d-none d-md-table-cell">{{ subscription.preferred_time|time:"H:i" }}</td>
+                                        <td class="d-none d-md-table-cell">{{ subscription.start_date|date:"Y.m.d" }}</td>
+                                        <td class="text-end">
+                                            <div class="active-buttons btn-group">
+                                                <a href="{% url 'subscription:manage' subscription.id %}"
+                                                   class="btn btn-sm btn-outline-secondary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         fill="currentColor"
+                                                         class="bi bi-gear d-none d-md-inline-block me-1"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                                    </svg>
+                                                    수정
+                                                </a>
+                                                {% if subscription.status == 'active' %}
+                                                    <a href="{% url 'subscription:pause' subscription.id %}"
+                                                       class="btn btn-sm btn-outline-warning">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                             fill="currentColor"
+                                                             class="bi bi-pause-fill d-none d-md-inline-block me-1"
+                                                             viewBox="0 0 16 16">
+                                                            <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+                                                        </svg>
+                                                        일시정지
+                                                    </a>
+                                                {% elif subscription.status == 'paused' %}
+                                                    <a href="{% url 'subscription:activate' subscription.id %}"
+                                                       class="btn btn-sm btn-outline-success">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                             fill="currentColor"
+                                                             class="bi bi-play-fill d-none d-md-inline-block me-1"
+                                                             viewBox="0 0 16 16">
+                                                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                                                        </svg>
+                                                        활성화
+                                                    </a>
+                                                {% endif %}
+                                                <a href="{% url 'subscription:cancel' subscription.id %}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         fill="currentColor"
+                                                         class="bi bi-x-lg d-none d-md-inline-block me-1"
+                                                         viewBox="0 0 16 16">
+                                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                    </svg>
+                                                    구독취소
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                <!-- 구독이 없는 경우 표시할 내용 -->
+                <div class="subscription-card">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+                                 class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                                <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="empty-state-title">아직 구독 중인 카테고리가 없습니다</h3>
+                        <p class="empty-state-subtitle">
+                            매일 이메일로 유용한 지식을 받아보세요. 원하는 주제를 선택하여 꾸준한 성장을 시작해보세요.
+                        </p>
+                        <a href="{% url 'subscription:subscribe' %}" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-lg me-1" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>
+                            새로운 구독 시작하기
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- 구독 혜택 안내 섹션 -->
+            <div class="subscription-card">
+                <div class="card-header">
+                    <h5>구독 혜택</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 mb-4 mb-md-0 text-center">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-lightning-charge" viewBox="0 0 16 16">
+                                    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                                </svg>
+                            </div>
+                            <h5>빠른 지식 습득</h5>
+                            <p class="text-muted">1분만에 읽고 5분만에 이해하는 최적화된, 꼭 필요한 지식을 제공합니다.</p>
+                        </div>
+                        <div class="col-md-4 mb-4 mb-md-0 text-center">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg>
+                            </div>
+                            <h5>꾸준한 학습 습관</h5>
+                            <p class="text-muted">매일 정해진 시간에 이메일로 받아보는 지식으로 꾸준한 학습 습관을 만들어보세요.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="benefit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
+                                </svg>
+                            </div>
+                            <h5>개인 성장 트래킹</h5>
+                            <p class="text-muted">읽은 메일과 학습한 주제들을 확인하고 자신의 지식 성장을 확인할 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 자주 묻는 질문 섹션 -->
+            <div class="subscription-card">
+                <div class="card-header">
+                    <h5>자주 묻는 질문</h5>
+                </div>
+                <div class="card-body">
+                    <div class="faq-item">
+                        <h6 class="faq-question">여러 카테고리를 한 번에 구독할 수 있나요?</h6>
+                        <p class="faq-answer">네, 원하시는 만큼 여러 카테고리를 동시에 구독하실 수 있습니다. 각 카테고리별로 구독 설정을 다르게 지정할 수도 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">언제든지 구독을 취소할 수 있나요?</h6>
+                        <p class="faq-answer">물론입니다. 원하실 때 언제든지 구독을 취소하거나 일시 정지하실 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">이메일 수신 시간을 변경할 수 있나요?</h6>
+                        <p class="faq-answer">네, 구독 관리 페이지에서 각 카테고리별로 원하시는 수신 시간을 설정하실 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">당일 구독 설정 시 이메일 발송 시간에 제한이 있나요?</h6>
+                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고 싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

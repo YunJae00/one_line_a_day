@@ -1,0 +1,231 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}로그아웃 - 하루 한 줄 개발 지식{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .logout-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .logout-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+        }
+
+        .logout-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.8rem 1.5rem 0.8rem;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .logout-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .logout-icon svg {
+            color: #4288EE;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-card:hover .logout-icon svg {
+            transform: translateX(5px);
+        }
+
+        .logout-title {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 1rem;
+        }
+
+        .logout-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .action-buttons .btn-cancel {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .action-buttons .btn-cancel:hover {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .action-buttons .btn-logout {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+        }
+
+        .action-buttons .btn-logout:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 767.98px) {
+            .logout-page {
+                padding: 2rem 0;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .logout-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logout-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logout-title {
+                font-size: 1.25rem;
+            }
+
+            .logout-text {
+                font-size: 1rem;
+            }
+
+            .action-buttons .btn {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .logout-card {
+                margin: 0 1rem;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .action-buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="logout-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7 col-sm-10">
+                    <div class="logout-card card">
+                        <div class="card-header text-center">
+                            <h3>로그아웃</h3>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="logout-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                     class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                </svg>
+                            </div>
+
+                            <h4 class="logout-title">로그아웃 하시겠습니까?</h4>
+                            <p class="logout-text">
+                                언제든지 다시 돌아오셔서 하루 한 줄의 유용한 지식을 받아보세요.
+                            </p>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="action-buttons btn-container">
+                                    <a href="{% url 'home' %}" class="btn btn-cancel">취소</a>
+                                    <button type="submit" class="btn btn-logout">로그아웃</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

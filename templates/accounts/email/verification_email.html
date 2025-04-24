@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일 인증</title>
+</head>
+<body style="font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f8f9fa;">
+<!-- 전체 컨테이너 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f8f9fa;">
+    <tr>
+        <td align="center" style="padding: 20px 0;">
+            <!-- 컨텐츠 테이블 -->
+            <table cellpadding="0" cellspacing="0" border="0" width="600" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 600px;">
+                <!-- 헤더 -->
+                <tr>
+                    <td align="center" style="background-color: #4288EE; padding: 30px 20px; border-radius: 8px 8px 0 0;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td align="center">
+                                    <!-- 로고 -->
+                                    <img src="https://one-day-one-line-static-files.s3.ap-northeast-2.amazonaws.com/favicon.ico" alt="하루 한 줄" width="50" style="display: block; margin-bottom: 15px;">
+                                    <!-- 서비스명 -->
+                                    <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0; padding: 0;">하루 한 줄</h1>
+                                    <!-- 서비스 설명 -->
+                                    <p style="color: #ffffff; font-size: 16px; margin: 10px 0 0 0; padding: 0;">매일 이메일로 받아보는 유용한 지식</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- 컨텐츠 -->
+                <tr>
+                    <td style="padding: 40px 30px;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <h2 style="color: #333333; font-size: 20px; font-weight: bold; margin: 0 0 20px 0; padding: 0;">이메일 인증을 완료해주세요</h2>
+                                    <p style="color: #555555; font-size: 15px; margin: 0 0 15px 0; padding: 0;">안녕하세요, <strong>{{ user.email }}</strong>님!</p>
+                                    <p style="color: #555555; font-size: 15px; margin: 0 0 25px 0; padding: 0;">하루 한 줄 서비스에 가입해주셔서 감사합니다. 아래 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
+
+                                    <!-- 버튼 -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tr>
+                                            <td align="center" style="padding: 20px 0 30px 0;">
+                                                <table cellpadding="0" cellspacing="0" border="0">
+                                                    <tr>
+                                                        <td align="center" bgcolor="#4288EE" style="border-radius: 4px;">
+                                                            <a href="{{ verification_url }}" target="_blank" style="display: inline-block; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 4px;">인증 완료하기</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <p style="color: #555555; font-size: 14px; margin: 0 0 10px 0; padding: 0;">버튼이 작동하지 않는 경우, 아래 링크를 복사하여 브라우저 주소창에 붙여넣어 주세요:</p>
+                                    <p style="background-color: #f5f7fa; padding: 12px; border-left: 3px solid #4288EE; word-break: break-all; font-size: 14px; margin: 0 0 25px 0; color: #4288EE;">{{ verification_url }}</p>
+
+                                    <!-- 구분선 -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 25px 0;">
+                                        <tr>
+                                            <td height="1" style="background-color: #eeeeee; font-size: 0; line-height: 0;">&nbsp;</td>
+                                        </tr>
+                                    </table>
+
+                                    <p style="color: #555555; font-size: 15px; margin: 0 0 15px 0; padding: 0;">이메일 인증을 완료하시면 다음과 같은 서비스를 이용하실 수 있습니다:</p>
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 20px;">
+                                        <tr>
+                                            <td width="20" valign="top" style="font-size: 15px; color: #4288EE; padding-right: 10px;">•</td>
+                                            <td style="font-size: 15px; color: #555555;">개발 지식, 영어 숙어, 일반 상식 등 다양한 카테고리의 콘텐츠 구독</td>
+                                        </tr>
+                                        <tr><td height="8"></td><td></td></tr>
+                                        <tr>
+                                            <td width="20" valign="top" style="font-size: 15px; color: #4288EE; padding-right: 10px;">•</td>
+                                            <td style="font-size: 15px; color: #555555;">매일 정해진 시간에 이메일로 유용한 지식 수신</td>
+                                        </tr>
+                                        <tr><td height="8"></td><td></td></tr>
+                                        <tr>
+                                            <td width="20" valign="top" style="font-size: 15px; color: #4288EE; padding-right: 10px;">•</td>
+                                            <td style="font-size: 15px; color: #555555;">관심 있는 카테고리만 선택적으로 구독 가능</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- 푸터 -->
+                <tr>
+                    <td align="center" style="background-color: #f5f7fa; padding: 20px; border-top: 1px solid #eeeeee; border-radius: 0 0 8px 8px;">
+                        <p style="color: #999999; font-size: 13px; margin: 0 0 5px 0; padding: 0;">© {% now 'Y' %} 하루 한 줄. All rights reserved.</p>
+                        <p style="color: #999999; font-size: 13px; margin: 0 0 15px 0; padding: 0;">이 메일은 발신 전용이므로 회신하지 마세요.</p>
+                        <p style="margin: 0; padding: 0;">
+                            <a href="https://onedayoneline.shop/" style="color: #4288EE; text-decoration: none; font-size: 13px; margin: 0 10px;">웹사이트</a>
+                            <a href="https://walla.my/v/pd3lg0soG1tGdYZPb61S" style="color: #4288EE; text-decoration: none; font-size: 13px; margin: 0 10px;">문의하기</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

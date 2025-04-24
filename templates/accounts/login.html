@@ -1,0 +1,326 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}로그인 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .login-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .login-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.8rem 1.5rem 0.8rem;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .login-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .login-icon svg {
+            color: #4288EE;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover .login-icon svg {
+            transform: scale(1.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e1e5eb;
+            font-size: 1rem;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4288EE;
+            background-color: #fff;
+            box-shadow: 0 0 0 0.25rem rgba(66, 136, 238, 0.15);
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: none;
+            color: #dc3545;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .active-buttons .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white !important;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-register {
+            background-color: white;
+            border: 1px solid #4288EE;
+            color: #4288EE;
+        }
+
+        .btn-register:hover {
+            background-color: #f0f5ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.15);
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .or-divider::before, .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e1e5eb;
+        }
+
+        .or-divider span {
+            padding: 0 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .login-links a {
+            color: #4288EE;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .login-links a:hover {
+            color: #3070d9;
+            text-decoration: underline;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 767.98px) {
+            .login-page {
+                padding: 2rem 0;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .login-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .login-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .login-card {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="login-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7 col-sm-10">
+                    <div class="login-card card">
+                        <div class="card-header text-center">
+                            <h3>로그인</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="login-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                     class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                </svg>
+                            </div>
+
+                            <p class="text-center text-muted mb-4">
+                                하루 한 줄과 함께 매일 성장하세요
+                            </p>
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger mb-4">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+
+                            <form method="post" id="loginForm" onsubmit="return validateForm('loginForm')">
+                                {% csrf_token %}
+
+                                <div class="mb-3">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label">이메일</label>
+                                    <input type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}"
+                                           class="form-control" {% if form.username.value %}value="{{ form.username.value }}"{% endif %}
+                                           required>
+                                    {% if form.username.errors %}
+                                        <div class="invalid-feedback d-block mt-1">
+                                            {{ form.username.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">비밀번호</label>
+                                    <input type="password" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}"
+                                           class="form-control" required>
+                                    {% if form.password.errors %}
+                                        <div class="invalid-feedback d-block mt-1">
+                                            {{ form.password.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="text-end mb-4">
+                                    <a href="{% url 'accounts:reset_password'%}" class="login-links small">비밀번호를 잊으셨나요?</a>
+                                </div>
+
+                                <div class="active-buttons d-grid mb-3">
+                                    <button type="submit" class="btn btn-login">로그인</button>
+                                </div>
+
+                                <div class="or-divider">
+                                    <span>또는</span>
+                                </div>
+
+                                <div class="active-buttons d-grid">
+                                    <a href="{% url 'accounts:register' %}" class="btn btn-register">회원 가입</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // 폼 필드에 포커스 효과 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                    this.style.backgroundColor = '#fff';
+                });
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                    if (!this.value) {
+                        this.style.backgroundColor = '#f8f9fa';
+                    }
+                });
+
+                // 이미 값이 있는 경우 배경색 변경
+                if (input.value) {
+                    input.style.backgroundColor = '#fff';
+                }
+            });
+        });
+    </script>
+{% endblock %}

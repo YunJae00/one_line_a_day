@@ -1,0 +1,361 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}프로필 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .profile-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .profile-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.8rem 1.5rem 0.8rem;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.6rem 1rem;
+            font-weight: 500;
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .badge-success {
+            background: linear-gradient(135deg, #28a745, #5cc375);
+            color: white;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+        }
+
+        .badge-danger {
+            background: linear-gradient(135deg, #dc3545, #f27685);
+            color: white;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+        }
+
+        .user-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            color: #4288EE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 25px rgba(66, 136, 238, 0.2);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .profile-top {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .profile-info h4 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item:hover {
+            background-color: rgba(66, 136, 238, 0.02);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #495057;
+            width: 120px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-label svg {
+            margin-right: 8px;
+            color: #4288EE;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #2A3B47;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .active-buttons .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            white-space: nowrap;
+            min-width: 180px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn svg {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-outline-secondary {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(108, 117, 125, 0.15);
+        }
+
+        .btn-outline-danger {
+            color: #dc3545;
+            background-color: #fff8f8;
+            border: 1px solid #fdd8dc;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .profile-page {
+                padding: 2rem 0;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .user-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem 0;
+            }
+
+            .info-item:hover {
+                transform: none;
+            }
+
+            .info-label {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .active-buttons .btn {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .profile-card {
+                margin: 0 1rem 1.5rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="profile-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="profile-card">
+                        <div class="card-header">
+                            <h3>내 프로필</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="profile-top">
+                                <div class="user-avatar">
+                                    {{ user.email|first|upper }}
+                                </div>
+                                <div class="profile-info">
+                                    <h4>{{ user.email }}</h4>
+                                    <p class="text-muted">가입일: {{ user.created_at|date:'Y년 m월 d일' }}</p>
+                                </div>
+                            </div>
+
+                            <form method="post" action="{% url 'accounts:profile' %}">
+                                {% csrf_token %}
+
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                        </svg>
+                                        이메일
+                                    </div>
+                                    <div class="info-value">
+                                        <span>{{ user.email }}</span>
+                                        <div class="form-text">이메일은 변경할 수 없습니다.</div>
+                                    </div>
+                                </div>
+
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                        </svg>
+                                        인증 상태
+                                    </div>
+                                    <div class="info-value">
+                                        {% if user.email_verified %}
+                                            <span class="badge badge-success">인증 완료</span>
+                                        {% else %}
+                                            <span class="badge badge-danger">미인증</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="active-buttons action-buttons">
+                                    <a href="{% url 'accounts:change_password' %}" class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
+                                            <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+                                            <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
+                                        </svg>
+                                        비밀번호 변경
+                                    </a>
+                                    <a href="{% url 'subscription:subscription_list' %}" class="btn btn-outline-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                        </svg>
+                                        구독 관리
+                                    </a>
+                                    <a href="{% url 'accounts:logout' %}" class="btn btn-outline-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                        </svg>
+                                        로그아웃
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-muted">
+                        <small>계정과 관련해 문제가 있으신가요? <a href="https://walla.my/v/pd3lg0soG1tGdYZPb61S" class="text-decoration-none" target="_blank">고객센터에 문의하기</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
