@@ -36,6 +36,11 @@
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![AWS Lambda](https://img.shields.io/badge/AWS%20Lambda-FF9900?style=for-the-badge&logo=aws-lambda&logoColor=white)
 
+
+### 서비스 아키텍처
+<img width="797" alt="image" src="https://github.com/user-attachments/assets/e73fd923-aa35-4338-a0a1-4240411e99ca" />
+
+
 ## 서비스 이용하기
 
 지금 바로 하루 한 줄 서비스를 시작하고 매일 새로운 지식을 만나보세요!
