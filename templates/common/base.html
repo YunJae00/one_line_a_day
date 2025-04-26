@@ -86,21 +86,49 @@
     {% block content %}{% endblock %}
     </div>
 
-    <footer class="py-3 border-top">
+    <footer class="py-4 border-top">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 col-sm-12 mb-3 mb-md-0 text-center text-md-start">
-                    <p class="footer-copyright">© 2025 하루 한 줄. All rights reserved.</p>
-                    <p class="text-muted mb-0">이메일로 받아보는 유용한 지식</p>
+            <div class="row gy-4">
+                <!-- 로고 및 회사 정보 -->
+                <div class="col-lg-4 col-md-6">
+                    <a href="{% url 'home' %}" class="text-decoration-none mb-3 d-inline-block">
+                        <span class="fw-bold" style="color: #4288EE; font-size: 1.5rem;">하루 한 줄</span>
+                    </a>
+                    <p class="text-muted mt-2">이메일로 받아보는 유용한 지식</p>
+                    <p class="footer-copyright mt-3">© 2025 하루 한 줄. All rights reserved.</p>
                 </div>
 
-                <div class="col-md-6 col-sm-12 text-center text-md-end footer-links">
-                <span class="footer-link">
-                    이메일: <span id="email-text" style="user-select: all;">1day1line1@gmail.com</span>
-                </span>
-                    <a href="https://github.com/YunJae00/one_day_one_line" class="footer-link"
-                       target="_blank">GitHub</a>
-                    <a href="https://walla.my/v/pd3lg0soG1tGdYZPb61S" class="footer-link" target="_blank">문의사항 및 피드백</a>
+                <!-- 링크 섹션 -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading">바로가기</h5>
+                    <ul class="list-unstyled footer-nav">
+                        <li class="mb-2"><a href="https://walla.my/v/pd3lg0soG1tGdYZPb61S" class="footer-nav-link" target="_blank">문의사항 및 피드백</a></li>
+                        <li class="mb-2"><a href="https://walla.my/v/nRuvHfmbikkMxE4mWfFD" class="footer-nav-link" target="_blank">콘텐츠 제안하기</a></li>
+                    </ul>
+                </div>
+
+                <!-- 연락처 섹션 -->
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="footer-heading">연락처</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <span id="email-text" style="user-select: all;">1day1line1@gmail.com</span>
+                    </div>
+
+                    <!-- 소셜 미디어 아이콘 -->
+                    <div class="footer-social mt-3">
+                        <a href="https://www.instagram.com/1day_1line/" class="footer-social-icon me-3" target="_blank" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/YunJae00/one_day_one_line" class="footer-social-icon" target="_blank" title="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
