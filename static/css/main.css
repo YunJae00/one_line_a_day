@@ -23,6 +23,81 @@ header {
     height: 40px;
 }
 
+/* 헤더 버튼 컨테이너 */
+header .col-6.text-end {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important; /* 강제로 줄바꿈 방지 */
+    white-space: nowrap !important;
+}
+
+/* 헤더 버튼 공통 스타일 */
+header .btn {
+    border-radius: 0.375rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.875rem !important;
+    margin-left: 0.5rem !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: auto !important;
+}
+
+/* 로그인/마이페이지 버튼 */
+header .text-decoration-none {
+    color: #4288EE !important;
+    font-weight: 500 !important;
+    border: 1px solid #4288EE !important;
+    border-radius: 0.375rem !important;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.875rem !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: auto !important;
+    background-color: transparent !important;
+}
+
+header .text-decoration-none:hover {
+    background-color: #f0f7ff !important;
+    color: #3070d9 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 기본 버튼 스타일 */
+header .btn-primary {
+    background-color: #4288EE !important;
+    border-color: #4288EE !important;
+    color: white !important;
+}
+
+header .btn-primary:hover {
+    background-color: #3070d9 !important;
+    border-color: #2968cc !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3) !important;
+}
+
+header .btn-outline-primary {
+    color: #4288EE !important;
+    border-color: #4288EE !important;
+    background-color: transparent !important;
+}
+
+header .btn-outline-primary:hover {
+    background-color: #f0f7ff !important;
+    color: #3070d9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(66, 136, 238, 0.15) !important;
+}
+
 /* 푸터 스타일 */
 footer {
     background-color: #ffffff;
@@ -566,6 +641,19 @@ footer .row {
         max-width: 540px;
     }
 
+    /* 모바일 헤더 버튼 최적화 - 줄바꿈 방지 */
+    header .col-6.text-end {
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+    }
+
+    header .btn,
+    header .text-decoration-none {
+        padding: 0.35rem 0.6rem !important;
+        font-size: 0.8rem !important;
+        margin-left: 0.4rem !important;
+    }
+
     .hero-section {
         padding: 4rem 0;
         text-align: center;
@@ -687,6 +775,20 @@ footer .row {
 }
 
 @media (max-width: 575.98px) {
+    /* 매우 작은 화면에서 헤더 버튼 최적화 - 축소는 하되 줄바꿈 방지 */
+    header .col-6.text-end {
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+    }
+
+    header .btn,
+    header .text-decoration-none {
+        padding: 0.3rem 0.5rem !important;
+        font-size: 0.75rem !important;
+        margin-left: 0.35rem !important;
+        min-width: 0 !important;
+    }
+
     .hero-section {
         padding: 3rem 0;
         margin-bottom: 2rem;
@@ -717,5 +819,20 @@ footer .row {
     .btn-lg {
         padding: 0.5rem 2rem;
         font-size: 1rem;
+    }
+}
+
+/* 매우 작은 화면에서 버튼 추가 최적화 */
+@media (max-width: 380px) {
+    header .col-6.text-end {
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+    }
+
+    header .btn,
+    header .text-decoration-none {
+        padding: 0.25rem 0.4rem !important;
+        font-size: 0.7rem !important;
+        margin-left: 0.25rem !important;
     }
 }

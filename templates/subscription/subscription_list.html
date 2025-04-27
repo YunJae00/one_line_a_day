@@ -141,6 +141,7 @@
             border-bottom: 1px solid #f0f0f0;
             color: #2A3B47;
             transition: all 0.2s ease;
+            text-align: left;
         }
 
         .table-custom tr:last-child td {
@@ -162,6 +163,9 @@
             font-weight: 500;
             font-size: 0.9rem;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .badge-success {
@@ -416,6 +420,20 @@
             font-weight: 700;
         }
 
+        .dropdown-icon {
+            margin-left: 5px;
+            color: #4288EE;
+            transition: transform 0.3s ease;
+        }
+
+        /* 카테고리 드롭다운 스타일 */
+        .category-wrapper {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            justify-content: flex-start;
+        }
+
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
@@ -428,100 +446,329 @@
             }
         }
 
+        /* 카테고리 왼쪽 정렬 */
+        .table-custom td:first-child .mobile-content {
+            justify-content: flex-start !important;
+            padding-left: 0;
+            text-align: left !important;
+        }
+
+        /* 모든 데이터 셀에 대한 공통 스타일 적용 */
+        .table-custom td .mobile-content {
+            width: 100%;
+            flex: 1;
+            display: flex !important;
+            justify-content: flex-start !important;
+            text-align: left !important;
+            padding-left: 0 !important;
+        }
+
+        /* 상태, 수신주기, 수신시간, 시작일 정보 레이아웃 - 모두 왼쪽 정렬로 통일 */
+        .table-custom td:nth-child(2) .mobile-content,
+        .table-custom td:nth-child(3) .mobile-content,
+        .table-custom td:nth-child(4) .mobile-content,
+        .table-custom td:nth-child(5) .mobile-content {
+            justify-content: flex-start !important;
+            padding-left: 0 !important;
+            text-align: left !important;
+        }
+
+        /* 라벨 너비 조정 */
+        .mobile-label {
+            min-width: 80px;
+            text-align: left !important;
+            margin-right: 10px;
+        }
+
+        /* 모바일 화면 개선 */
         @media (max-width: 767.98px) {
             .subscription-page {
                 padding: 2rem 0;
             }
 
             .subscription-header {
-                margin-bottom: 2rem;
-            }
-
-            .card-header {
-                padding: 1.25rem;
-            }
-
-            .card-body {
-                padding: 1.25rem;
-            }
-
-            .card-footer {
-                padding: 1.25rem;
+                margin-bottom: 1.5rem;
             }
 
             .subscription-title {
                 font-size: 1.5rem;
             }
 
-            .table-custom th,
-            .table-custom td {
+            .subscription-subtitle {
+                font-size: 1rem;
+            }
+
+            .card-header, .card-body, .card-footer {
                 padding: 1rem;
             }
 
-            .table-responsive {
-                border-radius: 1rem;
-                overflow: hidden;
+            /* 테이블 개선 */
+            .table-custom th,
+            .table-custom td {
+                padding: 0.75rem 1rem !important;
+                font-size: 0.9rem;
+                text-align: left !important;
             }
 
-            .btn-group {
+            /* 버튼 그룹 개선 */
+            .active-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px; /* 버튼 사이 간격 증가 */
+                justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+                margin-top: 10px; /* 위쪽 여백 추가 */
+            }
+
+            .active-buttons .btn-group {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-left: 0;
+            }
+
+            .active-buttons .btn {
+                margin: 0 !important;
+                flex: 0 0 auto;
+                margin-bottom: 5px; /* 버튼 아래 여백 추가 */
+            }
+
+            /* 컬럼 레이아웃 조정 - 가로 스크롤보다 접을 수 있는 레이아웃 */
+            .table-custom {
+                width: 100%;
+            }
+
+            /* 행 높이 조정 */
+            .table-custom tr {
+                height: auto;
                 display: flex;
                 flex-direction: column;
+                padding: 12px 0; /* 패딩 증가 */
+                border-bottom: 1px solid #f0f0f0;
+                margin-bottom: 5px; /* 행 간격 추가 */
             }
 
-            .btn-group .btn {
-                margin-left: 0;
+            .table-custom tr:last-child {
+                border-bottom: none;
+            }
+
+            .table-custom td,
+            .table-custom th {
+                display: flex;
+                width: 100%;
+                border: none;
+                padding: 0.5rem 1rem;
+                text-align: left !important;
+            }
+
+            /* 특정 데이터에 라벨 추가 */
+            .mobile-label {
+                display: none;
+                font-weight: 600;
+                width: 40%;
+                color: #495057;
+                margin-right: 10px;
+                min-width: 80px; /* 최소 너비 지정 */
+                text-align: left !important;
+            }
+
+            .table-custom td .mobile-content {
+                width: 60%;
+                flex: 1;
+                display: flex !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+            }
+
+            /* 헤더 숨기기 */
+            .table-custom thead {
+                display: none;
+            }
+
+            /* 활성화 버튼 정렬 */
+            .table-custom td:last-child {
                 margin-top: 0.5rem;
-                border-radius: 0.75rem !important;
             }
 
-            .btn-group .btn:first-child {
-                margin-top: 0;
+            /* 수신 주기 레이아웃 수정 */
+            .table-custom td:nth-child(3) {
+                display: flex;
+                align-items: center;
             }
 
-            .table-custom tr:hover {
-                transform: none;
+            /* 주기 텍스트가 세로로 표시되는 문제 수정 */
+            .table-custom td:nth-child(3) .mobile-content {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                justify-content: flex-start !important;
+            }
+
+            /* 카테고리 텍스트 한 줄 표시 */
+            .table-custom td:first-child .mobile-content span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px; /* 최대 너비 설정 */
+                display: inline-block;
+            }
+
+            /* 상태 표시 왼쪽 정렬 */
+            .table-custom td:nth-child(2) {
+                text-align: left !important;
+            }
+
+            .table-custom td:nth-child(2) .mobile-content {
+                justify-content: flex-start !important; /* 왼쪽 정렬 강제 */
+                text-align: left !important;
+            }
+
+            /* 모바일에서 아이콘과 텍스트 간격 */
+            .table-custom svg.me-2 {
+                margin-right: 8px !important;
+            }
+
+            /* 수정/일시정지/구독취소 버튼 레이아웃 */
+            td:last-child .active-buttons {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+
+            .empty-state {
+                padding: 2.5rem 1rem;
             }
 
             .empty-state-icon {
-                width: 100px;
-                height: 100px;
+                width: 90px;
+                height: 90px;
             }
 
             .empty-state-icon svg {
-                width: 50px;
-                height: 50px;
+                width: 45px;
+                height: 45px;
             }
 
-            .faq-item:hover {
-                transform: none;
+            .empty-state-title {
+                font-size: 1.3rem;
+            }
+
+            .empty-state-subtitle {
+                font-size: 1rem;
+            }
+
+            /* 혜택 섹션 조정 */
+            .benefit-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 1rem;
+            }
+
+            .benefit-icon svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            /* 모바일 레이블과 콘텐츠 레이아웃 조정 */
+            .table-custom td > div.d-flex {
+                width: 100%;
+                justify-content: flex-start !important;
             }
         }
 
         @media (max-width: 575.98px) {
+            .subscription-page {
+                padding: 1.5rem 0;
+            }
+
             .subscription-card {
-                margin: 0 1rem 1.5rem;
+                margin: 0 0.5rem 1rem;
+                border-radius: 1rem;
             }
 
-            .table-custom th,
-            .table-custom td {
-                padding: 0.75rem;
-                font-size: 0.85rem;
+            .subscription-title {
+                font-size: 1.3rem;
             }
 
-            .badge {
-                padding: 0.5rem 0.75rem;
+            .subscription-subtitle {
+                font-size: 0.9rem;
+                margin-top: 0.75rem;
+            }
+
+            .card-header h5 {
+                font-size: 1.1rem;
+            }
+
+            /* 더 작은 화면에서의 추가 조정 */
+            .table-custom td:first-child .mobile-content span {
+                max-width: 150px; /* 더 작은 화면에서는 더 짧게 */
+            }
+
+            /* 버튼 크기 조정 */
+            .active-buttons .btn {
+                padding: 6px 10px;
                 font-size: 0.8rem;
             }
 
-            .table-custom th:nth-child(3),
-            .table-custom td:nth-child(3),
-            .table-custom th:nth-child(4),
-            .table-custom td:nth-child(4) {
-                display: none;
+            .active-buttons .btn svg {
+                width: 12px;
+                height: 12px;
             }
 
-            .empty-state {
-                padding: 3rem 1rem;
+            /* 버튼 그룹 정렬 */
+            td:last-child .active-buttons {
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+
+            /* FAQ 섹션 조정 */
+            .faq-item {
+                padding: 1rem;
+            }
+
+            .faq-question {
+                font-size: 0.95rem;
+            }
+
+            .faq-answer {
+                font-size: 0.85rem;
+                margin-left: 2rem;
+            }
+
+            .faq-question:before,
+            .faq-answer:before {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 0.8rem;
+            }
+
+            .faq-answer:before {
+                left: -2rem;
+            }
+
+            /* 모든 아이콘 크기 조정 */
+            svg {
+                vertical-align: middle;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-label {
+                display: none !important;
+            }
+
+            /* PC 화면에서도 모든 셀 왼쪽 정렬 유지 */
+            .table-custom td,
+            .table-custom th {
+                text-align: left !important;
+            }
+
+            /* PC 화면에서도 mobile-content 왼쪽 정렬 유지 */
+            .table-custom td .mobile-content {
+                justify-content: flex-start !important;
+                text-align: left !important;
+                padding-left: 0 !important;
             }
         }
     </style>
@@ -564,48 +811,46 @@
                             {% for subscription in subscriptions %}
                                 {% if subscription.status != 'cancelled' %}
                                     <tr>
+                                        <!-- 수정된 테이블 셀 구조 -->
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                {% if subscription.category.name == '개발 지식' %}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#4288EE" class="bi bi-code-square me-2"
-                                                         viewBox="0 0 16 16">
-                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                        <path d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"/>
-                                                    </svg>
-                                                {% elif subscription.category.name == '영어 숙어' %}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#4288EE" class="bi bi-translate me-2"
-                                                         viewBox="0 0 16 16">
-                                                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
-                                                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z"/>
-                                                    </svg>
-                                                {% else %}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                         fill="#4288EE" class="bi bi-book me-2" viewBox="0 0 16 16">
-                                                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                                                    </svg>
-                                                {% endif %}
-                                                <span>{{ subscription.category.name }}</span>
+                                                <span class="mobile-label">카테고리</span>
+                                                <div class="mobile-content d-flex align-items-center">
+                                                    <div class="category-wrapper">
+                                                        <span class="category-name">{{ subscription.category.name }}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
-                                            {% if subscription.status == 'active' %}
-                                                <span class="badge badge-success">활성</span>
-                                            {% elif subscription.status == 'paused' %}
-                                                <span class="badge badge-warning">일시정지</span>
-                                            {% endif %}
+                                            <span class="mobile-label">상태</span>
+                                            <div class="mobile-content d-flex align-items-center">
+                                                {% if subscription.status == 'active' %}
+                                                    <span class="badge badge-success">활성</span>
+                                                {% elif subscription.status == 'paused' %}
+                                                    <span class="badge badge-warning">일시정지</span>
+                                                {% endif %}
+                                            </div>
                                         </td>
-                                        <td class="d-none d-md-table-cell">{{ subscription.get_frequency_display }}</td>
-                                        <td class="d-none d-md-table-cell">{{ subscription.preferred_time|time:"H:i" }}</td>
-                                        <td class="d-none d-md-table-cell">{{ subscription.start_date|date:"Y.m.d" }}</td>
-                                        <td class="text-end">
-                                            <div class="active-buttons btn-group">
+                                        <td>
+                                            <span class="mobile-label">수신 주기</span>
+                                            <div class="mobile-content">{{ subscription.get_frequency_display }}</div>
+                                        </td>
+                                        <td>
+                                            <span class="mobile-label">수신 시간</span>
+                                            <div class="mobile-content">{{ subscription.preferred_time|time:"H:i" }}</div>
+                                        </td>
+                                        <td>
+                                            <span class="mobile-label">시작일</span>
+                                            <div class="mobile-content">{{ subscription.start_date|date:"Y.m.d" }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="active-buttons">
                                                 <a href="{% url 'subscription:manage' subscription.id %}"
                                                    class="btn btn-sm btn-outline-secondary">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                          fill="currentColor"
-                                                         class="bi bi-gear d-none d-md-inline-block me-1"
+                                                         class="bi bi-gear me-1"
                                                          viewBox="0 0 16 16">
                                                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
                                                         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
@@ -617,7 +862,7 @@
                                                        class="btn btn-sm btn-outline-warning">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                              fill="currentColor"
-                                                             class="bi bi-pause-fill d-none d-md-inline-block me-1"
+                                                             class="bi bi-pause-fill me-1"
                                                              viewBox="0 0 16 16">
                                                             <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                                                         </svg>
@@ -628,7 +873,7 @@
                                                        class="btn btn-sm btn-outline-success">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                              fill="currentColor"
-                                                             class="bi bi-play-fill d-none d-md-inline-block me-1"
+                                                             class="bi bi-play-fill me-1"
                                                              viewBox="0 0 16 16">
                                                             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                                                         </svg>
@@ -639,7 +884,7 @@
                                                    class="btn btn-sm btn-outline-danger">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                          fill="currentColor"
-                                                         class="bi bi-x-lg d-none d-md-inline-block me-1"
+                                                         class="bi bi-x-lg me-1"
                                                          viewBox="0 0 16 16">
                                                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                                                     </svg>
@@ -744,10 +989,109 @@
                     </div>
                     <div class="faq-item">
                         <h6 class="faq-question">당일 구독 설정 시 이메일 발송 시간에 제한이 있나요?</h6>
-                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고 싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
+                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고
+                            싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 모바일 환경 감지
+            function isMobile() {
+                return window.innerWidth <= 767.98;
+            }
+
+            // 모든 셀 콘텐츠 왼쪽 정렬 강제 적용
+            function forceLeftAlignment() {
+                // 모든 셀의 콘텐츠를 왼쪽 정렬
+                const allMobileContents = document.querySelectorAll('.mobile-content');
+                allMobileContents.forEach(content => {
+                    content.style.justifyContent = 'flex-start';
+                    content.style.textAlign = 'left';
+                    content.style.paddingLeft = '0';
+                });
+
+                // 모든 행에 있는 div 요소들 왼쪽 정렬
+                const rowDivs = document.querySelectorAll('.table-custom td > div');
+                rowDivs.forEach(div => {
+                    div.style.justifyContent = 'flex-start';
+                    div.style.textAlign = 'left';
+                });
+
+                // 상태, 수신주기, 수신시간, 시작일 정보 레이아웃 - 왼쪽 정렬 강제
+                const statusCells = document.querySelectorAll('.table-custom td:nth-child(2) .mobile-content, .table-custom td:nth-child(3) .mobile-content, .table-custom td:nth-child(4) .mobile-content, .table-custom td:nth-child(5) .mobile-content');
+                statusCells.forEach(cell => {
+                    cell.style.justifyContent = 'flex-start';
+                    cell.style.textAlign = 'left';
+                    cell.style.paddingLeft = '0';
+                });
+            }
+
+            // 모바일 레이블 표시/숨김 처리
+            function handleMobileLabels() {
+                const mobileLabels = document.querySelectorAll('.mobile-label');
+
+                // 먼저 강제 왼쪽 정렬 적용
+                forceLeftAlignment();
+
+                if (isMobile()) {
+                    mobileLabels.forEach(label => {
+                        label.style.display = 'block';
+                        label.style.textAlign = 'left';
+                    });
+
+                    // 카테고리명 처리
+                    const categoryNames = document.querySelectorAll('.category-name');
+                    categoryNames.forEach(name => {
+                        name.style.whiteSpace = 'nowrap';
+                        name.style.overflow = 'hidden';
+                        name.style.textOverflow = 'ellipsis';
+                        name.style.maxWidth = window.innerWidth <= 575.98 ? '150px' : '200px';
+                        name.style.display = 'inline-block';
+                    });
+
+                    // 행 간격 조정
+                    const tableRows = document.querySelectorAll('.table-custom tr');
+                    tableRows.forEach(row => {
+                        row.style.padding = '12px 0';
+                        row.style.marginBottom = '8px';
+                    });
+
+                    // 버튼 그룹 간격 조정
+                    const btnGroups = document.querySelectorAll('.active-buttons');
+                    btnGroups.forEach(group => {
+                        group.style.gap = '8px';
+                        group.style.marginTop = '10px';
+                        group.style.justifyContent = 'flex-start';
+                    });
+                } else {
+                    // PC 화면에서도 모든 콘텐츠 왼쪽 정렬 유지
+                    forceLeftAlignment();
+
+                    // PC 화면에서는 mobile-label 확실히 숨기기
+                    mobileLabels.forEach(label => {
+                        label.style.display = 'none';
+                    });
+                }
+            }
+
+            // 초기 실행
+            handleMobileLabels();
+
+            // 화면 크기 변경 시 재실행
+            window.addEventListener('resize', function() {
+                handleMobileLabels();
+            });
+
+            // 페이지 로드 후 1초 후에 한 번 더 실행 (일부 브라우저에서 스타일이 늦게 적용되는 문제 해결)
+            setTimeout(function() {
+                forceLeftAlignment();
+            }, 1000);
+        });
+    </script>
 {% endblock %}
