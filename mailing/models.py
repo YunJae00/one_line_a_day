@@ -158,3 +158,9 @@ class EmailLog(models.Model):
         self.status = StatusChoices.FAILED
         self.error_message = error_message
         self.save(update_fields=['status', 'error_message'])
+
+    def mark_as_bounced(self, bounce_reason):
+        """이메일 반송으로 표시"""
+        self.status = StatusChoices.BOUNCED
+        self.error_message = bounce_reason
+        self.save(update_fields=['status', 'error_message'])

@@ -1,6 +1,7 @@
 from uuid import uuid4
 import random
 import string
+import logging
 
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,9 +10,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+import boto3
+from botocore.exceptions import ClientError
 
 from .forms import RegisterForm, CustomLoginForm, CustomPasswordChangeForm
 
@@ -45,15 +48,23 @@ def register(request):
 
 def verify_email(request, token):
     """이메일 인증 뷰"""
-    user = get_object_or_404(User, verification_token=token)
+    try:
+        user = get_object_or_404(User, verification_token=token)
 
-    if not user.email_verified:
-        user.verify_email()
-        messages.success(request, _('이메일 인증이 완료되었습니다. 로그인 후 구독을 설정해주세요.'))
-    else:
-        messages.info(request, _('이미 인증된 이메일입니다.'))
+        if not user.email_verified:
+            user.verify_email()
+            messages.success(request, _('이메일 인증이 완료되었습니다. 로그인 후 구독을 설정해주세요.'))
+        else:
+            messages.info(request, _('이미 인증된 이메일입니다.'))
 
-    return render(request, 'accounts/verification_complete.html')
+        return render(request, 'accounts/verification_complete.html')
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"이메일 인증 오류: {e}")
+
+        # 사용자에게 보여줄 오류 메시지
+        messages.error(request, _('이메일 인증 중 오류가 발생했습니다. 다시 시도하거나 관리자에게 문의하세요.'))
+        return render(request, 'accounts/login.html', status=500)  # 오류 페이지가 없으면 로그인 페이지로
 
 
 def send_verification_email(user):
@@ -69,14 +80,54 @@ def send_verification_email(user):
     subject = str(_('[하루 한 줄] 이메일 인증을 완료해주세요'))
     message = str(_('이메일 인증을 완료하려면 다음 링크를 클릭하세요: ')) + verification_url
 
-    send_mail(
-        subject=subject,
-        message=message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email],
-        html_message=html_message,
-        fail_silently=False,
-    )
+    # SES 클라이언트 직접 생성
+    try:
+        # SES 클라이언트 직접 생성
+        ses_client = boto3.client(
+            'ses',
+            region_name=settings.AWS_SES_REGION_NAME,
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+
+        # SES API를 사용하여 이메일 직접 전송
+        response = ses_client.send_email(
+            Source=settings.DEFAULT_FROM_EMAIL,
+            Destination={
+                'ToAddresses': [user.email],
+            },
+            Message={
+                'Subject': {
+                    'Data': subject,
+                    'Charset': 'UTF-8'
+                },
+                'Body': {
+                    'Text': {
+                        'Data': message,
+                        'Charset': 'UTF-8'
+                    },
+                    'Html': {
+                        'Data': html_message,
+                        'Charset': 'UTF-8'
+                    }
+                }
+            }
+        )
+        return True
+    except ClientError as e:
+        # 직접 호출에 실패한 경우 Django의 이메일 백엔드 사용 시도
+        try:
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[user.email]
+            )
+            email.attach_alternative(html_message, "text/html")
+            email.send(fail_silently=False)
+            return True
+        except Exception as e2:
+            return False
 
 
 @login_required
@@ -179,11 +230,50 @@ def send_temp_password_email(user, temp_password):
     subject = str(_('[하루 한 줄] 임시 비밀번호 안내'))
     message = str(_('임시 비밀번호: ')) + temp_password + '\n' + str(_('로그인 후 반드시 비밀번호를 변경해주세요.'))
 
-    send_mail(
-        subject=subject,
-        message=message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email],
-        html_message=html_message,
-        fail_silently=False,
-    )
+    try:
+        # SES 클라이언트 직접 생성
+        ses_client = boto3.client(
+            'ses',
+            region_name=settings.AWS_SES_REGION_NAME,
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+
+        # SES API를 사용하여 이메일 직접 전송
+        response = ses_client.send_email(
+            Source=settings.DEFAULT_FROM_EMAIL,
+            Destination={
+                'ToAddresses': [user.email],
+            },
+            Message={
+                'Subject': {
+                    'Data': subject,
+                    'Charset': 'UTF-8'
+                },
+                'Body': {
+                    'Text': {
+                        'Data': message,
+                        'Charset': 'UTF-8'
+                    },
+                    'Html': {
+                        'Data': html_message,
+                        'Charset': 'UTF-8'
+                    }
+                }
+            }
+        )
+        return True
+    except ClientError as e:
+        # 직접 호출에 실패한 경우 Django의 이메일 백엔드 사용 시도
+        try:
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[user.email]
+            )
+            email.attach_alternative(html_message, "text/html")
+            email.send(fail_silently=False)
+            return True
+        except Exception as e2:
+            return False

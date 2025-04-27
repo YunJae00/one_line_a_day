@@ -49,7 +49,6 @@ ALLOWED_HOSTS = [
     "onedayoneline.shop",
     LAMBDA_URL,
     API_GATEWAY,
-    "127.0.0.1",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -219,6 +218,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+AWS_SES_ACCESS_KEY_ID = get_env_variable("AWS_SES_ACCESS_KEY_ID", get_env_variable("AWS_ACCESS_KEY_ID"))
+AWS_SES_SECRET_ACCESS_KEY = get_env_variable("AWS_SES_SECRET_ACCESS_KEY", get_env_variable("AWS_SECRET_ACCESS_KEY"))
+
 # 이메일 설정
 EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 실제 환경
@@ -229,3 +231,4 @@ DEFAULT_FROM_EMAIL = 'no-reply@onedayoneline.shop'
 # 이메일 설정 (SES 사용)
 # SES 리전 설정
 AWS_SES_REGION_NAME = 'ap-northeast-2'  # 서울 리전
+AWS_SES_REGION_ENDPOINT = 'email.ap-northeast-2.amazonaws.com'

@@ -1,5 +1,6 @@
 from django.db.models import TextChoices
 
+
 # todo: 일단 나중을 위해 만들어놨는데 삭제 고려 필요...
 # 템플릿 유형
 class TemplateTypeChoices(TextChoices):
@@ -12,4 +13,5 @@ class TemplateTypeChoices(TextChoices):
 class StatusChoices(TextChoices):
     PENDING = 'pending', '대기 중'
     SENT = 'sent', '발송됨'
+    BOUNCED = 'bounced', '반송됨'
     FAILED = 'failed', '실패'
