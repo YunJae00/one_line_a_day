@@ -226,7 +226,7 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 실제 환경
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 콘솔 출력
 
-DEFAULT_FROM_EMAIL = 'no-reply@onedayoneline.shop'
+DEFAULT_FROM_EMAIL = 'onedayoneline@onedayoneline.shop'
 
 # 이메일 설정 (SES 사용)
 # SES 리전 설정

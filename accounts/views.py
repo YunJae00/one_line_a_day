@@ -38,7 +38,7 @@ def register(request):
             # 이메일 인증 메일 발송
             send_verification_email(user)
 
-            messages.success(request, _('회원가입이 완료되었습니다. 이메일을 확인하여 인증을 완료해주세요.'))
+            messages.success(request, _('회원가입이 완료되었습니다. 이메일 및 스팸메일함을 확인하여 인증을 완료해주세요.'))
             return redirect('accounts:login')
     else:
         form = RegisterForm()
@@ -211,7 +211,7 @@ def reset_password(request):
             # 이메일 발송
             send_temp_password_email(user, temp_password)
 
-            messages.success(request, _('임시 비밀번호가 이메일로 발송되었습니다. 이메일을 확인해주세요.'))
+            messages.success(request, _('임시 비밀번호가 이메일로 발송되었습니다. 이메일 및 스팸메일함을 확인해주세요.'))
             return redirect('accounts:login')
 
         except User.DoesNotExist:
