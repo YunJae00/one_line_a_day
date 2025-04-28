@@ -164,3 +164,58 @@ class EmailLog(models.Model):
         self.status = StatusChoices.BOUNCED
         self.error_message = bounce_reason
         self.save(update_fields=['status', 'error_message'])
+
+
+class SampleEmailLog(models.Model):
+    """
+    샘플 이메일 발송 로그
+    """
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+
+    daily_email = models.ForeignKey(
+        DailyEmail,
+        on_delete=models.CASCADE,
+        related_name='sample_email_logs',
+        verbose_name="일일 이메일"
+    )
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='sample_email_logs',
+        verbose_name="카테고리",
+        null=True,
+        blank=True
+    )
+
+    # 이메일 정보
+    recipient_email = models.EmailField(verbose_name="수신 이메일")
+    subject = models.CharField(max_length=200, verbose_name="제목")
+    status = models.CharField(
+        max_length=10,
+        choices=StatusChoices.choices,
+        default=StatusChoices.PENDING,
+        verbose_name="상태"
+    )
+
+    # 오류 정보
+    error_message = models.TextField(blank=True, verbose_name="오류 메시지")
+
+    # 시간 정보
+    sent_at = models.DateTimeField(auto_now_add=True, verbose_name="발송 시간")
+
+    # 추가 정보
+    ip_address = models.GenericIPAddressField(null=True, blank=True, verbose_name="IP 주소")
+
+    class Meta:
+        verbose_name = "샘플 이메일 로그"
+        verbose_name_plural = "샘플 이메일 로그"
+        db_table = "sample_email_logs"
+        ordering = ['-sent_at']
+        indexes = [
+            models.Index(fields=['recipient_email']),
+            models.Index(fields=['sent_at']),
+        ]
+
+    def __str__(self):
+        return f"{self.recipient_email} - {self.subject[:30]} ({self.get_status_display()})"

@@ -23,6 +23,27 @@ header {
     height: 40px;
 }
 
+.brand-logo {
+    text-decoration: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: inline-block;
+}
+
+.brand-logo:hover,
+.brand-logo:focus,
+.brand-logo:active {
+    text-decoration: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    transform: none !important;
+}
+
+.brand-logo-text {
+    color: #4288EE !important;
+    font-size: 1.5rem;
+}
+
 /* 헤더 버튼 컨테이너 */
 header .col-6.text-end {
     display: flex !important;
@@ -789,6 +810,10 @@ footer .row {
         min-width: 0 !important;
     }
 
+    .brand-logo-text {
+        font-size: 1.2rem !important;
+    }
+
     .hero-section {
         padding: 3rem 0;
         margin-bottom: 2rem;
@@ -834,5 +859,9 @@ footer .row {
         padding: 0.25rem 0.4rem !important;
         font-size: 0.7rem !important;
         margin-left: 0.25rem !important;
+    }
+
+    .brand-logo-text {
+        font-size: 1.1rem !important;
     }
 }

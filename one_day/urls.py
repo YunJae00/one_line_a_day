@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 from one_day import settings
 from one_day.settings import get_env_variable
+from one_day.views import HomeTemplateView
 
 admin_url = get_env_variable('ADMIN_URL')
 
@@ -29,9 +30,10 @@ urlpatterns = [
     # 앱 URL 연결
     path('accounts/', include('accounts.urls')),
     path('subscription/', include('subscriptions.urls')),
+    path('mailing/', include('mailing.urls')),
 
     # 메인 페이지
-    path('', TemplateView.as_view(template_name='common/home.html'), name='home'),
+    path('', HomeTemplateView.as_view(), name='home'),
 ]
 
 # 개발 환경에서 정적 파일 제공

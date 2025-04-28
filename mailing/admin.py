@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import EmailTemplate, DailyEmail, EmailLog
+from .models import EmailTemplate, DailyEmail, EmailLog, SampleEmailLog
 
 
 @admin.register(EmailTemplate)
@@ -90,3 +90,23 @@ class EmailLogAdmin(admin.ModelAdmin):
         """관계 필드 미리 로드"""
         queryset = super().get_queryset(request)
         return queryset.select_related('user', 'subscription', 'daily_email')
+
+
+@admin.register(SampleEmailLog)
+class SampleEmailLogAdmin(admin.ModelAdmin):
+    list_display = ('recipient_email', 'subject', 'status', 'sent_at', 'ip_address')
+    list_filter = ('status', 'sent_at')
+    search_fields = ('recipient_email', 'subject', 'ip_address')
+    readonly_fields = ('uuid', 'sent_at')
+
+    fieldsets = (
+        ('이메일 정보', {
+            'fields': ('recipient_email', 'subject', 'daily_email')
+        }),
+        ('상태', {
+            'fields': ('status', 'error_message')
+        }),
+        ('메타 정보', {
+            'fields': ('uuid', 'sent_at', 'ip_address')
+        }),
+    )
