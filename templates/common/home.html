@@ -97,7 +97,7 @@
         }
 
         .stats-section {
-            background-color: #f6f8fd;
+            background-color: white;
         }
 
         .section-title-container {
@@ -293,8 +293,8 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 1s ease-out 0.6s forwards;
             opacity: 0;
-            position: relative;  /* 추가 */
-            padding-bottom: 3.5rem;  /* 메시지 공간 확보 */
+            position: relative; /* 추가 */
+            padding-bottom: 3.5rem; /* 메시지 공간 확보 */
         }
 
         .sample-form-title {
@@ -481,7 +481,7 @@
             }
 
             .hero-btn {
-                width: 50%;
+                width: 70%;
             }
 
             .section-title {
@@ -493,7 +493,7 @@
             }
 
             .stats-cta .btn-primary {
-                width: 100%;
+                width: 80%;
                 padding: 0.8rem 1.5rem;
             }
 
@@ -501,6 +501,277 @@
                 width: 35px;
                 height: 35px;
                 margin-right: 8px;
+            }
+        }
+
+        /* 사용자 후기 섹션 스타일 */
+        .testimonials-section {
+            background-color: #f6f8fd;
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(66, 136, 238, 0.05);
+            border-radius: 50%;
+            transform: translate(100px, -150px);
+        }
+
+        .testimonials-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(66, 136, 238, 0.05);
+            border-radius: 50%;
+            transform: translate(-50px, 50px);
+        }
+
+        .testimonial-slider {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .testimonial-item {
+            grid-column: span 4;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-item:nth-child(1) {
+            grid-column: 1 / span 4;
+        }
+
+        .testimonial-item:nth-child(2) {
+            grid-column: 5 / span 4;
+        }
+
+        .testimonial-item:nth-child(3) {
+            grid-column: 9 / span 4;
+        }
+
+        .testimonial-item:nth-child(4) {
+            grid-column: 2 / span 5;
+        }
+
+        .testimonial-item:nth-child(5) {
+            grid-column: 7 / span 5;
+        }
+
+        .testimonial-content {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+        }
+
+        .testimonial-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            background: linear-gradient(140deg, #ffffff, #f8faff);
+            z-index: -1;
+        }
+
+        .testimonial-content:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.12);
+        }
+
+        .testimonial-content:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .testimonial-content::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(140deg, #4288EE, #5b9afa, transparent);
+            border-radius: 24px;
+            z-index: -2;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-icon {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(66, 136, 238, 0.3);
+        }
+
+        .testimonial-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #526b84;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .user-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 10px rgba(66, 136, 238, 0.2);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2A3B47;
+        }
+
+        .user-info span {
+            display: block;
+            font-size: 0.85rem;
+            color: #8999a8;
+            margin-top: 3px;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 1199.98px) {
+            .testimonial-item {
+                grid-column: span 6 !important;
+            }
+
+            .testimonial-item:nth-child(1) {
+                grid-column: 1 / span 6 !important;
+            }
+
+            .testimonial-item:nth-child(2) {
+                grid-column: 7 / span 6 !important;
+            }
+
+            .testimonial-item:nth-child(3) {
+                grid-column: 1 / span 6 !important;
+            }
+
+            .testimonial-item:nth-child(4) {
+                grid-column: 7 / span 6 !important;
+            }
+
+            .testimonial-item:nth-child(5) {
+                grid-column: 3 / span 8 !important;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .testimonials-section {
+                padding: 5rem 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .testimonial-item {
+                grid-column: span 12 !important;
+            }
+
+            .testimonial-item:nth-child(1),
+            .testimonial-item:nth-child(2),
+            .testimonial-item:nth-child(3),
+            .testimonial-item:nth-child(4),
+            .testimonial-item:nth-child(5) {
+                grid-column: 1 / span 12 !important;
+            }
+
+            .testimonial-content {
+                padding: 25px;
+            }
+
+            .testimonial-content p {
+                font-size: 0.95rem;
+            }
+
+            .user-image {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .testimonials-section {
+                padding: 4rem 0;
+            }
+
+            .testimonial-content {
+                padding: 20px;
+            }
+
+            .testimonial-content p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .testimonial-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+                top: -12px;
+                right: 20px;
+            }
+
+            .user-image {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .user-info h4 {
+                font-size: 1rem;
+            }
+
+            .user-info span {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -516,18 +787,18 @@
                         <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">
                         하루 한 줄
                     </h1>
-                    <p class="hero-lead">바쁜 일상 속에서도 꾸준히 성장할 수 있도록 <br class="d-none d-md-block">매일 이메일로 유용한 지식을 받아보세요.
+                    <p class="hero-lead">필요할 때, 딱 한 줄로 나를 성장시켜요.<br>원하는 시간에, 유용한 지식을 이메일로 받아보세요.</p>
                     </p>
                     <div class="action-buttons">
-                        <a href="{% url 'accounts:register' %}" class="btn hero-btn pulse">지금 시작하기</a>
+                        <a href="{% url 'accounts:register' %}" class="btn hero-btn pulse">무료로 시작하기</a>
                     </div>
                 </div>
 
                 <!-- 샘플 폼 추가 -->
                 <div class="col-md-5 col-12 mt-4 mt-md-0">
                     <div class="sample-form-card">
-                        <h3 class="sample-form-title">오늘의 하루 한 줄 받아보기</h3>
-                        <p class="sample-form-subtitle">이메일 주소만 입력하면 오늘의 하루 한 줄을 바로 보내드립니다.</p>
+                        <h3 class="sample-form-title">오늘의 한 줄 미리보기</h3>
+                        <p class="sample-form-subtitle">이메일 주소를 입력하면 <br>오늘의 하루 한 줄을 보내드립니다.</p>
                         <form id="sample-form" method="post" class="sample-form">
                             {% csrf_token %}
                             <div class="form-group mb-3">
@@ -536,9 +807,12 @@
                             <div class="form-group mb-3">
                                 {{ sample_form.email }}
                             </div>
-                            <button type="submit" class="btn btn-sample w-100">오늘의 한 줄 받기 (카테고리별 1회)</button>
+                            <button type="submit" class="btn btn-sample w-100">샘플 메일 받기</button>
                         </form>
                         <div id="sample-message" class="mt-3 text-center"></div>
+                        <div class="sample-note mt-2 text-center">
+                            <small class="text-muted">* 이것은 1회성 샘플입니다.<br>정기 구독은 <a href="{% url 'accounts:register' %}">가입</a> 후 이용 가능합니다.</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -549,7 +823,7 @@
     <section class="examples-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">이런 내용을 매일 받아보세요</h2>
+                <h2 class="section-title">이런 내용을 받아보세요</h2>
             </div>
 
             <div class="row">
@@ -557,7 +831,10 @@
                 <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.3s;">
                     <div class="example-card">
                         <div class="question">"Break the ice (얼음을 깨다)"</div>
-                        <div class="answer">어색한 분위기를 풀어주다. 이 표현은 얼어붙은 바다를 뚫고 가는 배에서 유래했습니다. 예문: "The funny story helped...</div>
+                        <div class="answer">
+                            어색한 분위기를 풀다. 얼어붙은 바다를 뚫고 가는 배에서 나온 표현. <br>
+                            예문: "The funny story helped break the ice at the party."
+                        </div>
                     </div>
                 </div>
 
@@ -565,7 +842,9 @@
                 <div class="col-md-6 col-12 slide-up" style="animation-delay: 0.5s;">
                     <div class="example-card">
                         <div class="question">"인간의 DNA는 바나나와 얼마나 유사할까?"</div>
-                        <div class="answer">인간과 바나나의 유전자 구성은 약 60%가 동일하며, 이는 모든 생명체가 공통의 조상에서 진화했음을 보여줍니다.</div>
+                        <div class="answer">
+                            인간과 바나나의 유전자 구성은 약 60%가 동일하며, 이는 모든 생명체가 공통의 조상에서 진화했음을 보여줍니다.
+                        </div>
                     </div>
                 </div>
 
@@ -594,40 +873,40 @@
     <section class="features-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">왜 하루 한 줄을 구독해야 할까요?</h2>
+                <h2 class="section-title">하루 한 줄<br>어떻게 당신을 성장시킬까요?</h2>
             </div>
 
             <div class="row">
-                <!-- 특징 1 -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
-                    <div class="card feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h3>단 1분으로 충분한 학습</h3>
-                        <p>읽는데 단 1분, 이해하는데 5분이면 충분합니다. 바쁜 일상 속에서도 꾸준히 지식을 쌓으세요.</p>
-                    </div>
-                </div>
-
-                <!-- 특징 2 -->
+                <!-- 특징 2 (당신만의 리듬으로) -->
                 <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
                     <div class="card feature-card h-100">
                         <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <h3>다양한 지식 습득</h3>
-                        <p>한 줄 영어부터 세상에 이런 상식, 개발자 지식까지 다양한 분야의 핵심 정보를 매일 한 줄씩 배울 수 있습니다.</p>
+                        <h3>당신만의 리듬으로</h3>
+                        <p>원하는 요일, 원하는 시간에! 내 생활 패턴에 맞춰 지식을 받아보세요. 진짜 내 페이스로 성장할 수 있습니다.</p>
                     </div>
                 </div>
 
-                <!-- 특징 3 -->
+                <!-- 특징 3 (꾸준함의 힘) -->
                 <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
                     <div class="card feature-card h-100">
                         <div class="feature-icon">
-                            <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-seedling"></i>
                         </div>
-                        <h3>복리로 쌓이는 성장</h3>
-                        <p>매일 1%씩 성장하면 1년 후에는 37.8배 성장합니다. 지금 바로 시작하세요.</p>
+                        <h3>꾸준함의 힘</h3>
+                        <p>하루 1분, 작은 습관이 매일 쌓입니다. 1년 뒤, 당신은 지금과 다른 사람이 되어 있을 거예요.</p>
+                    </div>
+                </div>
+
+                <!-- 특징 1 (핵심만 콕 집어 전달) -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="card feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>핵심만 콕 집어 전달</h3>
+                        <p>긴 글, 복잡한 설명은 없습니다. 매일 핵심만 빠르게 이해하고, 바로 당신의 지식으로 만드세요.</p>
                     </div>
                 </div>
             </div>
@@ -678,32 +957,139 @@
         </div>
     </section>
 
+    <!-- 사용자 후기 섹션 -->
+    <section class="testimonials-section section">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">사용자들의 이야기</h2>
+            </div>
+
+            <div class="testimonial-slider">
+                <!-- 후기 1 -->
+                <div class="testimonial-item slide-up" style="animation-delay: 0.2s;">
+                    <div class="testimonial-content">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p>매일 아침, 오늘의 한 줄을 기다리게 돼요. 1분이면 충분히 읽을 수 있는 내용이라 바쁜 아침에도 부담 없이 학습할 수 있어요. 정말 유용한 서비스!</p>
+                        <div class="testimonial-user">
+                            <div class="user-image">
+                                <span>김</span>
+                            </div>
+                            <div class="user-info">
+                                <h4>김ㅇ지</h4>
+                                <span>짧고 간결한 내용을 좋아하는 사람</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 후기 2 -->
+                <div class="testimonial-item slide-up" style="animation-delay: 0.3s;">
+                    <div class="testimonial-content">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p>하루 한 줄 덕분에 매일 조금씩이라도 배울 수 있어서 좋아요. 출근길에 하는 지식 습득, 이렇게 간단할 줄 몰랐어요</p>
+                        <div class="testimonial-user">
+                            <div class="user-image">
+                                <span>이</span>
+                            </div>
+                            <div class="user-info">
+                                <h4>이ㅇ호</h4>
+                                <span>일상에 여유가 적은 사람</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 후기 3 -->
+                <div class="testimonial-item slide-up" style="animation-delay: 0.4s;">
+                    <div class="testimonial-content">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p>처음엔 '하루에 한 줄?' 이라고 의심했는데 점점 더 흥미로워졌어요. 한 줄이라도 새로운 걸 배우니까 매일 뇌가 조금씩 자극되는 기분이에요.</p>
+                        <div class="testimonial-user">
+                            <div class="user-image">
+                                <span>박</span>
+                            </div>
+                            <div class="user-info">
+                                <h4>박ㅇ연</h4>
+                                <span>처음에는 반신반의했던 사람</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 후기 4 -->
+                <div class="testimonial-item slide-up" style="animation-delay: 0.5s;">
+                    <div class="testimonial-content">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p>하루 한 줄을 구독하고 영어부터 상식까지 다양한 주제에 대해 새로운 걸 알고, 점점 더 기대되네요. 이런 작은 변화가 정말 큰 도움이 되는 것 같아요!</p>
+                        <div class="testimonial-user">
+                            <div class="user-image">
+                                <span>최</span>
+                            </div>
+                            <div class="user-info">
+                                <h4>최ㅇ지</h4>
+                                <span>긍정적인 변화를 경험한 사람</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 후기 5 -->
+                <div class="testimonial-item slide-up" style="animation-delay: 0.6s;">
+                    <div class="testimonial-content">
+                        <div class="testimonial-icon">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p>매일 한 줄씩 받아보는 게 처음엔 좀 기계적으로 느껴졌는데 이제 흥미롭게 다가와요. 개발 지식도 면접에 도움이 되고, 영어 표현도 매일 써먹고 있어요. 이제는 빠짐없이
+                            확인하는 게 일상이 됐어요.</p>
+                        <div class="testimonial-user">
+                            <div class="user-image">
+                                <span>정</span>
+                            </div>
+                            <div class="user-info">
+                                <h4>정ㅇ현</h4>
+                                <span>원래는 일상에 큰 변화를 주지 않았던 사람</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 통계 섹션 -->
     <section class="stats-section section">
         <div class="container">
-            {#            <div class="section-title-container">#}
-            {#                <h2 class="section-title">믿고 구독하는 사람들</h2>#}
-            {#            </div>#}
-            {##}
-            {#            <div class="row text-center">#}
-            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">#}
-            {#                    <div class="counter-box">5,200+</div>#}
-            {#                    <p>현재 구독자 수</p>#}
-            {#                </div>#}
-            {##}
-            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">#}
-            {#                    <div class="counter-box">300+</div>#}
-            {#                    <p>공유된 지식 수</p>#}
-            {#                </div>#}
-            {##}
-            {#                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">#}
-            {#                    <div class="counter-box">98%</div>#}
-            {#                    <p>구독 유지율</p>#}
-            {#                </div>#}
-            {#            </div>#}
+            <div class="section-title-container">
+                <h2 class="section-title">믿고 구독하는 사람들</h2>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="counter-box">200+</div>
+                    <p>현재 구독자 수</p>
+                </div>
+
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
+                    <div class="counter-box">50+</div>
+                    <p>공유된 지식 수</p>
+                </div>
+
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
+                    <div class="counter-box">98%</div>
+                    <p>구독 유지율</p>
+                </div>
+            </div>
 
             <div class="action-buttons text-center stats-cta slide-up" style="animation-delay: 0.8s;">
-                <a href="{% url 'accounts:register' %}" class="btn btn-primary pulse">무료로 시작하기</a>
+                <a href="{% url 'accounts:register' %}" class="btn btn-primary pulse">30초 만에 가입, 바로 수신 시작</a>
                 <p class="mt-3 text-muted">언제든지 구독 취소가 가능합니다</p>
             </div>
         </div>
@@ -731,8 +1117,8 @@
             });
         });
 
-        $(document).ready(function() {
-            $('#sample-form').on('submit', function(e) {
+        $(document).ready(function () {
+            $('#sample-form').on('submit', function (e) {
                 e.preventDefault();
 
                 const $form = $(this);
@@ -746,7 +1132,7 @@
                     url: '{% url "mailing:sample" %}',
                     type: 'POST',
                     data: $form.serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
                             $messageDiv.removeClass('error').addClass('success show')
                                 .text(response.message);
@@ -756,15 +1142,15 @@
                                 .text(response.message);
                         }
                     },
-                    error: function() {
+                    error: function () {
                         $messageDiv.removeClass('success').addClass('error show')
                             .text('오류가 발생했습니다. 다시 시도해주세요.');
                     },
-                    complete: function() {
+                    complete: function () {
                         $submitButton.prop('disabled', false).html('오늘의 한 줄 받기(1회)');
 
                         // 메시지를 3초 후에 숨기기
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $messageDiv.removeClass('show');
                         }, 3000);
                     }

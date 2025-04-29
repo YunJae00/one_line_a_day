@@ -185,7 +185,7 @@ def send_latest_email_sample(email_address, category_id, request_ip=None):
             ip_address=request_ip
         )
 
-        return True, "오늘의 하루 한 줄이 발송되었습니다. 이메일 및 스팸메일함을 확인해주세요!"
+        return True, "샘플 메일이 발송되었습니다. 이메일, 스팸메일함을 확인해주세요!"
 
     except Exception as e:
         import logging
