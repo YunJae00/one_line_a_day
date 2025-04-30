@@ -53,6 +53,8 @@ def verify_email(request, token):
 
         if not user.email_verified:
             user.verify_email()
+            # 인증 후 웰컴 메일 발송
+            send_welcome_email(user)
             messages.success(request, _('이메일 인증이 완료되었습니다. 로그인 후 구독을 설정해주세요.'))
         else:
             messages.info(request, _('이미 인증된 이메일입니다.'))
@@ -81,6 +83,64 @@ def send_verification_email(user):
     message = str(_('이메일 인증을 완료하려면 다음 링크를 클릭하세요: ')) + verification_url
 
     # SES 클라이언트 직접 생성
+    try:
+        # SES 클라이언트 직접 생성
+        ses_client = boto3.client(
+            'ses',
+            region_name=settings.AWS_SES_REGION_NAME,
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+
+        # SES API를 사용하여 이메일 직접 전송
+        response = ses_client.send_email(
+            Source=settings.DEFAULT_FROM_EMAIL,
+            Destination={
+                'ToAddresses': [user.email],
+            },
+            Message={
+                'Subject': {
+                    'Data': subject,
+                    'Charset': 'UTF-8'
+                },
+                'Body': {
+                    'Text': {
+                        'Data': message,
+                        'Charset': 'UTF-8'
+                    },
+                    'Html': {
+                        'Data': html_message,
+                        'Charset': 'UTF-8'
+                    }
+                }
+            }
+        )
+        return True
+    except ClientError as e:
+        # 직접 호출에 실패한 경우 Django의 이메일 백엔드 사용 시도
+        try:
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[user.email]
+            )
+            email.attach_alternative(html_message, "text/html")
+            email.send(fail_silently=False)
+            return True
+        except Exception as e2:
+            return False
+
+
+def send_welcome_email(user):
+    """회원가입 웰컴 이메일 발송 함수"""
+    html_message = render_to_string('accounts/email/welcome_email.html', {
+        'user': user,
+    })
+
+    subject = str(_('[하루 한 줄] 회원가입을 환영합니다'))
+    message = str(_('하루 한 줄 서비스에 가입해 주셔서 감사합니다. 매일 아침, 유용한 지식과 인사이트를 이메일로 받아보실 수 있습니다.'))
+
     try:
         # SES 클라이언트 직접 생성
         ses_client = boto3.client(
