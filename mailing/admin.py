@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import EmailTemplate, DailyEmail, EmailLog, SampleEmailLog
+from .choices import StatusChoices
+from .models import EmailTemplate, DailyEmail, EmailLog, SampleEmailLog, TrialSubscription, TrialEmailLog
 
 
 @admin.register(EmailTemplate)
@@ -110,3 +111,52 @@ class SampleEmailLogAdmin(admin.ModelAdmin):
             'fields': ('uuid', 'sent_at', 'ip_address')
         }),
     )
+
+
+@admin.register(TrialSubscription)
+class TrialSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('email', 'category', 'status', 'start_date', 'end_date', 'created_at')
+    list_filter = ('status', 'category', 'start_date')
+    search_fields = ('email',)
+    date_hierarchy = 'created_at'
+    readonly_fields = ('uuid', 'created_at')
+    actions = ['mark_as_completed', 'mark_as_cancelled', 'mark_as_converted']
+
+    def mark_as_completed(self, request, queryset):
+        for trial in queryset:
+            trial.complete()
+        self.message_user(request, f"{queryset.count()}개의 체험 구독이 완료 상태로 변경되었습니다.")
+    mark_as_completed.short_description = "선택한 체험 구독을 완료 상태로 변경"
+
+    def mark_as_cancelled(self, request, queryset):
+        for trial in queryset:
+            trial.cancel()
+        self.message_user(request, f"{queryset.count()}개의 체험 구독이 취소 상태로 변경되었습니다.")
+    mark_as_cancelled.short_description = "선택한 체험 구독을 취소 상태로 변경"
+
+    def mark_as_converted(self, request, queryset):
+        for trial in queryset:
+            trial.convert()
+        self.message_user(request, f"{queryset.count()}개의 체험 구독이 전환 상태로 변경되었습니다.")
+    mark_as_converted.short_description = "선택한 체험 구독을 전환 상태로 변경"
+
+
+@admin.register(TrialEmailLog)
+class TrialEmailLogAdmin(admin.ModelAdmin):
+    list_display = ('recipient_email', 'subject', 'status', 'day_number', 'scheduled_at', 'sent_at')
+    list_filter = ('status', 'day_number')
+    search_fields = ('recipient_email', 'subject')
+    date_hierarchy = 'scheduled_at'
+    readonly_fields = ('uuid', 'sent_at')
+    actions = ['resend_failed_emails']
+
+    def resend_failed_emails(self, request, queryset):
+        from mailing.services import send_trial_email
+
+        success_count = 0
+        for log in queryset.filter(status=StatusChoices.FAILED):
+            if send_trial_email(log):
+                success_count += 1
+
+        self.message_user(request, f"{success_count}개의 이메일이 재발송되었습니다.")
+    resend_failed_emails.short_description = "실패한 이메일 재발송"

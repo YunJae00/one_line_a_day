@@ -15,3 +15,11 @@ class StatusChoices(TextChoices):
     SENT = 'sent', '발송됨'
     BOUNCED = 'bounced', '반송됨'
     FAILED = 'failed', '실패'
+
+
+# 체험 구독 상태
+class TrialStatusChoices(TextChoices):
+    ACTIVE = 'active', '활성'
+    COMPLETED = 'completed', '완료됨'
+    CANCELLED = 'cancelled', '취소됨'
+    CONVERTED = 'converted', '정규 구독으로 전환됨'

@@ -1,9 +1,13 @@
+from datetime import timedelta
+
 from django.db import models
 import uuid
 
+from django.utils import timezone
+
 from accounts.models import User
 from contents.models import Category, DailyContent
-from mailing.choices import TemplateTypeChoices, StatusChoices
+from mailing.choices import TemplateTypeChoices, StatusChoices, TrialStatusChoices
 from subscriptions.models import Subscription
 
 
@@ -219,3 +223,100 @@ class SampleEmailLog(models.Model):
 
     def __str__(self):
         return f"{self.recipient_email} - {self.subject[:30]} ({self.get_status_display()})"
+
+
+class TrialSubscription(models.Model):
+    """3일 무료 체험 구독 모델"""
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    email = models.EmailField('이메일 주소')
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        verbose_name='카테고리'
+    )
+    created_at = models.DateTimeField('생성일', auto_now_add=True)
+    start_date = models.DateField('시작일', default=timezone.now)
+    end_date = models.DateField('종료일', null=True, blank=True)
+    status = models.CharField(
+        '상태',
+        max_length=20,
+        choices=TrialStatusChoices.choices,
+        default=TrialStatusChoices.ACTIVE
+    )
+    preferred_time = models.TimeField('선호 시간', default='07:00')
+    ip_address = models.GenericIPAddressField('IP 주소', null=True, blank=True)
+
+    class Meta:
+        verbose_name = '체험 구독'
+        db_table = "trial_subscriptions"
+        unique_together = ['email', 'category']
+
+    def save(self, *args, **kwargs):
+        # 새로 생성될 때 종료일 자동 설정 (시작일로부터 3일)
+        if not self.end_date:
+            self.end_date = self.start_date + timedelta(days=3)
+        super().save(*args, **kwargs)
+
+    def is_expired(self):
+        return timezone.now().date() > self.end_date
+
+    def complete(self):
+        self.status = TrialStatusChoices.COMPLETED
+        self.save(update_fields=['status'])
+
+    def cancel(self):
+        self.status = TrialStatusChoices.CANCELLED
+        self.save(update_fields=['status'])
+
+    def convert(self):
+        self.status = TrialStatusChoices.CONVERTED
+        self.save(update_fields=['status'])
+
+    def __str__(self):
+        return f"{self.email} - {self.category.name} ({self.get_status_display()})"
+
+
+class TrialEmailLog(models.Model):
+    """체험 구독 이메일 발송 로그"""
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    trial_subscription = models.ForeignKey(
+        TrialSubscription,
+        on_delete=models.CASCADE,
+        related_name='email_logs',
+        verbose_name='체험 구독'
+    )
+    daily_email = models.ForeignKey(
+        'DailyEmail',
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name="일일 이메일"
+    )
+    recipient_email = models.EmailField('수신 이메일')
+    subject = models.CharField('제목', max_length=200)
+    status = models.CharField(
+        '상태',
+        max_length=20,
+        choices=StatusChoices.choices,
+        default=StatusChoices.PENDING
+    )
+    error_message = models.TextField('오류 메시지', blank=True, null=True)
+    scheduled_at = models.DateTimeField('예약 시간', null=True, blank=True)
+    sent_at = models.DateTimeField('발송 시간', null=True, blank=True)
+    day_number = models.IntegerField('체험 일차', default=1)
+
+    class Meta:
+        verbose_name = '체험 이메일 로그'
+        db_table = "trial_email_logs"
+
+    def mark_as_sent(self):
+        self.status = StatusChoices.SENT
+        self.sent_at = timezone.now()
+        self.save(update_fields=['status', 'sent_at'])
+
+    def mark_as_failed(self, error_message):
+        self.status = StatusChoices.FAILED
+        self.error_message = error_message
+        self.save(update_fields=['status', 'error_message'])
+
+    def __str__(self):
+        return f"{self.recipient_email} - {self.subject} ({self.get_status_display()})"

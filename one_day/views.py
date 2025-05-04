@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from mailing.forms import SampleEmailForm
+from mailing.forms import SampleEmailForm, TrialSubscriptionForm
 
 
 class HomeTemplateView(TemplateView):
@@ -8,4 +8,5 @@ class HomeTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['sample_form'] = SampleEmailForm()
+        context['trial_form'] = TrialSubscriptionForm()
         return context

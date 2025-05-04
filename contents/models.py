@@ -29,7 +29,7 @@ class Category(models.Model):
 
     def __str__(self):
         if self.parent:
-            return f"{self.parent.name} > {self.name}"
+            return f"{self.name}"
         return self.name
 
     def save(self, *args, **kwargs):

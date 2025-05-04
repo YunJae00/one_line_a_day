@@ -36,18 +36,23 @@ def daily_content_handler(event, context):
 def prepare_email_logs_handler(event, context):
     """
     매 시간 50분에 실행
-    다음 시간에 발송할 이메일 로그를 준비
+    다음 시간에 발송할 모든 이메일 로그를 준비 (일반 구독 및 체험 구독)
     """
     django_setup()
 
-    from mailing.services import prepare_email_logs
+    from mailing.services import prepare_email_logs, prepare_trial_email_logs
 
-    logger.info("Starting email logs preparation")
-    result = prepare_email_logs()
+    logger.info("Starting all email logs preparation")
+
+    # 정규 구독 이메일 로그 생성
+    prepare_email_logs()
+
+    # 체험 구독 이메일 로그 생성
+    prepare_trial_email_logs()
 
     return {
         'statusCode': 200,
-        'body': json.dumps(result)
+        'body': json.dumps({'message': 'All email logs prepared successfully'})
     }
 
 
