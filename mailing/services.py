@@ -72,7 +72,7 @@ def prepare_email_logs():
     for subscription in subscriptions:
         # 구독 주기에 따른 필터링
         should_send = False
-        if subscription.frequency == 'daily':
+        if subscription.frequency == 'daily' and today_weekday in [0, 1, 2, 3, 4]:  # 월,화,수,목,금:
             should_send = True
         elif subscription.frequency == 'three_per_week' and today_weekday in [0, 2, 4]:  # 월,수,금
             should_send = True
@@ -175,7 +175,7 @@ def send_latest_email_sample(email_address, category_id, request_ip=None):
         # 이메일 발송
         subject = f"[미리보기] {daily_email.subject}"
         # CTA 추가
-        signup_url = f"{settings.SITE_URL}/accounts/register/"
+        signup_url = f"{settings.SITE_URL}/"
         cta_html = f"""
         <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; text-align: center;">
             <h3 style="margin-bottom: 10px;">매일 이런 지식을 받아보고 싶으신가요?</h3>

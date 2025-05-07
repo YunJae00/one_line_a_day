@@ -1,0 +1,979 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}구독 관리 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* 기본 스타일 */
+        .subscription-page {
+            padding: 3rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .subscription-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-title {
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .page-subtitle {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        /* 카드 스타일 */
+        .subscription-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            margin-bottom: 2rem;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.5rem;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h5 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h5:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* 테이블 스타일 */
+        .table-custom {
+            margin-bottom: 0;
+        }
+
+        .table-custom th {
+            font-weight: 600;
+            color: #495057;
+            border-top: none;
+            border-bottom: 2px solid #e9ecef;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom td {
+            vertical-align: middle;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #2A3B47;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .table-custom tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-custom tr {
+            transition: all 0.3s ease;
+        }
+
+        .table-custom tr:hover {
+            background-color: rgba(66, 136, 238, 0.05);
+            box-shadow: inset 4px 0 0 #4288EE;
+        }
+
+        /* 구독 아이템 스타일 */
+        .subscription-item {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.2rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .subscription-item:hover {
+            box-shadow: 0 5px 15px rgba(66, 136, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .subscription-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            margin-bottom: 0.8rem;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-right: 0;
+        }
+
+        /* 구독 정보 레이아웃 */
+        .subscription-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            width: 90px;
+            min-width: 90px;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: #333;
+            flex: 1;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        /* 모바일 레이블 스타일 */
+        .mobile-label {
+            min-width: 80px;
+            text-align: left !important;
+            margin-right: 10px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .mobile-content {
+            display: flex;
+            justify-content: flex-start !important;
+            text-align: left !important;
+            padding-left: 0 !important;
+        }
+
+        /* 상태 배지 스타일 */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #28a745, #5cc375);
+            color: white;
+        }
+
+        .status-paused {
+            background: linear-gradient(135deg, #ffc107, #ffdb6d);
+            color: #212529;
+        }
+
+        .status-canceled {
+            background: linear-gradient(135deg, #6c757d, #9aa0a6);
+            color: white;
+        }
+
+        /* 버튼 스타일 */
+        .subscription-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-action svg {
+            margin-right: 0.35rem;
+            width: 0.9rem;
+            height: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-primary svg {
+            margin-right: 0.4rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-edit {
+            color: #4288EE;
+            border: 1px solid #4288EE;
+            background-color: transparent;
+        }
+
+        .btn-edit:hover {
+            background-color: #4288EE;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+        }
+
+        .btn-pause {
+            color: #ffc107;
+            border: 1px solid #ffc107;
+            background-color: transparent;
+        }
+
+        .btn-pause:hover {
+            background-color: #ffc107;
+            color: #212529;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-resume {
+            color: #28a745;
+            border: 1px solid #28a745;
+            background-color: transparent;
+        }
+
+        .btn-resume:hover {
+            background-color: #28a745;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-cancel {
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            background-color: transparent;
+        }
+
+        .btn-cancel:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-new {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+        }
+
+        .btn-new:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+        }
+
+        /* 빈 상태 스타일 */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .empty-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+            }
+        }
+
+        .empty-icon svg {
+            width: 50px;
+            height: 50px;
+            color: #4288EE;
+        }
+
+        .empty-title {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .empty-text {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* FAQ 섹션 스타일 */
+        .faq-item {
+            padding: 1.2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .faq-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+            border-color: #e9ecef;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .faq-question:before {
+            content: 'Q';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .faq-question svg {
+            margin-right: 0.75rem;
+        }
+
+        .faq-answer {
+            color: #6c757d;
+            margin-left: 2.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .faq-answer:before {
+            content: 'A';
+            position: absolute;
+            left: -2.5rem;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+            color: #6c757d;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* 혜택 아이템 스타일 */
+        .benefit-item {
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-icon svg {
+            color: #4288EE;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 36px;
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 767.98px) {
+            .subscription-page {
+                padding: 2rem 0;
+            }
+
+            .subscription-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .card-header {
+                padding: 1rem;
+            }
+
+            .card-header h5 {
+                font-size: 1rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+
+            /* 테이블 개선 */
+            .table-custom th,
+            .table-custom td {
+                padding: 0.75rem 1rem !important;
+                font-size: 0.9rem;
+                text-align: left !important;
+            }
+
+            /* 모바일 레이아웃 */
+            .subscription-item {
+                padding: 1rem 0.8rem;
+                margin-bottom: 0.8rem;
+                border-radius: 0.8rem;
+            }
+
+            .category-name {
+                font-size: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px;
+                display: inline-block;
+            }
+
+            .info-label {
+                width: 80px;
+                min-width: 80px;
+                font-size: 0.85rem;
+            }
+
+            .info-value {
+                font-size: 0.85rem;
+            }
+
+            .mobile-label {
+                display: block;
+                font-size: 0.85rem;
+                min-width: 80px;
+            }
+
+            .btn-action {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.8rem;
+                border-radius: 0.5rem;
+            }
+
+            .btn-action svg {
+                margin-right: 0.25rem;
+                width: 0.8rem;
+                height: 0.8rem;
+            }
+
+            .btn-group {
+                gap: 0.4rem;
+                margin-top: 0.8rem;
+                justify-content: flex-start;
+            }
+
+            /* 빈 상태 조정 */
+            .empty-state {
+                padding: 2rem 1rem;
+            }
+
+            .empty-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .empty-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .empty-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .empty-text {
+                font-size: 0.9rem;
+                margin-bottom: 1.2rem;
+            }
+
+            /* 혜택 섹션 조정 */
+            .benefit-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+
+            .benefit-icon svg {
+                width: 30px;
+                height: 30px;
+            }
+
+            /* FAQ 섹션 조정 */
+            .faq-item {
+                padding: 1rem 0.8rem;
+            }
+
+            .faq-question {
+                font-size: 0.9rem;
+            }
+
+            .faq-answer {
+                font-size: 0.85rem;
+                margin-left: 2rem;
+            }
+
+            .faq-question:before,
+            .faq-answer:before {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 0.8rem;
+            }
+
+            .faq-answer:before {
+                left: -2rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .subscription-page {
+                padding: 1.5rem 0;
+            }
+
+            .subscription-card {
+                margin-bottom: 1rem;
+                border-radius: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.3rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.85rem;
+                margin-top: 0.75rem;
+            }
+
+            .card-header {
+                padding: 0.8rem;
+            }
+
+            .card-header h5 {
+                font-size: 1.1rem;
+            }
+
+            .card-body {
+                padding: 0.8rem;
+            }
+
+            .subscription-item {
+                padding: 0.8rem;
+                border-radius: 0.6rem;
+            }
+
+            .category-name {
+                max-width: none; /* 카테고리명이 잘리지 않도록 수정 */
+                margin-bottom: 5px; /* 모바일에서 상태 배지가 다음 줄에 표시될 때 간격 조정 */
+            }
+
+            .status-badge {
+                margin-left: 0; /* 모바일에서 상태 배지가 별도 줄에 표시될 때 왼쪽 마진 제거 */
+                margin-top: 3px;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .info-row {
+                margin-bottom: 0.2rem;
+            }
+
+            .info-label {
+                width: 70px;
+                min-width: 70px;
+            }
+
+            .mobile-label {
+                min-width: 70px;
+            }
+
+            .btn-action {
+                padding: 0.35rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .btn-action svg {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+
+            .empty-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .empty-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .empty-title {
+                font-size: 1.1rem;
+            }
+
+            .empty-text {
+                font-size: 0.85rem;
+            }
+
+            .benefit-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .benefit-icon svg {
+                width: 25px;
+                height: 25px;
+            }
+
+            .faq-item {
+                padding: 0.8rem 0.6rem;
+            }
+
+            .faq-question {
+                font-size: 0.85rem;
+            }
+
+            .faq-answer {
+                font-size: 0.8rem;
+                margin-left: 1.8rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="subscription-page">
+        <div class="container">
+            <div class="subscription-header">
+                <h1 class="page-title">구독 관리</h1>
+                <p class="page-subtitle">구독 중인 카테고리 및 설정을 관리할 수 있습니다.</p>
+                <p class="page-subtitle text-muted">이메일: {{ user.email }}</p>
+            </div>
+
+            {% if subscriptions %}
+                <div class="subscription-card">
+                    <div class="card-header">
+                        <h5>구독 중인 카테고리</h5>
+                        <a href="{% url 'home' %}" class="btn-action btn-new">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>
+                            새 구독
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% for subscription in subscriptions %}
+                            {% if subscription.status != 'cancelled' and subscription.status != 'canceled' %}
+                                <div class="subscription-item">
+                                    <div class="category-header">
+                                        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                                        <span class="category-name">
+                                            {{ subscription.category.name }}
+                                        </span>
+                                            {% if subscription.status == 'active' %}
+                                                <span class="status-badge status-active">활성</span>
+                                            {% elif subscription.status == 'paused' %}
+                                                <span class="status-badge status-paused">일시정지</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="subscription-info">
+                                        <div class="info-row">
+                                            <span class="info-label">수신 주기</span>
+                                            <span class="info-value">{{ subscription.get_frequency_display }}</span>
+                                        </div>
+                                        <div class="info-row">
+                                            <span class="info-label">수신 시간</span>
+                                            <span class="info-value">{{ subscription.preferred_time|time:"H:i" }}</span>
+                                        </div>
+                                        <div class="info-row">
+                                            <span class="info-label">시작일</span>
+                                            <span class="info-value">{{ subscription.start_date|date:"Y.m.d" }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="subscription-actions">
+                                        {% if subscription.status == 'active' %}
+                                            <form method="post" action="{% url 'subscription:pause_subscription' user.uuid subscription.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn-action btn-pause">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                                                        <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+                                                    </svg>
+                                                    일시정지
+                                                </button>
+                                            </form>
+                                        {% elif subscription.status == 'paused' %}
+                                            <form method="post" action="{% url 'subscription:resume_subscription' user.uuid subscription.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn-action btn-resume">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                                                    </svg>
+                                                    활성화
+                                                </button>
+                                            </form>
+                                        {% endif %}
+
+                                        <!-- 구독 취소는 GET 요청으로 확인 페이지로 이동 -->
+                                        <a href="{% url 'subscription:unsubscribe_by_uuid' user.uuid subscription.id %}" class="btn-action btn-cancel">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                            </svg>
+                                            구독취소
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="subscription-card">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                                <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="empty-title">아직 구독 중인 카테고리가 없습니다</h3>
+                        <p class="empty-text">
+                            매일 이메일로 유용한 지식을 받아보세요.<br>
+                            원하는 주제를 선택하여 꾸준한 성장을 시작해보세요.
+                        </p>
+                        <a href="{% url 'home' %}" class="btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>
+                            새로운 구독 시작하기
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- 자주 묻는 질문 섹션 -->
+            <div class="subscription-card">
+                <div class="card-header">
+                    <h5>자주 묻는 질문</h5>
+                </div>
+                <div class="card-body">
+                    <div class="faq-item" style="background-color: #f9f2f4; border-left: 4px solid #4288EE;">
+                        <h6 class="faq-question">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                            이메일이 도착하지 않았습니다. 어떻게 해야 하나요?
+                        </h6>
+                        <p class="faq-answer">이메일이 수신함에 보이지 않는 경우 <strong>반드시 스팸메일함을 확인해주세요</strong>. 이메일 서비스 제공업체에 따라 자동으로 스팸함으로 분류될 수 있습니다. 스팸함에서 메일을 발견하셨다면, '스팸 아님' 또는 '안전한 발신자'로 표시하여 향후 메일이 정상적으로 수신함에 도착할 수 있도록 설정해주세요. 스팸함에도 없다면 등록하신 이메일 주소가 정확한지 확인하시고, 계속 문제가 발생하면 고객센터로 문의해주세요.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">당일 구독 설정 시 이메일 발송 시간에 제한이 있나요?</h6>
+                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고 싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">여러 카테고리를 한 번에 구독할 수 있나요?</h6>
+                        <p class="faq-answer">네, 원하시는 만큼 여러 카테고리를 동시에 구독하실 수 있습니다. 각 카테고리별로 구독 설정을 다르게 지정할 수도 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">언제든지 구독을 취소할 수 있나요?</h6>
+                        <p class="faq-answer">물론입니다. 원하실 때 언제든지 구독을 취소하거나 일시 정지하실 수 있습니다.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h6 class="faq-question">이메일 수신 시간을 변경할 수 있나요?</h6>
+                        <p class="faq-answer">아니요, 현재 시스템에서는 기존 구독의 수신 시간을 직접 변경할 수 없습니다. 수신 시간을 변경하시려면 기존 구독을 취소하신 후, 원하시는 시간으로 새롭게 구독을 설정하셔야 합니다. 구독 취소는 '구독취소' 버튼을 통해 간편하게 진행하실 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 최종 CTA 섹션 -->
+            <div class="subscription-card">
+                <div class="empty-state" style="padding: 2rem 1rem;">
+                    <h3 class="empty-title" style="margin-bottom: 1rem;">더 많은 지식을 구독해보세요</h3>
+                    <p class="empty-text" style="margin-bottom: 1.5rem;">
+                        다양한 카테고리의 지식을 매일 이메일로 받아보고<br>
+                        꾸준한 성장의 발판을 마련하세요.
+                    </p>
+                    <a href="{% url 'home' %}" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        새로운 카테고리 구독하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block extra_js %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // 모바일 환경 감지
+                function isMobile() {
+                    return window.innerWidth <= 767.98;
+                }
+
+                // 모든 셀 콘텐츠 왼쪽 정렬 강제 적용
+                function forceLeftAlignment() {
+                    // 모든 info-value 클래스 요소에 왼쪽 정렬 적용
+                    const allInfoValues = document.querySelectorAll('.info-value');
+                    allInfoValues.forEach(value => {
+                        value.style.textAlign = 'left';
+                    });
+
+                    // 카테고리명 처리 - 모바일에서 긴 이름이 잘리지 않도록
+                    const categoryNames = document.querySelectorAll('.category-name');
+                    categoryNames.forEach(name => {
+                        if (isMobile()) {
+                            name.style.whiteSpace = 'nowrap';
+                            name.style.overflow = 'hidden';
+                            name.style.textOverflow = 'ellipsis';
+                            name.style.maxWidth = window.innerWidth <= 575.98 ? '150px' : '200px';
+                            name.style.display = 'inline-block';
+                        }
+                    });
+                }
+
+                // 초기 실행
+                forceLeftAlignment();
+                handleMobileDisplay();
+
+                // 화면 크기 변경 시 재실행
+                window.addEventListener('resize', function() {
+                    forceLeftAlignment();
+                    handleMobileDisplay();
+                });
+
+                // 페이지 로드 후 1초 후에 한 번 더 실행 (스타일이 늦게 적용되는 문제 해결)
+                setTimeout(function() {
+                    forceLeftAlignment();
+                    handleMobileDisplay();
+                }, 1000);
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

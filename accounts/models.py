@@ -41,6 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 상태 필드
     email_verified = models.BooleanField(default=False, verbose_name="이메일 인증 여부")
+    is_passwordless = models.BooleanField(default=False, verbose_name="회원가입 여부")
     is_active = models.BooleanField(default=True, verbose_name="활성화 여부")
     is_staff = models.BooleanField(default=False, verbose_name="관리자 여부")
     is_superuser = models.BooleanField(default=False, verbose_name="슈퍼유저 여부")

@@ -1,0 +1,123 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}오류 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .error-page {
+            padding: 4rem 0;
+            background-color: #f6f8fd;
+            min-height: calc(100vh - 350px);
+        }
+
+        .error-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            background: transparent;
+            border-bottom: none;
+            padding: 1.8rem 1.5rem 0.8rem;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #dc3545, #e37a82);
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .error-icon svg {
+            color: #dc3545;
+            width: 50px;
+            height: 50px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn-container .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="error-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <div class="error-card card">
+                        <div class="card-header text-center">
+                            <h3>오류가 발생했습니다</h3>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="error-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                     class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                </svg>
+                            </div>
+
+                            <h4 class="mb-4">처리 중 오류가 발생했습니다</h4>
+
+                            <p>
+                                {% if message %}
+                                    {{ message }}
+                                {% else %}
+                                    요청하신 작업을 처리하는 중에 오류가 발생했습니다.
+                                    다시 시도하시거나, 문제가 계속되면 관리자에게 문의해주세요.
+                                {% endif %}
+                            </p>
+
+                            <div class="btn-container">
+                                <a href="{% url 'home' %}" class="btn btn-primary">홈으로 돌아가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

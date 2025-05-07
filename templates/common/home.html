@@ -38,7 +38,7 @@
         .hero-title {
             font-weight: 800;
             font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 1s ease-out;
         }
@@ -46,9 +46,17 @@
         .hero-lead {
             font-size: 1.3rem;
             line-height: 1.6;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
             opacity: 0.95;
             animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
             opacity: 0;
         }
 
@@ -63,6 +71,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 1s ease-out 0.4s forwards;
             opacity: 0;
+            display: inline-block;
+            margin-top: 1rem;
         }
 
         .hero-btn:hover {
@@ -70,6 +80,89 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             background-color: #f8f9fa;
             color: #3070d9;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+            position: relative;
+            top: -3px;
+        }
+
+        /* 구독 폼 카드 스타일 */
+        .subscription-form-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+            position: relative;
+            padding-bottom: 3.5rem;
+            border: 2px solid rgba(66, 136, 238, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .subscription-form-card:hover {
+            border-color: rgba(66, 136, 238, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .subscription-form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 0.5rem;
+        }
+
+        .subscription-form-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-subscription {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.8rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-subscription:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+        }
+
+        #subscription-message {
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #subscription-message.show {
+            opacity: 1;
+        }
+
+        #subscription-message.success {
+            color: #28a745;
+        }
+
+        #subscription-message.error {
+            color: #dc3545;
         }
 
         /* 섹션 공통 스타일 */
@@ -91,9 +184,10 @@
             padding-top: 5rem;
         }
 
-        .categories-section {
-            background-color: white;
-            margin-bottom: 0;
+        .pain-section {
+            background-color: #f6f8fd;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
         }
 
         .stats-section {
@@ -127,6 +221,64 @@
             border-radius: 3px;
         }
 
+        .section-subtitle {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 문제 섹션 스타일 (사용자 공감) */
+        .pain-card {
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            padding: 2rem !important;
+            text-align: center;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-10px);
+            border-left-color: #4288EE;
+        }
+
+        .pain-icon {
+            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+        }
+
+        .pain-card:nth-child(1) .pain-icon i {
+            color: #4288EE;
+        }
+
+        .pain-card:nth-child(2) .pain-icon i {
+            color: #5b9afa;
+        }
+
+        .pain-card:nth-child(3) .pain-icon i {
+            color: #3070d9;
+        }
+
+        .pain-card h3 {
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 0.7rem;
+            font-size: 1.3rem;
+        }
+
+        .pain-card p {
+            color: #526b84;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         /* 카드 스타일 */
         .feature-card {
             border-radius: 1.25rem;
@@ -136,6 +288,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: linear-gradient(to bottom, #ffffff, #f9fbff);
             padding: 2rem !important;
+            text-align: center;
+            height: 100%;
         }
 
         .feature-card:hover {
@@ -151,7 +305,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin: 0 auto 1.5rem;
             transition: all 0.3s ease;
         }
 
@@ -183,48 +337,6 @@
             line-height: 1.6;
         }
 
-        .pain-section {
-            background-color: #f6f8fd;
-        }
-
-        .pain-card {
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .pain-card:hover {
-            transform: translateY(-10px);
-            border-left-color: #4288EE;
-        }
-
-        .pain-icon {
-            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
-        }
-
-        .pain-card:nth-child(1) .pain-icon i {
-            color: #4288EE;
-        }
-
-        .pain-card:nth-child(2) .pain-icon i {
-            color: #5b9afa;
-        }
-
-        .pain-card:nth-child(3) .pain-icon i {
-            color: #3070d9;
-        }
-
-        .pain-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: #2A3B47;
-        }
-
-        .pain-card p {
-            color: #526b84;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
         /* 예시 카드 스타일 */
         .example-card {
             border-radius: 1.25rem;
@@ -235,6 +347,8 @@
             background: #ffffff;
             padding: 1.5rem !important;
             margin-bottom: 2rem;
+            position: relative;
+            height: 100%;
         }
 
         .example-card:hover {
@@ -242,7 +356,20 @@
             box-shadow: 0 15px 35px rgba(66, 136, 238, 0.15);
         }
 
+        .example-card .category-label {
+            position: static;
+            display: inline-block;
+            background: #5b9afa;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
         .example-card .question {
+            display: block;
             font-weight: 600;
             color: #2A3B47;
             font-size: 1.2rem;
@@ -265,6 +392,321 @@
             left: 0;
             color: #4288EE;
             font-weight: bold;
+        }
+
+        /* 추가: extra-info 스타일 */
+        .example-card .extra-info {
+            color: #4288EE;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 0.8rem;
+            margin-bottom: 0.8rem;
+            padding-left: 25px;
+        }
+
+        /* cta-text 스타일 (기존 example-cta 대체) */
+        .example-card .cta-text {
+            text-align: center;
+            color: #4288EE;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            display: block;
+            padding-top: 0.5rem;
+            border-top: 1px dashed #ddd;
+        }
+
+        /* 샘플 섹션 스타일 */
+        .sample-section {
+            background-color: #f6f8fd;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 샘플 혜택 스타일 */
+        .sample-benefits {
+            padding: 2rem;
+        }
+
+        .benefits-title {
+            font-weight: 700;
+            color: #2A3B47;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .benefits-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #4288EE, #5b9afa);
+            border-radius: 3px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .benefit-icon {
+            flex: 0 0 40px;
+            font-size: 1.4rem;
+            color: #4288EE;
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+        }
+
+        .benefit-text {
+            flex: 1;
+        }
+
+        .benefit-text h4 {
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .benefit-text p {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* 샘플 신청 폼 스타일 */
+        .sample-form-card {
+            background-color: white;
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .sample-form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            border-color: rgba(66, 136, 238, 0.4);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 0 0 0 20px;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .sample-form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 0.6rem;
+        }
+
+        .sample-form-subtitle {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #2A3B47;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .form-control {
+            height: calc(2.5rem + 2px);
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4288EE;
+            box-shadow: 0 0 0 0.2rem rgba(66, 136, 238, 0.25);
+        }
+
+        .btn-sample {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .btn-sample:hover {
+            background: linear-gradient(135deg, #3070d9, #4288EE);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+        }
+
+        #sample-message {
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 90%;
+            margin: 0 auto;
+            white-space: pre-line;
+        }
+
+        #sample-message.show {
+            opacity: 1;
+        }
+
+        #sample-message.success {
+            color: #28a745;
+        }
+
+        #sample-message.error {
+            color: #dc3545;
+        }
+
+        /* 사용자 후기 섹션 스타일 */
+        .testimonials-section {
+            background-color: #f6f8fd;
+            padding: 5rem 0;
+        }
+
+        .testimonial-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            padding: 2rem !important;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            height: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+        }
+
+        .testimonial-quote {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .testimonial-quote:before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -5px;
+            font-size: 2.5rem;
+            color: #5b9afa;
+            font-family: Georgia, serif;
+            opacity: 0.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #4288EE;
+            margin-right: 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-author-info {
+            flex: 1;
+        }
+
+        .testimonial-author-name {
+            font-weight: 600;
+            color: #2A3B47;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+
+        .testimonial-author-title {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        /* 제작자 노트 섹션 스타일 수정 */
+        .maker-note-content {
+            background-color: #f8f9fa;
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            position: relative;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.05);
+        }
+
+        .maker-note-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2A3B47;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .maker-note-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #526b84;
+            margin-bottom: 1.5rem;
+        }
+
+        .maker-note-content em {
+            font-style: italic;
+            font-weight: 600;
+            color: #4288EE;
         }
 
         /* 통계 섹션 스타일 */
@@ -303,96 +745,118 @@
             box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
         }
 
-        .hero-icon {
-            width: 60px;
-            height: 60px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 15px;
+        /* 시간 선택기 스타일 수정 */
+        .time-picker {
             position: relative;
-            top: -3px;
         }
 
-        /* 인기 배지 */
-        .popular-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 5px 15px;
-            border-radius: 20px;
-            z-index: 10;
-        }
-
-        /* 샘플 폼 카드 스타일 */
-        .sample-form-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1s ease-out 0.6s forwards;
-            opacity: 0;
-            position: relative; /* 추가 */
-            padding-bottom: 3.5rem; /* 메시지 공간 확보 */
-        }
-
-        .sample-form-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2A3B47;
-            margin-bottom: 0.5rem;
-        }
-
-        .sample-form-subtitle {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-sample {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            border: none;
-            color: white;
-            font-weight: 600;
+        .time-display {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dde1e7;
             border-radius: 0.75rem;
-            padding: 0.8rem;
+            background-color: #eef2f8;
+            color: #2a3b47;
+            cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        .btn-sample:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+        .time-display:hover {
+            border-color: #4288EE;
+            background-color: #f0f5ff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
         }
 
-        #sample-message {
-            font-size: 0.9rem;
+        .time-display-icon {
+            margin-right: 0.5rem;
+            color: #4288EE;
+        }
+
+        .time-picker-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            max-height: 250px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #dde1e7;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
             position: absolute;
-            bottom: 1rem;
-            left: 0;
-            right: 0;
+            width: 100%;
+            z-index: 10;
+            margin-top: 5px;
+            box-shadow: 0 10px 25px rgba(66, 136, 238, 0.15);
+        }
+
+        .time-option {
+            padding: 0.5rem;
             text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            background-color: #f8f9fa;
+            border: 1px solid transparent;
+            color: #434343;
         }
 
-        #sample-message.show {
-            opacity: 1;
+        .time-option:hover {
+            background-color: #f0f5ff;
+            border-color: #4288EE;
         }
 
-        #sample-message.success {
-            color: #28a745;
+        .time-option.selected {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(66, 136, 238, 0.3);
         }
 
-        #sample-message.error {
-            color: #dc3545;
+        /* 주기 선택기 스타일 */
+        .custom-radio-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 0.5rem;
         }
 
-        /* 모바일 반응형 스타일 추가 */
-        @media (max-width: 767.98px) {
+        .custom-radio-item {
+            flex: 1;
+        }
+
+        .custom-radio-input {
+            display: none;
+        }
+
+        .custom-radio-label {
+            display: block;
+            padding: 0.75rem 0.5rem;
+            background-color: #eef2f8; /* 밝은 파란색 배경으로 통일 */
+            color: #2a3b47;
+            border: 1px solid #dde1e7;
+            border-radius: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-radio-label:hover {
+            border-color: #4288EE;
+            background-color: #f0f5ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
+        }
+
+        .custom-radio-input:checked + .custom-radio-label {
+            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            color: white;
+            border-color: #4288EE;
+            box-shadow: 0 4px 12px rgba(66, 136, 238, 0.2);
         }
 
         /* 애니메이션 */
@@ -461,6 +925,14 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            .sample-section {
+                padding: 5rem 0;
+            }
+
+            .sample-benefits {
+                margin-bottom: 3rem;
+            }
         }
 
         @media (max-width: 767.98px) {
@@ -511,6 +983,38 @@
                 margin-right: 10px;
                 top: -2px;
             }
+
+            .subscription-form-card {
+                margin-top: 2rem;
+            }
+
+            .sample-section {
+                padding: 4rem 0;
+            }
+
+            .sample-form-card {
+                padding: 2rem;
+            }
+
+            .sample-form-title {
+                font-size: 1.6rem;
+            }
+
+            .benefits-title {
+                font-size: 1.6rem;
+            }
+
+            .time-picker-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .custom-radio-group {
+                flex-direction: column;
+            }
+
+            .custom-radio-item {
+                width: 100%;
+            }
         }
 
         @media (max-width: 575.98px) {
@@ -544,659 +1048,16 @@
                 height: 35px;
                 margin-right: 8px;
             }
-        }
 
-        /* 사용자 후기 섹션 스타일 */
-        .testimonials-section {
-            background-color: #f6f8fd;
-            position: relative;
-            padding: 6rem 0;
-            overflow: hidden;
-        }
-
-        .testimonials-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 300px;
-            background-color: rgba(66, 136, 238, 0.05);
-            border-radius: 50%;
-            transform: translate(100px, -150px);
-        }
-
-        .testimonial-slider {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 20px;
-            position: relative;
-        }
-
-        .testimonial-item {
-            grid-column: span 4;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .testimonial-item:nth-child(1) {
-            grid-column: 1 / span 4;
-        }
-
-        .testimonial-item:nth-child(2) {
-            grid-column: 5 / span 4;
-        }
-
-        .testimonial-item:nth-child(3) {
-            grid-column: 9 / span 4;
-        }
-
-        .testimonial-item:nth-child(4) {
-            grid-column: 2 / span 5;
-        }
-
-        .testimonial-item:nth-child(5) {
-            grid-column: 7 / span 5;
-        }
-
-        .testimonial-content {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1;
-        }
-
-        .testimonial-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            background: linear-gradient(140deg, #ffffff, #f8faff);
-            z-index: -1;
-        }
-
-        .testimonial-content:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.12);
-        }
-
-        .testimonial-content:hover::after {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .testimonial-content::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            background: linear-gradient(140deg, #4288EE, #5b9afa, transparent);
-            border-radius: 24px;
-            z-index: -2;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: all 0.4s ease;
-        }
-
-        .testimonial-icon {
-            position: absolute;
-            top: -15px;
-            right: 30px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            color: white;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(66, 136, 238, 0.3);
-        }
-
-        .testimonial-content p {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #526b84;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-user {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .user-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 10px rgba(66, 136, 238, 0.2);
-        }
-
-        .user-info {
-            flex: 1;
-        }
-
-        .user-info h4 {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #2A3B47;
-        }
-
-        .user-info span {
-            display: block;
-            font-size: 0.85rem;
-            color: #8999a8;
-            margin-top: 3px;
-        }
-
-        /* 3일 무료 체험 섹션 스타일 */
-        .trial-section {
-            background-color: #f6f8fd;
-            padding: 6rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .trial-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200px;
-            height: 200px;
-            background-color: rgba(66, 136, 238, 0.05);
-            border-radius: 50%;
-            transform: translate(-50px, 50px);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #6c757d;
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* 체험 혜택 스타일 */
-        .trial-benefits {
-            padding: 2rem;
-        }
-
-        .benefits-title {
-            font-weight: 700;
-            color: #2A3B47;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .benefits-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
-            border-radius: 3px;
-        }
-
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 2rem 0;
-        }
-
-        .benefit-item {
-            display: flex;
-            margin-bottom: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .benefit-icon {
-            flex: 0 0 40px;
-            font-size: 1.4rem;
-            color: #4288EE;
-            margin-right: 1rem;
-            margin-top: 0.2rem;
-        }
-
-        .benefit-text {
-            flex: 1;
-        }
-
-        .benefit-text h4 {
-            font-weight: 600;
-            color: #2A3B47;
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .benefit-text p {
-            color: #666;
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        /* 후기 스타일 */
-        .trial-testimonial {
-            background-color: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            margin-top: 2rem;
-        }
-
-        .quote-icon {
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        .quote-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .quote-author {
-            text-align: right;
-            font-size: 0.9rem;
-            color: #6c757d;
-            font-weight: 600;
-        }
-
-        /* 체험 신청 폼 스타일 */
-        .trial-form-card {
-            background-color: white;
-            border-radius: 1.25rem;
-            padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent;
-            animation: pulseBorder 2s infinite;
-        }
-
-        @keyframes pulseBorder {
-            0% {
-                border-color: rgba(66, 136, 238, 0.2);
-            }
-            50% {
-                border-color: rgba(66, 136, 238, 0.8);
-            }
-            100% {
-                border-color: rgba(66, 136, 238, 0.2);
-            }
-        }
-
-        .trial-form-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 0 0 0 20px;
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .trial-form-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #2A3B47;
-            margin-bottom: 0.6rem;
-        }
-
-        .trial-form-subtitle {
-            font-size: 1rem;
-            color: #6c757d;
-            margin-bottom: 1.5rem;
-        }
-
-        .countdown-container {
-            background-color: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 0.8rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #333;
-        }
-
-        .countdown-timer {
-            display: inline-block;
-            background: rgba(66, 136, 238, 0.1);
-            padding: 3px 10px;
-            border-radius: 4px;
-            margin: 0 5px;
-            font-weight: 700;
-            color: #4288EE;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: #2A3B47;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .form-control {
-            height: calc(2.5rem + 2px);
-            border-radius: 0.5rem;
-            border: 1px solid #ced4da;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s ease;
-        }
-
-        .form-control:focus {
-            border-color: #4288EE;
-            box-shadow: 0 0 0 0.2rem rgba(66, 136, 238, 0.25);
-        }
-
-        .btn-trial {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            border: none;
-            color: white;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .btn-trial:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
-        }
-
-        .trial-note {
-            margin-top: 2rem;
-            background-color: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-
-        .secure-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #28a745;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .secure-badge i {
-            margin-right: 5px;
-        }
-
-        .note-points {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
-
-        .note-points li {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 0.3rem;
-            position: relative;
-            padding-left: 0;
-        }
-
-        #trial-message {
-            font-size: 0.9rem;
-            position: absolute;
-            bottom: 0.5rem;
-            left: 0;
-            right: 0;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            max-width: 90%;
-            margin: 0 auto;
-            white-space: pre-line; /* 줄바꿈 문자(\n)를 인식 */
-        }
-
-        #trial-message.show {
-            opacity: 1;
-        }
-
-        #trial-message.success {
-            color: #28a745;
-        }
-
-        #trial-message.error {
-            color: #dc3545;
-        }
-
-        .trial-notice {
-            margin-top: 1.5rem;
-            text-align: left;
-            animation: fadeInUp 1s ease-out 0.6s forwards;
-            opacity: 0;
-        }
-
-        .trial-text {
-            color: white;
-            font-size: 1rem;
-            opacity: 0.9;
-            display: inline-block;
-            margin-right: 1rem;
-        }
-
-        .trial-text i {
-            margin-right: 0.5rem;
-            color: #FFD700;
-        }
-
-        .trial-link {
-            color: white;
-            text-decoration: underline;
-            font-weight: 600;
-            transition: opacity 0.3s ease;
-        }
-
-        .trial-link:hover {
-            color: white;
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* 반응형 스타일 */
-        @media (max-width: 1199.98px) {
-            .testimonial-item {
-                grid-column: span 6 !important;
-            }
-
-            .testimonial-item:nth-child(1) {
-                grid-column: 1 / span 6 !important;
-            }
-
-            .testimonial-item:nth-child(2) {
-                grid-column: 7 / span 6 !important;
-            }
-
-            .testimonial-item:nth-child(3) {
-                grid-column: 1 / span 6 !important;
-            }
-
-            .testimonial-item:nth-child(4) {
-                grid-column: 7 / span 6 !important;
-            }
-
-            .testimonial-item:nth-child(5) {
-                grid-column: 3 / span 8 !important;
-            }
-        }
-
-        @media (max-width: 991.98px) {
-            .testimonials-section {
-                padding: 5rem 0;
-            }
-
-            .trial-section {
-                padding: 5rem 0;
-            }
-
-            .trial-benefits {
-                margin-bottom: 3rem;
-            }
-        }
-
-        @media (max-width: 767.98px) {
-            .testimonial-item {
-                grid-column: span 12 !important;
-            }
-
-            .testimonial-item:nth-child(1),
-            .testimonial-item:nth-child(2),
-            .testimonial-item:nth-child(3),
-            .testimonial-item:nth-child(4),
-            .testimonial-item:nth-child(5) {
-                grid-column: 1 / span 12 !important;
-            }
-
-            .testimonial-content {
-                padding: 25px;
-            }
-
-            .testimonial-content p {
-                font-size: 0.95rem;
-            }
-
-            .user-image {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .trial-section {
-                padding: 4rem 0;
-            }
-
-            .trial-form-card {
-                padding: 2rem;
-            }
-
-            .trial-form-title {
-                font-size: 1.6rem;
-            }
-
-            .benefits-title {
-                font-size: 1.6rem;
-            }
-
-            .quote-text {
-                font-size: 1rem;
-            }
-
-            .trial-notice {
-                text-align: center;
-            }
-
-            .trial-text {
-                display: block;
-                margin-bottom: 0.5rem;
-                margin-right: 0;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .testimonials-section {
-                padding: 4rem 0;
-            }
-
-            .testimonial-content {
-                padding: 20px;
-            }
-
-            .testimonial-content p {
-                font-size: 0.9rem;
-                line-height: 1.6;
-            }
-
-            .testimonial-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-                top: -12px;
-                right: 20px;
-            }
-
-            .user-image {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-
-            .user-info h4 {
-                font-size: 1rem;
-            }
-
-            .user-info span {
-                font-size: 0.8rem;
-            }
-
-            .trial-section {
+            .sample-section {
                 padding: 3rem 0;
             }
 
-            .trial-form-card {
+            .sample-form-card {
                 padding: 1.5rem;
             }
 
-            .trial-form-title {
+            .sample-form-title {
                 font-size: 1.4rem;
             }
 
@@ -1208,9 +1069,13 @@
                 margin-bottom: 0.5rem;
             }
 
-            .btn-trial {
+            .btn-sample {
                 padding: 0.8rem;
                 font-size: 1rem;
+            }
+
+            .time-picker-container {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
@@ -1221,47 +1086,83 @@
     <section class="hero-section full-width-section">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-7 col-12 hero-content">
+                <div class="col-md-6 col-12 hero-content">
                     <h1 class="hero-title">
                         <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">
                         하루 한 줄
                     </h1>
                     <p class="hero-lead">
-                        출근길 1분, 영어 회화부터<br>
-                        개발자 면접, 상식 퀴즈까지 한입에!<br>
-                        실전에 강해지는 <strong>'진짜 한 줄'</strong> 매일 드려요.
+                        출근길 1분, 세상을 새롭게 보는 상식 한 줄<br>
+                        그리고 영어 회화 한 줄.
+                    </p>
+                    <p class="hero-description">
+                        매일 아침, 가볍게 읽고 오래 기억되는<br>
+                        <strong>‘말하고 싶고, 공유하고 싶은 한 줄’</strong>을 보내드립니다.
                     </p>
                     <div class="action-buttons">
-                        <a href="{% url 'accounts:register' %}" class="btn hero-btn pulse">구독 시작하기</a>
-                        <!-- 3일 체험 안내 추가 -->
-                        <div class="trial-notice">
-                            <span class="trial-text">
-                                <i class="fas fa-gift"></i> 3일 체험도 가능해요!
-                            </span>
-                            <a href="#trial-section" class="trial-link">자세히 보기</a>
-                        </div>
+                        <a href="#sample-section" class="btn hero-btn">샘플 받아보기</a>
                     </div>
                 </div>
 
-                <!-- 샘플 폼 추가 -->
-                <div class="col-md-5 col-12 mt-4 mt-md-0">
-                    <div class="sample-form-card">
-                        <h3 class="sample-form-title">오늘의 한 줄 미리보기</h3>
-                        <p class="sample-form-subtitle">이메일 주소를 입력하면 <br>오늘의 하루 한 줄을 보내드립니다.</p>
-                        <form id="sample-form" method="post" class="sample-form">
+                <!-- 구독 폼 -->
+                <div class="col-md-6 col-12">
+                    <div class="subscription-form-card">
+                        <h3 class="subscription-form-title">하루 한 줄 구독하기</h3>
+                        <p class="subscription-form-subtitle">내일 아침부터 당신의 메일함에, 작지만 확실한 한 줄이 도착합니다.</p>
+
+                        <form id="subscription-form" method="post" action="{% url 'subscription:direct_subscribe' %}">
                             {% csrf_token %}
                             <div class="form-group mb-3">
-                                {{ sample_form.category }}
+                                <label for="{{ subscription_form.category.id_for_label }}">관심 카테고리</label>
+                                {{ subscription_form.category }}
                             </div>
                             <div class="form-group mb-3">
-                                {{ sample_form.email }}
+                                <label for="{{ subscription_form.email.id_for_label }}">이메일 주소</label>
+                                {{ subscription_form.email }}
                             </div>
-                            <button type="submit" class="btn btn-sample w-100">샘플 메일 받기</button>
+                            <!-- 시간 선택기 -->
+                            <div class="form-group mb-3">
+                                <label for="{{ subscription_form.preferred_time.id_for_label }}">수신 시간</label>
+                                <div class="time-picker mb-2">
+                                    <div class="time-display" id="homeTimeDisplay">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-clock time-display-icon"
+                                             viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                        </svg>
+                                        <span id="homeSelectedTime">08:00</span>
+                                    </div>
+                                    <input type="hidden" name="{{ subscription_form.preferred_time.html_name }}"
+                                           id="{{ subscription_form.preferred_time.id_for_label }}" value="08:00">
+                                    <div class="time-picker-container" id="homeTimeOptions" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 수신 주기 선택 -->
+                            <div class="form-group mb-3">
+                                <label>수신 주기</label>
+                                <div class="custom-radio-group">
+                                    <div class="custom-radio-item">
+                                        <input type="radio" id="frequency_daily" name="frequency" value="daily" class="custom-radio-input" checked>
+                                        <label for="frequency_daily" class="custom-radio-label">매일(월~금)</label>
+                                    </div>
+                                    <div class="custom-radio-item">
+                                        <input type="radio" id="frequency_three_per_week" name="frequency" value="three_per_week" class="custom-radio-input">
+                                        <label for="frequency_three_per_week" class="custom-radio-label">월/수/금</label>
+                                    </div>
+                                    <div class="custom-radio-item">
+                                        <input type="radio" id="frequency_weekly" name="frequency" value="weekly" class="custom-radio-input">
+                                        <label for="frequency_weekly" class="custom-radio-label">월요일만</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-subscription">하루 한 줄 구독하기</button>
                         </form>
-                        <div id="sample-message" class="mt-3 text-center"></div>
-                        <div class="sample-note mt-2 text-center">
-                            <small class="text-muted">* 각 카테고리당 1회만 샘플 발송 가능합니다.<br>정기 구독은 <a
-                                    href="{% url 'accounts:register' %}">가입</a> 후 이용 가능합니다.</small>
+                        <div id="subscription-message"></div>
+                        <div class="subscription-note mt-2 text-center">
+                            <small class="text-muted">* 이메일 인증 후 언제든지 구독 취소가 가능합니다.</small>
                         </div>
                     </div>
                 </div>
@@ -1269,87 +1170,99 @@
         </div>
     </section>
 
-    <!-- 사용자의 고민/문제 제시 -->
+    <!-- 사용자 공감 문제 섹션 -->
     <section class="pain-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">지금 이런 문제로 멈춰 계신가요?</h2>
+                <h2 class="section-title">혹시 이런 고민, 하고 계신가요?</h2>
             </div>
 
             <div class="row">
+                <!-- 고민 1: 시간 부족 -->
+                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="card pain-card h-100">
+                        <div class="feature-icon pain-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>시간이 없어서 못 본다구요?</h3>
+                        <p>출근길 30초면 충분해요. 바쁜 일상 속, 짧고 실용적인 한 줄로 부담 없이 시작해보세요.</p>
+                    </div>
+                </div>
+
                 <!-- 고민 3: 대화 소재 -->
                 <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
-                    <div class="card feature-card h-100 pain-card">
+                    <div class="card pain-card h-100">
                         <div class="feature-icon pain-icon">
                             <i class="fas fa-comment-dots"></i>
                         </div>
-                        <h3>대화 소재가 부족해요</h3>
-                        <p>흥미로운 대화 주제가 생각나지 않아 자신감이 떨어지고 대화가 끊기곤 합니다.</p>
+                        <h3>할 말이 없을 때 꺼내보세요</h3>
+                        <p>“그거 알아요?”로 시작하는 한 줄 상식. 가볍게 툭 던져도 대화가 이어지는 마법을 경험해보세요.</p>
                     </div>
                 </div>
 
                 <!-- 고민 2: 영어 회화 -->
                 <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
-                    <div class="card feature-card h-100 pain-card">
+                    <div class="card pain-card h-100">
                         <div class="feature-icon pain-icon">
                             <i class="fas fa-language"></i>
                         </div>
-                        <h3>영어 표현이 입에 붙지 않아요</h3>
-                        <p>문법책으로만 공부해서 실제 대화에서 자연스럽게 표현할 수 없어 답답합니다.</p>
-                    </div>
-                </div>
-
-                <!-- 고민 1: 면접 준비 -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
-                    <div class="card feature-card h-100 pain-card">
-                        <div class="feature-icon pain-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h3>면접 준비가 막막해요</h3>
-                        <p>어떤 질문이 나올지 예상하기 어렵고, 지식을 체계적으로 정리하기가 힘듭니다.</p>
+                        <h3>영어가 입에서 안 나올 때</h3>
+                        <p>진짜 원어민이 쓰는 표현만 쏙쏙! 회화에 바로 써먹는 ‘찐 표현’을 매일 한 줄씩 배워보세요.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
     <!-- 예시 섹션 -->
     <section class="examples-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">실전에서 바로 쓸 수 있는 지식만!</h2>
+                <h2 class="section-title">진짜 쓸모 있는 지식, 이렇게 도착해요</h2>
+                <p class="section-subtitle">매일 아침, 선택한 카테고리의 한 줄이 메일함에 쏙!</p>
             </div>
 
             <div class="row">
-
                 <!-- 상식 예시 -->
-                <div class="col-md-4 col-12 slide-up" style="animation-delay: 0.4s;">
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
                     <div class="example-card">
-                        <div class="question">"사람은 하루에 평균 20번을 '하품'한다?"</div>
+                        <span class="category-label">세상에 이런 상식</span>
+                        <div class="question">"핀란드 사람들은 사우나에서 중요한 결정을 내린다?"</div>
                         <div class="answer">
-                            하품은 졸리거나 지루할 때만 하는 게 아니라, 뇌를 식히기 위한 생리적 반응이에요. 기분도 살짝 상쾌해지죠!
+                            사실이에요! 핀란드에서는 사우나가 단순한 휴식 공간이 아니라 중요한 대화의 장소로 여겨집니다. 비즈니스 미팅, 심지어 정치 협상도 사우나에서 이루어지곤 해요.
+                        </div>
+                        <div class="answer">
+                            인구 550만에 사우나 330만 개! ‘사우나 디플로마시’라는 말이 있을 정도로, 서로의 벽을 허물고 대화를 나누는 상징이죠.
+                        </div>
+                        <div class="answer">
+                            🔍 회식 자리, 아이스브레이킹, 발표 오프닝에 “핀란드는 사우나에서 회의한대요!”처럼 유쾌하게 활용해 보세요.
+                        </div>
+                        <div class="cta-text">
+                            → 이렇게 꺼내기 좋은 상식, 매일 하나씩 받아보세요!
                         </div>
                     </div>
                 </div>
-
-                <!-- 영어 표현 예시 -->
-                <div class="col-md-4 col-12 slide-up" style="animation-delay: 0.2s;">
+                <!-- 영어 예시 -->
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
                     <div class="example-card">
+                        <span class="category-label">한 입 영어</span>
                         <div class="question">"Once in a blue moon"</div>
                         <div class="answer">
-                            매우 드물게 일어나는 일. 실제로 '블루문'은 약 2.7년에 한 번 보입니다.<br>
-                            예문: "He only visits once in a blue moon."
+                            아주 드물게 일어나는 일을 말할 때 쓰는 표현이에요. ‘블루문’은 약 2~3년에 한 번 보이는 희귀한 보름달입니다.
                         </div>
-                    </div>
-                </div>
-
-                <!-- 면접 질문 예시 -->
-                <div class="col-md-4 col-12 slide-up" style="animation-delay: 0.3s;">
-                    <div class="example-card">
-                        <div class="question">"트래픽이 100배 폭증하면, 서버에서 가장 먼저 점검할 것은?"</div>
                         <div class="answer">
-                            병목 지점(예: DB 연결 수, 캐시 미적용, 스케일링 설정 등)과 로드밸런싱 여부를 빠르게 확인합니다.
+                            <strong>예문 1:</strong> "He only visits his parents once in a blue moon."<br>
+                            (그는 아주 가끔 부모님을 찾아요.)
+                        </div>
+                        <div class="answer">
+                            <strong>예문 2:</strong> "I go hiking once in a blue moon."<br>
+                            (등산은 정말 드물게 가요.)
+                        </div>
+                        <div class="extra-info">
+                            💡 특별한 일, 가끔 일어나는 일에 자연스럽게 써보세요!
+                        </div>
+                        <div class="cta-text">
+                            → 이렇게 바로 써먹을 영어 표현, 매일 하나씩 받아보세요!
                         </div>
                     </div>
                 </div>
@@ -1361,84 +1274,29 @@
     <section class="features-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">하루 한 줄<br>어떻게 당신을 성장시킬까요?</h2>
+                <h2 class="section-title">하루 한 줄, 왜 특별할까요?</h2>
             </div>
 
             <div class="row">
-                <!-- 특징 2 (당신만의 리듬으로) -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
-                    <div class="card feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <h3>당신만의 리듬으로</h3>
-                        <p>원하는 요일, 원하는 시간에! 내 생활 패턴에 맞춰 지식을 받아보세요. 진짜 내 페이스로 성장할 수 있습니다.</p>
-                    </div>
-                </div>
-
-                <!-- 특징 3 (꾸준함의 힘) -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
-                    <div class="card feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <h3>꾸준함의 힘</h3>
-                        <p>하루 1분, 작은 습관이 매일 쌓입니다. 1년 뒤, 당신은 지금과 다른 사람이 되어 있을 거예요.</p>
-                    </div>
-                </div>
-
-                <!-- 특징 1 (핵심만 콕 집어 전달) -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                <!-- 특징 1: 핵심만 콕 집어 전달 -->
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
                     <div class="card feature-card h-100">
                         <div class="feature-icon">
                             <i class="fas fa-bullseye"></i>
                         </div>
-                        <h3>핵심만 콕 집어 전달</h3>
-                        <p>긴 글, 복잡한 설명은 없습니다. 매일 핵심만 빠르게 이해하고, 바로 당신의 지식으로 만드세요.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 카테고리 섹션 -->
-    <section class="categories-section section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2 class="section-title">다양한 지식 카테고리</h2>
-            </div>
-
-            <div class="row">
-                <!-- 카테고리 3 -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.6s;">
-                    <div class="card feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3>세상에 이런 상식</h3>
-                        <p>몰라도 괜찮지만 알면 재미있는! 신기한 상식과 흥미로운 이야기로 당신의 하루를 채워드립니다.</p>
+                        <h3>딱 한 줄로 핵심 전달</h3>
+                        <p>복잡한 설명은 빼고, 오늘 알아두면 좋은 포인트만 콕 집어 전달합니다.<br>짧고 간결해서 읽고 바로 써먹을 수 있어요.</p>
                     </div>
                 </div>
 
-                <!-- 카테고리 2 -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
+                <!-- 특징 2: 꾸준함의 힘 -->
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
                     <div class="card feature-card h-100">
                         <div class="feature-icon">
-                            <i class="fas fa-language"></i>
+                            <i class="fas fa-seedling"></i>
                         </div>
-                        <h3>한 입 영어</h3>
-                        <p>어색한 영어는 그만! 실생활 영어 표현과 숙어로 자연스럽고 자신감 있는 회화를 완성하세요.</p>
-                    </div>
-                </div>
-
-                <!-- 카테고리 1 -->
-                <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
-                    <div class="card feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>개발 지식</h3>
-                        <p>프로그래밍 언어, 알고리즘, 프레임워크, 면접 준비까지! 매일 쌓는 한 줄 지식으로 더 나은 개발자가 되어보세요.</p>
+                        <h3>하루 1분, 지식이 자라는 습관</h3>
+                        <p>출근길 1분이면 충분해요. 작지만 꾸준한 지식 한 줄이 쌓이면,<br>어느새 당신만의 말주변과 상식이 자라납니다.</p>
                     </div>
                 </div>
             </div>
@@ -1449,102 +1307,36 @@
     <section class="testimonials-section section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">이런 고민, 이제 해결됐어요!</h2>
+                <h2 class="section-title">구독자들의 솔직한 후기</h2>
             </div>
 
-            <div class="testimonial-slider">
-                <!-- 후기 1 -->
-                <div class="testimonial-item slide-up" style="animation-delay: 0.2s;">
-                    <div class="testimonial-content">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <p>대화 소재가 걱정이었는데, 이제 매일 새로운 주제를 배우면서 자연스럽게 대화도 이어지더라고요. 부담 없이 배우면서 대화의 자신감을 얻을 수 있었어요!</p>
-                        <div class="testimonial-user">
-                            <div class="user-image">
-                                <span>유</span>
-                            </div>
-                            <div class="user-info">
-                                <h4>유ㅇ지</h4>
-                                <span>대화 소재에 자신감이 없던 사람</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="row">
                 <!-- 후기 2 -->
-                <div class="testimonial-item slide-up" style="animation-delay: 0.3s;">
-                    <div class="testimonial-content">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            친구랑 밥 먹다 “핀란드 사우나 외교” 얘기 꺼냈는데 다들 재밌다면서 들었어요. 요즘 아침에 이거 읽는 게 은근히 소소한 재미예요.
                         </div>
-                        <p>영어 표현이 자연스럽지 않아서 답답했는데, 하루 한 줄 덕분에 실생활에서 바로 쓸 수 있는 표현을 배워서 자신감이 생겼어요. 이제 회화 공부가 훨씬
-                            수월해졌습니다!</p>
-                        <div class="testimonial-user">
-                            <div class="user-image">
-                                <span>김</span>
-                            </div>
-                            <div class="user-info">
-                                <h4>김ㅇ우</h4>
-                                <span>영어 회화에 어려움을 겪던 사람</span>
+                        <div class="testimonial-author">
+                            <div class="testimonial-author-img">M</div>
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author-name">민수님</div>
+                                <div class="testimonial-author-title">대학생 · 1개월째 구독 중</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 후기 5 -->
-                <div class="testimonial-item slide-up" style="animation-delay: 0.6s;">
-                    <div class="testimonial-content">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
+                <!-- 후기 1 -->
+                <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.2s;">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            회사에 외국인 동료가 있는데, 메일에서 본 표현 딱 떠올라서 써봤더니 엄청 자연스럽다고 하더라고요! 길지도 않고, 딱 출근 전에 보기 좋아요.
                         </div>
-                        <p>처음엔 간단한 한 줄이라 별거 아닐 줄 알았어요. 그런데 매일 실생활에 필요한 정보를 배우고, 특히 면접 준비와 영어 표현에 큰 도움이 되었어요. 더 이상 빠짐없이
-                            확인하는 게 일상입니다!</p>
-                        <div class="testimonial-user">
-                            <div class="user-image">
-                                <span>박</span>
-                            </div>
-                            <div class="user-info">
-                                <h4>박ㅇ영</h4>
-                                <span>기존에는 큰 변화를 느끼지 못한 사람</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 후기 3 -->
-                <div class="testimonial-item slide-up" style="animation-delay: 0.4s;">
-                    <div class="testimonial-content">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <p>면접 준비가 막막했는데, 하루 한 줄 덕분에 매일 예상 질문과 답변을 연습하면서 차근차근 준비할 수 있었어요.</p>
-                        <div class="testimonial-user">
-                            <div class="user-image">
-                                <span>조</span>
-                            </div>
-                            <div class="user-info">
-                                <h4>조ㅇ혜</h4>
-                                <span>면접 준비에 어려움을 겪던 사람</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 후기 4 -->
-                <div class="testimonial-item slide-up" style="animation-delay: 0.5s;">
-                    <div class="testimonial-content">
-                        <div class="testimonial-icon">
-                            <i class="fas fa-quote-right"></i>
-                        </div>
-                        <p>하루 한 줄을 구독하고 나서, 매일 새로운 정보를 쌓아가면서 영어, 면접 준비까지 한 번에 해결할 수 있었어요. 정말 만족합니다!</p>
-                        <div class="testimonial-user">
-                            <div class="user-image">
-                                <span>정</span>
-                            </div>
-                            <div class="user-info">
-                                <h4>정ㅇ호</h4>
-                                <span>다양한 변화가 필요했던 사람</span>
+                        <div class="testimonial-author">
+                            <div class="testimonial-author-img">J</div>
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author-name">지현님</div>
+                                <div class="testimonial-author-title">마케팅 매니저 · 1개월째 구독 중</div>
                             </div>
                         </div>
                     </div>
@@ -1553,80 +1345,86 @@
         </div>
     </section>
 
-    <!-- 3일 무료 체험 섹션 -->
-    <section class="trial-section section" id="trial-section">
+    <!-- 샘플 받기 섹션 -->
+    <section class="sample-section section" id="sample-section">
         <div class="container">
             <div class="section-title-container">
-                <h2 class="section-title">망설여진다면<br>3일만 가볍게 시작해보세요</h2>
-                <p class="section-subtitle">3일간 매일 새로운 지식을 받아보고<br>정말 내게 필요한 콘텐츠인지 직접 느껴보세요</p>
+                <h2 class="section-title">먼저 체험해보고 싶으신가요?</h2>
+                <p class="section-subtitle">이메일을 남겨주시면<br>오늘의 한 줄을 바로 보내드릴게요</p>
             </div>
 
             <div class="row align-items-center">
-                <!-- 왼쪽: 체험 혜택 설명 -->
+                <!-- 왼쪽: 샘플 혜택 설명 -->
                 <div class="col-lg-6 col-md-6 col-12 slide-up" style="animation-delay: 0.2s;">
-                    <div class="trial-benefits">
-                        <h3 class="benefits-title">3일 체험으로 얻을 수 있는 것</h3>
+                    <div class="sample-benefits">
+                        <h3 class="benefits-title">샘플 메일, 이런 분께 추천해요</h3>
 
                         <ul class="benefits-list">
                             <li class="benefit-item">
                                 <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
                                 <div class="benefit-text">
-                                    <h4>3일간 매일 다른 카테고리 콘텐츠</h4>
-                                    <p>영어 표현, 개발 지식, 일반 상식 등 다양한 지식을 체험해보세요</p>
+                                    <h4>진짜 도움이 될지 궁금하다면</h4>
+                                    <p>실제 구독자가 받는 콘텐츠를 직접 보고 판단해보세요. 부담 없이 체험 가능합니다.</p>
                                 </div>
                             </li>
                             <li class="benefit-item">
                                 <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
                                 <div class="benefit-text">
-                                    <h4>실용적인 지식만 엄선</h4>
-                                    <p>신기한 상식부터 영어 대화, 면접까지<br>바로 활용할 수 있는 실용적인 내용만 담았습니다</p>
+                                    <h4>카테고리가 고민될 때</h4>
+                                    <p>영어, 상식, 개발 등 다양한 분야 중 하나를 골라, 내게 맞는 스타일을 확인해보세요.</p>
                                 </div>
                             </li>
                             <li class="benefit-item">
                                 <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
                                 <div class="benefit-text">
-                                    <h4>나만의 학습 루틴 확인</h4>
-                                    <p>짧은 시간으로 효과적인 학습이 가능한지 직접 체험해보세요</p>
+                                    <h4>짧고 꾸준한 학습이 궁금하다면</h4>
+                                    <p>1분 만에 읽을 수 있는 지식이 어떤 느낌인지, 샘플 메일로 직접 체감해보세요.</p>
                                 </div>
                             </li>
                         </ul>
 
-                        <div class="trial-testimonial">
-                            <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                            <p class="quote-text">"체험 후 바로 정기 구독으로 전환했어요. 하루에 딱 한 줄씩만 배워도 꾸준히 하니 실력이 쌓이더라고요!"</p>
-                            <div class="quote-author">김ㅇ지님, 1개월째 구독 중</div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-quote">
+                                "처음엔 그냥 호기심에 받아봤는데, 매일 조금씩 배우는 게 생각보다 꽤 쏠쏠하더라고요."
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-author-img">K</div>
+                                <div class="testimonial-author-info">
+                                    <div class="testimonial-author-name">김ㅇ지님</div>
+                                    <div class="testimonial-author-title">1개월째 구독 중</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 오른쪽: 체험 신청 폼 -->
+                <!-- 오른쪽: 샘플 신청 폼 -->
                 <div class="col-lg-6 col-md-6 col-12 slide-up" style="animation-delay: 0.4s;">
-                    <div class="trial-form-card" style="padding-bottom: 3.5rem;">
+                    <div class="sample-form-card" style="padding-bottom: 3.5rem;">
                         <div class="popular-badge">인기</div>
 
-                        <h3 class="trial-form-title">3일 체험 신청</h3>
-                        <p class="trial-form-subtitle">아래 정보를 입력하시면 <br>오늘부터 3일간 매일 7시 하루 한 줄을 보내드립니다</p>
+                        <h3 class="sample-form-title">오늘의 한 줄 받아보기</h3>
+                        <p class="sample-form-subtitle">지금 신청하시면<br>오늘의 한 줄을 메일로 바로 보내드려요</p>
 
-                        <form id="trial-form" method="post" class="trial-form">
+                        <form id="sample-form" method="post" class="sample-form">
                             {% csrf_token %}
                             <div class="form-group mb-3">
-                                <label for="trial-category">관심 카테고리</label>
-                                {{ trial_form.category }}
+                                <label for="sample-category">관심 카테고리</label>
+                                {{ sample_form.category }}
                             </div>
                             <div class="form-group mb-3">
-                                <label for="trial-email">이메일 주소</label>
-                                <input type="email" name="email" id="trial-email" class="form-control"
-                                       placeholder="이메일을 입력해주세요" required>
+                                <label for="sample-email">이메일 주소</label>
+                                {{ sample_form.email }}
                             </div>
-                            <button type="submit" class="btn btn-trial w-100">3일 무료 체험 시작하기</button>
+                            <button type="submit" class="btn btn-sample">샘플 메일 받기</button>
                         </form>
 
-                        <div id="trial-message" class="mt-3 text-center"></div>
+                        <div id="sample-message" class="mt-3 text-center"></div>
 
-                        <div class="trial-note mt-2">
-                            <ul class="note-points">
-                                <li>3일 후 자동으로 종료됩니다</li>
-                            </ul>
+                        <div class="note mt-2 text-center">
+                            <small class="text-muted">* 각 카테고리당 1회만 샘플 발송됩니다.<br>정기 구독은 상단의 <a href="#"
+                                                                                               onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">구독
+                                폼</a>에서 신청해주세요.</small>
                         </div>
                     </div>
                 </div>
@@ -1659,7 +1457,8 @@
             </div>
 
             <div class="action-buttons text-center stats-cta slide-up" style="animation-delay: 0.8s;">
-                <a href="{% url 'accounts:register' %}" class="btn btn-primary pulse">망설이면 또 놓칩니다.<br>오늘부터 시작하세요.</a>
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
+                   class="btn btn-primary pulse">망설이면 또 놓칩니다.<br>오늘부터 시작하세요.</a>
                 <p class="mt-3 text-muted">언제든지 구독 취소가 가능합니다</p>
             </div>
         </div>
@@ -1687,87 +1486,219 @@
             });
         });
 
-        $(document).ready(function () {
-            $('#sample-form').on('submit', function (e) {
-                e.preventDefault();
+        // Fetch API를 사용한 샘플 폼 제출 로직
+        document.addEventListener('DOMContentLoaded', function () {
+            const sampleForm = document.getElementById('sample-form');
+            if (sampleForm) {
+                sampleForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
 
-                const $form = $(this);
-                const $submitButton = $form.find('button[type="submit"]');
-                const $messageDiv = $('#sample-message');
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const messageDiv = document.getElementById('sample-message');
 
-                // 버튼 비활성화
-                $submitButton.prop('disabled', true).html('발송 중...');
+                    // 버튼 비활성화
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '발송 중...';
 
-                $.ajax({
-                    url: '{% url "mailing:sample" %}',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            $messageDiv.removeClass('error').addClass('success show')
-                                .text(response.message);
-                            $form[0].reset();
-                        } else {
-                            $messageDiv.removeClass('success').addClass('error show')
-                                .text(response.message);
+                    // FormData 객체 생성
+                    const formData = new FormData(this);
+
+                    // Fetch API로 요청 보내기
+                    fetch('{% url "mailing:sample" %}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
                         }
-                    },
-                    error: function () {
-                        $messageDiv.removeClass('success').addClass('error show')
-                            .text('오류가 발생했습니다. 다시 시도해주세요.');
-                    },
-                    complete: function () {
-                        $submitButton.prop('disabled', false).html('오늘의 한 줄 받기(1회)');
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                messageDiv.classList.remove('error');
+                                messageDiv.classList.add('success', 'show');
+                                messageDiv.textContent = data.message;
+                                sampleForm.reset();
+                            } else {
+                                messageDiv.classList.remove('success');
+                                messageDiv.classList.add('error', 'show');
+                                messageDiv.textContent = data.message;
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                            messageDiv.classList.remove('success');
+                            messageDiv.classList.add('error', 'show');
+                            messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+                            console.error('Error:', error);
+                        })
+                        .finally(() => {
+                            // 버튼 활성화
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = '오늘의 한 줄 받기';
 
-                        // 메시지를 3초 후에 숨기기
-                        setTimeout(function () {
-                            $messageDiv.removeClass('show');
-                        }, 3000);
-                    }
+                            // 메시지를 3초 후에 숨기기
+                            setTimeout(function () {
+                                messageDiv.classList.remove('show');
+                            }, 3000);
+                        });
                 });
-            });
+            }
+
+            // 구독 폼 기본 제출 처리
+            const subscriptionForm = document.getElementById('subscription-form');
+            if (subscriptionForm) {
+                subscriptionForm.addEventListener('submit', function () {
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '처리 중...';
+                    // 기본 폼 제출 허용 (페이지 이동)
+                    return true;
+                });
+            }
         });
 
-        $(document).ready(function () {
-            // 체험 구독 폼 제출 로직
-            $('#trial-form').on('submit', function (e) {
-                e.preventDefault();
+        // 시간 선택기 기능
+        document.addEventListener('DOMContentLoaded', function () {
+            // 홈페이지 시간 선택기
+            const homeTimeDisplay = document.getElementById('homeTimeDisplay');
+            const homeTimeOptions = document.getElementById('homeTimeOptions');
+            const homeSelectedTimeSpan = document.getElementById('homeSelectedTime');
+            const timeInput = document.getElementById('{{ subscription_form.preferred_time.id_for_label }}');
 
-                const $form = $(this);
-                const $submitButton = $form.find('button[type="submit"]');
-                const $messageDiv = $('#trial-message');
+            if (homeTimeDisplay) {
+                // 초기 시간 설정 - 숨겨진 input 값과 표시되는 span의 값을 동기화
+                if (timeInput && timeInput.value) {
+                    homeSelectedTimeSpan.textContent = timeInput.value;
+                } else {
+                    timeInput.value = homeSelectedTimeSpan.textContent;
+                }
 
-                // 버튼 비활성화
-                $submitButton.prop('disabled', true).html('처리 중...');
+                // 시간 옵션 생성 (00:00 ~ 23:00, 1시간 간격)
+                function generateHomeTimeOptions() {
+                    homeTimeOptions.innerHTML = '';
+                    for (let hour = 0; hour < 24; hour++) {
+                        const formattedHour = hour.toString().padStart(2, '0');
+                        const timeString = `${formattedHour}:00`;
 
-                $.ajax({
-                    url: '{% url "mailing:trial" %}',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            $messageDiv.removeClass('error').addClass('success show')
-                                .html(response.message);  // .text() 대신 .html() 사용
-                            $form[0].reset();
-                        } else {
-                            $messageDiv.removeClass('success').addClass('error show')
-                                .html(response.message);  // .text() 대신 .html() 사용
+                        const option = document.createElement('div');
+                        option.className = 'time-option';
+                        option.textContent = timeString;
+
+                        if (timeInput.value === timeString) {
+                            option.classList.add('selected');
                         }
-                    },
-                    error: function () {
-                        $messageDiv.removeClass('success').addClass('error show')
-                            .html('오류가 발생했습니다.<br>다시 시도해주세요.');  // .text() 대신 .html() 사용
-                    },
-                    complete: function () {
-                        $submitButton.prop('disabled', false).html('3일 무료 체험 시작하기');
 
-                        // 메시지를 5초 후에 숨기기
-                        setTimeout(function () {
-                            $messageDiv.removeClass('show');
-                        }, 5000);
+                        option.addEventListener('click', function () {
+                            // 이전 선택 제거
+                            const selectedOptions = homeTimeOptions.querySelectorAll('.selected');
+                            selectedOptions.forEach(el => el.classList.remove('selected'));
+
+                            // 새로운 선택 추가
+                            option.classList.add('selected');
+
+                            // 선택된 시간 업데이트
+                            homeSelectedTimeSpan.textContent = timeString;
+                            timeInput.value = timeString;
+
+                            // 드롭다운 닫기
+                            homeTimeOptions.style.display = 'none';
+                        });
+
+                        homeTimeOptions.appendChild(option);
+                    }
+                }
+
+                // 시간 선택기 토글
+                homeTimeDisplay.addEventListener('click', function (e) {
+                    e.preventDefault(); // 기본 동작 방지
+
+                    if (homeTimeOptions.style.display === 'none') {
+                        generateHomeTimeOptions();
+                        homeTimeOptions.style.display = 'grid';
+
+                        // 선택된 시간으로 스크롤
+                        const selectedOption = homeTimeOptions.querySelector('.selected');
+                        if (selectedOption) {
+                            selectedOption.scrollIntoView({block: 'center', behavior: 'smooth'});
+                        }
+                    } else {
+                        homeTimeOptions.style.display = 'none';
                     }
                 });
-            });
+
+                // 바깥영역 클릭시 드롭다운 닫기
+                document.addEventListener('click', function (event) {
+                    if (!homeTimeDisplay.contains(event.target) && !homeTimeOptions.contains(event.target)) {
+                        homeTimeOptions.style.display = 'none';
+                    }
+                });
+            }
+
+            // 구독 폼 AJAX 처리 (기존 코드 유지)
+            const subscriptionForm = document.getElementById('subscription-form');
+            if (subscriptionForm) {
+                subscriptionForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const messageDiv = document.getElementById('subscription-message');
+
+                    // 버튼 비활성화
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '처리 중...';
+
+                    // FormData 객체 생성
+                    const formData = new FormData(this);
+
+                    // Fetch API로 요청 보내기
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                messageDiv.classList.remove('error');
+                                messageDiv.classList.add('success', 'show');
+                                messageDiv.textContent = data.message;
+                                subscriptionForm.reset();
+
+                                // 시간 선택 초기화
+                                homeSelectedTimeSpan.textContent = '08:00';
+                                timeInput.value = '08:00';
+
+                                // 주기 선택 초기화
+                                const frequencyDaily = document.getElementById('frequency_daily');
+                                if (frequencyDaily) {
+                                    frequencyDaily.checked = true;
+                                }
+                            } else {
+                                messageDiv.classList.remove('success');
+                                messageDiv.classList.add('error', 'show');
+                                messageDiv.textContent = data.message;
+                            }
+                        })
+                        .catch(error => {
+                            messageDiv.classList.remove('success');
+                            messageDiv.classList.add('error', 'show');
+                            messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+                            console.error('Error:', error);
+                        })
+                        .finally(() => {
+                            // 버튼 활성화
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = '하루 한 줄 구독하기';
+
+                            // 메시지를 5초 후에 숨기기
+                            setTimeout(function () {
+                                messageDiv.classList.remove('show');
+                            }, 5000);
+                        });
+                });
+            }
         });
     </script>
 {% endblock %}

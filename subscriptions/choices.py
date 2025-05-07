@@ -10,6 +10,6 @@ class StatusChoices(TextChoices):
 
 # 구독 주기 정의
 class FrequencyChoices(TextChoices):
-    DAILY = 'daily', '매일'
+    DAILY = 'daily', '매일 (월~금)'
     THREE_PER_WEEK = 'three_per_week', '주 3회 (월/수/금)'
     WEEKLY = 'weekly', '주 1회 (월요일)'

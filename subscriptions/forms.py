@@ -65,6 +65,44 @@ class SubscriptionForm(forms.ModelForm):
         return category
 
 
+class DirectSubscriptionForm(forms.Form):
+    """이메일만으로 구독 신청 폼"""
+    email = forms.EmailField(
+        label=_('이메일 주소'),
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': '이메일을 입력해주세요'
+        })
+    )
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.filter(is_active=True),
+        label=_('카테고리'),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    preferred_time = forms.TimeField(
+        label=_('선호 시간'),
+        initial='08:00',
+        widget=forms.TimeInput(attrs={
+            'class': 'form-control',
+            'type': 'time'
+        })
+    )
+    frequency = forms.ChoiceField(
+        choices=FrequencyChoices.choices,
+        label=_('수신 주기'),
+        initial='daily',
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # 활성화된 카테고리만 표시
+        self.fields['category'].queryset = Category.objects.filter(
+            is_active=True
+        ).order_by('name')
+
+
 class SubscriptionManageForm(forms.ModelForm):
     """구독 관리 폼"""
     frequency = forms.ChoiceField(

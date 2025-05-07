@@ -63,21 +63,12 @@ def send_email(log):
         user = log.user
         subscription = log.subscription
 
-        # todo: 이거 삭제해서 지워야하는데 일단 다른 중요한거부터...
-        # 구독 관리 링크 생성
-        manage_url = f"{settings.SITE_URL}/subscriptions/"
-        pause_url = f"{settings.SITE_URL}/subscriptions/pause/{subscription.id}/"
-        cancel_url = f"{settings.SITE_URL}/subscriptions/cancel/{subscription.id}/"
-
         # 추가 컨텍스트 생성
         context = {
             'user': user,
             'subscription': subscription,
             'content': daily_content,
             'category': daily_content.category,
-            'manage_url': manage_url,
-            'pause_url': pause_url,
-            'cancel_url': cancel_url
         }
 
         # HTML 콘텐츠에 적용
@@ -87,6 +78,8 @@ def send_email(log):
 
         html_content = html_template.render(Context(context))
         text_content = text_template.render(Context(context))
+
+        html_content = html_content.replace('USER_UUID_PLACEHOLDER', str(user.uuid))
 
         # 이메일 객체 생성
         email = EmailMultiAlternatives(

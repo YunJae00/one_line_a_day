@@ -39,13 +39,7 @@
                 </a>
             </div>
             <div class="col-6 text-end">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary btn-sm">마이페이지</a>
-                    <a href="{% url 'accounts:logout' %}" class="btn btn-outline-primary btn-sm">로그아웃</a>
-                {% else %}
-                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-sm">로그인</a>
-                    <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-sm">구독하기</a>
-                {% endif %}
+                <a href="{% url 'home' %}" class="btn btn-primary btn-sm">구독하기</a>
             </div>
         </div>
     </div>

@@ -94,7 +94,7 @@ class Subscription(models.Model):
 
         # 주기에 따른 전송 여부 확인
         if self.frequency == 'daily':
-            return True
+            return weekday in [0, 1, 2, 3, 4]
         elif self.frequency == 'three_per_week':
             # 월(0), 수(2), 금(4)에만 전송
             return weekday in [0, 2, 4]
@@ -103,3 +103,20 @@ class Subscription(models.Model):
             return weekday == 0
 
         return False
+
+
+class PendingSubscription(models.Model):
+    """인증 대기 중인 구독 정보"""
+    email = models.EmailField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    preferred_time = models.TimeField()
+    frequency = models.CharField(max_length=20, default='daily')
+    created_at = models.DateTimeField(auto_now_add=True)
+    verification_token = models.UUIDField(unique=True)
+
+    class Meta:
+        db_table = 'pending_subscription'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.email} - {self.category} ({self.preferred_time})"
