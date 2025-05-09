@@ -1118,7 +1118,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6 col-12 hero-content">
                     <h1 class="hero-title">
-{#                        <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">#}
+                        {#                        <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">#}
                         하루 한 줄
                     </h1>
                     <p class="hero-lead">
@@ -1499,12 +1499,36 @@
             </div>
         </div>
     </section>
+
+    <!-- 메시지 모달 -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"
+                 style="border-radius: 1.25rem; border: none; overflow: hidden; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="messageModalLabel">알림</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div id="modalMessageContent"></div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-subscription" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_js %}
     <script>
-        // 화면에 요소가 나타났을 때 애니메이션 실행
+        // 시간 선택기 관련 변수들을 전역으로 선언
+        let homeTimeDisplay, homeTimeOptions, homeSelectedTimeSpan, timeInput;
+
+        // 모든 기능을 한 번에 초기화하는 함수
         document.addEventListener('DOMContentLoaded', function () {
+
+            // 1. 애니메이션 처리
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1520,221 +1544,278 @@
                 element.style.animationPlayState = 'paused';
                 observer.observe(element);
             });
-        });
 
-        // Fetch API를 사용한 샘플 폼 제출 로직
-        document.addEventListener('DOMContentLoaded', function () {
-            const sampleForm = document.getElementById('sample-form');
-            if (sampleForm) {
-                sampleForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
+            // 2. 시간 선택기 초기화
+            initTimePickerFunctionality();
 
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    const messageDiv = document.getElementById('sample-message');
+            // 3. 샘플 폼 제출 로직 초기화
+            initSampleFormSubmission();
 
-                    // 버튼 비활성화
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '발송 중...';
-
-                    // FormData 객체 생성
-                    const formData = new FormData(this);
-
-                    // Fetch API로 요청 보내기
-                    fetch('{% url "mailing:sample" %}', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                messageDiv.classList.remove('error');
-                                messageDiv.classList.add('success', 'show');
-                                messageDiv.textContent = data.message;
-                                sampleForm.reset();
-                            } else {
-                                messageDiv.classList.remove('success');
-                                messageDiv.classList.add('error', 'show');
-                                messageDiv.textContent = data.message;
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            messageDiv.classList.remove('success');
-                            messageDiv.classList.add('error', 'show');
-                            messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
-                            console.error('Error:', error);
-                        })
-                        .finally(() => {
-                            // 버튼 활성화
-                            submitButton.disabled = false;
-                            submitButton.innerHTML = '오늘의 한 줄 받기';
-
-                            // 메시지를 3초 후에 숨기기
-                            setTimeout(function () {
-                                messageDiv.classList.remove('show');
-                            }, 3000);
-                        });
-                });
-            }
-
-            // 구독 폼 기본 제출 처리
-            const subscriptionForm = document.getElementById('subscription-form');
-            if (subscriptionForm) {
-                subscriptionForm.addEventListener('submit', function () {
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '처리 중...';
-                    // 기본 폼 제출 허용 (페이지 이동)
-                    return true;
-                });
-            }
+            // 4. 구독 폼 제출 로직 초기화
+            initSubscriptionFormSubmission();
         });
 
         // 시간 선택기 기능
-        document.addEventListener('DOMContentLoaded', function () {
-            // 홈페이지 시간 선택기
-            const homeTimeDisplay = document.getElementById('homeTimeDisplay');
-            const homeTimeOptions = document.getElementById('homeTimeOptions');
-            const homeSelectedTimeSpan = document.getElementById('homeSelectedTime');
-            const timeInput = document.getElementById('{{ subscription_form.preferred_time.id_for_label }}');
+        function initTimePickerFunctionality() {
 
-            if (homeTimeDisplay) {
-                // 초기 시간 설정 - 숨겨진 input 값과 표시되는 span의 값을 동기화
-                if (timeInput && timeInput.value) {
-                    homeSelectedTimeSpan.textContent = timeInput.value;
-                } else {
-                    timeInput.value = homeSelectedTimeSpan.textContent;
-                }
+            // DOM 요소 가져오기
+            homeTimeDisplay = document.getElementById('homeTimeDisplay');
+            homeTimeOptions = document.getElementById('homeTimeOptions');
+            homeSelectedTimeSpan = document.getElementById('homeSelectedTime');
+            timeInput = document.getElementById('{{ subscription_form.preferred_time.id_for_label }}');
 
-                // 시간 옵션 생성 (00:00 ~ 23:00, 1시간 간격)
-                function generateHomeTimeOptions() {
-                    homeTimeOptions.innerHTML = '';
-                    for (let hour = 0; hour < 24; hour++) {
-                        const formattedHour = hour.toString().padStart(2, '0');
-                        const timeString = `${formattedHour}:00`;
-
-                        const option = document.createElement('div');
-                        option.className = 'time-option';
-                        option.textContent = timeString;
-
-                        if (timeInput.value === timeString) {
-                            option.classList.add('selected');
-                        }
-
-                        option.addEventListener('click', function () {
-                            // 이전 선택 제거
-                            const selectedOptions = homeTimeOptions.querySelectorAll('.selected');
-                            selectedOptions.forEach(el => el.classList.remove('selected'));
-
-                            // 새로운 선택 추가
-                            option.classList.add('selected');
-
-                            // 선택된 시간 업데이트
-                            homeSelectedTimeSpan.textContent = timeString;
-                            timeInput.value = timeString;
-
-                            // 드롭다운 닫기
-                            homeTimeOptions.style.display = 'none';
-                        });
-
-                        homeTimeOptions.appendChild(option);
-                    }
-                }
-
-                // 시간 선택기 토글
-                homeTimeDisplay.addEventListener('click', function (e) {
-                    e.preventDefault(); // 기본 동작 방지
-
-                    if (homeTimeOptions.style.display === 'none') {
-                        generateHomeTimeOptions();
-                        homeTimeOptions.style.display = 'grid';
-
-                        // 선택된 시간으로 스크롤
-                        const selectedOption = homeTimeOptions.querySelector('.selected');
-                        if (selectedOption) {
-                            selectedOption.scrollIntoView({block: 'center', behavior: 'smooth'});
-                        }
-                    } else {
-                        homeTimeOptions.style.display = 'none';
-                    }
-                });
-
-                // 바깥영역 클릭시 드롭다운 닫기
-                document.addEventListener('click', function (event) {
-                    if (!homeTimeDisplay.contains(event.target) && !homeTimeOptions.contains(event.target)) {
-                        homeTimeOptions.style.display = 'none';
-                    }
-                });
+            if (!homeTimeDisplay || !homeTimeOptions || !homeSelectedTimeSpan || !timeInput) {
+                return; // 필요한 요소가 없으면 기능 초기화 중단
             }
 
-            // 구독 폼 AJAX 처리 (기존 코드 유지)
-            const subscriptionForm = document.getElementById('subscription-form');
-            if (subscriptionForm) {
-                subscriptionForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
+            // 초기 시간 설정
+            if (timeInput.value) {
+                homeSelectedTimeSpan.textContent = timeInput.value;
+            } else {
+                timeInput.value = homeSelectedTimeSpan.textContent || "08:00";
+            }
 
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    const messageDiv = document.getElementById('subscription-message');
+            // 시간 선택 옵션 컨테이너의 display를 명시적으로 'none'으로 설정
+            homeTimeOptions.style.display = 'none';
 
-                    // 버튼 비활성화
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '처리 중...';
+            // 시간 옵션 생성 함수
+            function generateHomeTimeOptions() {
 
-                    // FormData 객체 생성
-                    const formData = new FormData(this);
+                homeTimeOptions.innerHTML = '';
+                for (let hour = 0; hour < 24; hour++) {
+                    const formattedHour = hour.toString().padStart(2, '0');
+                    const timeString = `${formattedHour}:00`;
 
-                    // Fetch API로 요청 보내기
-                    fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                messageDiv.classList.remove('error');
-                                messageDiv.classList.add('success', 'show');
-                                messageDiv.textContent = data.message;
-                                subscriptionForm.reset();
+                    const option = document.createElement('div');
+                    option.className = 'time-option';
+                    option.textContent = timeString;
 
-                                // 시간 선택 초기화
-                                homeSelectedTimeSpan.textContent = '08:00';
-                                timeInput.value = '08:00';
+                    if (timeInput.value === timeString) {
+                        option.classList.add('selected');
+                    }
 
-                                // 주기 선택 초기화
-                                const frequencyDaily = document.getElementById('frequency_daily');
-                                if (frequencyDaily) {
-                                    frequencyDaily.checked = true;
-                                }
-                            } else {
-                                messageDiv.classList.remove('success');
-                                messageDiv.classList.add('error', 'show');
-                                messageDiv.textContent = data.message;
-                            }
-                        })
-                        .catch(error => {
+                    option.addEventListener('click', function () {
+
+                        // 이전 선택 제거
+                        const selectedOptions = homeTimeOptions.querySelectorAll('.selected');
+                        selectedOptions.forEach(el => el.classList.remove('selected'));
+
+                        // 새로운 선택 추가
+                        option.classList.add('selected');
+
+                        // 선택된 시간 업데이트
+                        homeSelectedTimeSpan.textContent = timeString;
+                        timeInput.value = timeString;
+
+                        // 드롭다운 닫기
+                        homeTimeOptions.style.display = 'none';
+                    });
+
+                    homeTimeOptions.appendChild(option);
+                }
+            }
+
+            // 시간 선택기 토글 - 클릭 이벤트 리스너 등록
+            homeTimeDisplay.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                if (homeTimeOptions.style.display === 'none') {
+                    generateHomeTimeOptions();
+                    homeTimeOptions.style.display = 'grid';
+
+                    // 선택된 시간으로 스크롤
+                    const selectedOption = homeTimeOptions.querySelector('.selected');
+                    if (selectedOption) {
+                        selectedOption.scrollIntoView({block: 'center', behavior: 'smooth'});
+                    }
+                } else {
+                    homeTimeOptions.style.display = 'none';
+                }
+            });
+
+            // 바깥영역 클릭시 드롭다운 닫기
+            document.addEventListener('click', function (event) {
+                if (homeTimeOptions && homeTimeDisplay &&
+                    !homeTimeDisplay.contains(event.target) &&
+                    !homeTimeOptions.contains(event.target)) {
+                    homeTimeOptions.style.display = 'none';
+                }
+            });
+        }
+
+        // 샘플 폼 제출 로직
+        function initSampleFormSubmission() {
+            const sampleForm = document.getElementById('sample-form');
+            if (!sampleForm) {
+                return;
+            }
+
+            sampleForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const submitButton = this.querySelector('button[type="submit"]');
+                const messageDiv = document.getElementById('sample-message');
+
+                // 메시지 모달을 가져옵니다
+                const messageModal = document.getElementById('messageModal');
+                const modalMessageDiv = document.getElementById('modalMessageContent');
+
+                // 버튼 비활성화
+                submitButton.disabled = true;
+                submitButton.innerHTML = '발송 중...';
+
+                // FormData 객체 생성
+                const formData = new FormData(this);
+
+                // Fetch API로 요청 보내기
+                fetch('{% url "mailing:sample" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 페이지 내 메시지 처리
+                        if (data.success) {
+                            messageDiv.classList.remove('error');
+                            messageDiv.classList.add('success', 'show');
+                            messageDiv.textContent = data.message;
+                            sampleForm.reset();
+
+                            // 모달에 성공 메시지 직접 설정
+                            modalMessageDiv.innerHTML = `<div class="text-success"><i class="fas fa-check-circle me-2"></i>${data.message}</div>`;
+                        } else {
                             messageDiv.classList.remove('success');
                             messageDiv.classList.add('error', 'show');
-                            messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
-                            console.error('Error:', error);
-                        })
-                        .finally(() => {
-                            // 버튼 활성화
-                            submitButton.disabled = false;
-                            submitButton.innerHTML = '하루 한 줄 구독하기';
+                            messageDiv.textContent = data.message;
 
-                            // 메시지를 5초 후에 숨기기
-                            setTimeout(function () {
-                                messageDiv.classList.remove('show');
-                            }, 5000);
-                        });
-                });
+                            // 모달에 오류 메시지 직접 설정
+                            modalMessageDiv.innerHTML = `<div class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>${data.message}</div>`;
+                        }
+
+                        // 모달 표시
+                        const bsModal = new bootstrap.Modal(messageModal);
+                        bsModal.show();
+                    })
+                    .catch(error => {
+                        // 페이지 내 오류 메시지
+                        messageDiv.classList.remove('success');
+                        messageDiv.classList.add('error', 'show');
+                        messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+
+                        // 모달 오류 메시지도 동일하게 설정
+                        modalMessageDiv.innerHTML = `<div class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>오류가 발생했습니다. 다시 시도해주세요.</div>`;
+
+                        // 모달 표시
+                        const bsModal = new bootstrap.Modal(messageModal);
+                        bsModal.show();
+                    })
+                    .finally(() => {
+                        // 버튼 활성화
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '샘플 메일 받기';
+
+                        // 메시지를 3초 후에 숨기기 (페이지 내 메시지만)
+                        setTimeout(function () {
+                            messageDiv.classList.remove('show');
+                        }, 3000);
+                    });
+            });
+        }
+
+        // 구독 폼 제출 로직
+        function initSubscriptionFormSubmission() {
+            const subscriptionForm = document.getElementById('subscription-form');
+            if (!subscriptionForm) {
+                return;
             }
-        });
+
+            subscriptionForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const submitButton = this.querySelector('button[type="submit"]');
+                const messageDiv = document.getElementById('subscription-message');
+
+                // 메시지 모달을 가져옵니다
+                const messageModal = document.getElementById('messageModal');
+                const modalMessageDiv = document.getElementById('modalMessageContent');
+
+                // 버튼 비활성화
+                submitButton.disabled = true;
+                submitButton.innerHTML = '처리 중...';
+
+                // FormData 객체 생성
+                const formData = new FormData(this);
+
+                // Fetch API로 요청 보내기
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (data.success) {
+                            messageDiv.classList.remove('error');
+                            messageDiv.classList.add('success', 'show');
+                            messageDiv.textContent = data.message;
+                            subscriptionForm.reset();
+
+                            // 시간 선택 초기화
+                            if (homeSelectedTimeSpan && timeInput) {
+                                homeSelectedTimeSpan.textContent = '08:00';
+                                timeInput.value = '08:00';
+                            }
+
+                            // 주기 선택 초기화
+                            const frequencyDaily = document.getElementById('frequency_daily');
+                            if (frequencyDaily) {
+                                frequencyDaily.checked = true;
+                            }
+
+                            // 모달에 성공 메시지 직접 설정
+                            modalMessageDiv.innerHTML = `<div class="text-success"><i class="fas fa-check-circle me-2"></i>${data.message}</div>`;
+                        } else {
+                            messageDiv.classList.remove('success');
+                            messageDiv.classList.add('error', 'show');
+                            messageDiv.textContent = data.message;
+
+                            // 모달에 오류 메시지 직접 설정
+                            modalMessageDiv.innerHTML = `<div class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>${data.message}</div>`;
+                        }
+
+                        // 모달 표시
+                        const bsModal = new bootstrap.Modal(messageModal);
+                        bsModal.show();
+                    })
+                    .catch(error => {
+                        messageDiv.classList.remove('success');
+                        messageDiv.classList.add('error', 'show');
+                        messageDiv.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+
+                        // 모달 오류 메시지
+                        modalMessageDiv.innerHTML = `<div class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>오류가 발생했습니다. 다시 시도해주세요.</div>`;
+
+                        // 모달 표시
+                        const bsModal = new bootstrap.Modal(messageModal);
+                        bsModal.show();
+                    })
+                    .finally(() => {
+                        // 버튼 활성화
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '하루 한 줄 구독하기';
+
+                        // 메시지를 5초 후에 숨기기
+                        setTimeout(function () {
+                            messageDiv.classList.remove('show');
+                        }, 5000);
+                    });
+            });
+        }
     </script>
 {% endblock %}
