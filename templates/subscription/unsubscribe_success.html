@@ -7,7 +7,7 @@
     <style>
         .success-page {
             padding: 4rem 0;
-            background-color: #f6f8fd;
+            background-color: white;
             min-height: calc(100vh - 350px);
         }
 
@@ -15,10 +15,15 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            background: white;
             margin-bottom: 1.5rem;
+        }
+
+        .success-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 195, 0, 0.15);
         }
 
         .card-header {
@@ -29,7 +34,7 @@
 
         .card-header h3 {
             font-weight: 700;
-            color: #2A3B47;
+            color: #4e4e4e;
             margin: 0;
             position: relative;
             display: inline-block;
@@ -43,7 +48,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: #FFC300;
             border-radius: 3px;
         }
 
@@ -55,7 +60,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e8f6fe, #d4e5ed);
+            background: #FFF8E1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,7 +70,7 @@
         }
 
         .success-icon svg {
-            color: #4288EE;
+            color: #FFC300;
             width: 50px;
             height: 50px;
         }
@@ -82,15 +87,28 @@
             font-weight: 500;
         }
 
+        .btn-primary {
+            background: #FFC300;
+            border: none;
+            color: #4e4e4e;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #FFD43B;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 195, 0, 0.3);
+        }
+
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.2);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 10px rgba(255, 195, 0, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0);
             }
         }
     </style>
@@ -114,19 +132,21 @@
                                 </svg>
                             </div>
 
-                            <h4 class="mb-3">구독이 취소되었습니다</h4>
+                            <h4 class="mb-3" style="color: #4e4e4e;">구독이 취소되었습니다</h4>
 
-                            <p>
+                            <p style="color: #666666;">
                                 {{ category_name }} 카테고리의 구독이 성공적으로 취소되었습니다.<br>
                                 더 이상 해당 카테고리의 콘텐츠를 이메일로 받아보실 수 없습니다.
                             </p>
 
-                            <p class="mt-4">
+                            <p class="mt-4" style="color: #666666;">
                                 언제든지 홈페이지에서 다시 구독하실 수 있습니다.
                             </p>
 
                             <div class="btn-container">
-                                <a href="{% url 'home' %}" class="btn btn-primary">홈으로 돌아가기</a>
+                                <a href="{% url 'home' %}" class="btn btn-primary">
+                                    <i class="fas fa-home me-2"></i>홈으로 돌아가기
+                                </a>
                             </div>
                         </div>
                     </div>

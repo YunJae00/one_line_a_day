@@ -8,7 +8,7 @@
         /* 기본 스타일 */
         .subscription-page {
             padding: 3rem 0;
-            background-color: #f6f8fd;
+            background-color: white;
             min-height: calc(100vh - 350px);
         }
 
@@ -19,7 +19,7 @@
 
         .page-title {
             font-weight: 700;
-            color: #2A3B47;
+            color: #4e4e4e;
             margin-bottom: 0.5rem;
             position: relative;
             display: inline-block;
@@ -33,12 +33,12 @@
             transform: translateX(-50%);
             width: 70px;
             height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: #FFC300;
             border-radius: 3px;
         }
 
         .page-subtitle {
-            color: #6c757d;
+            color: #666666;
             font-size: 1.1rem;
             margin-top: 1rem;
         }
@@ -48,15 +48,15 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            background: white;
             margin-bottom: 2rem;
         }
 
         .subscription-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 20px 40px rgba(255, 195, 0, 0.15);
         }
 
         .card-header {
@@ -71,7 +71,7 @@
 
         .card-header h5 {
             font-weight: 700;
-            color: #2A3B47;
+            color: #4e4e4e;
             margin: 0;
             position: relative;
             display: inline-block;
@@ -84,7 +84,7 @@
             left: 0;
             width: 40px;
             height: 2px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: #FFC300;
             border-radius: 3px;
         }
 
@@ -99,7 +99,7 @@
 
         .table-custom th {
             font-weight: 600;
-            color: #495057;
+            color: #4e4e4e;
             border-top: none;
             border-bottom: 2px solid #e9ecef;
             padding: 1.2rem 1.5rem;
@@ -112,7 +112,7 @@
             vertical-align: middle;
             padding: 1.2rem 1.5rem;
             border-bottom: 1px solid #f0f0f0;
-            color: #2A3B47;
+            color: #4e4e4e;
             transition: all 0.2s ease;
             text-align: left;
         }
@@ -126,8 +126,8 @@
         }
 
         .table-custom tr:hover {
-            background-color: rgba(66, 136, 238, 0.05);
-            box-shadow: inset 4px 0 0 #4288EE;
+            background-color: rgba(255, 195, 0, 0.05);
+            box-shadow: inset 4px 0 0 #FFC300;
         }
 
         /* 구독 아이템 스타일 */
@@ -141,7 +141,7 @@
         }
 
         .subscription-item:hover {
-            box-shadow: 0 5px 15px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 195, 0, 0.1);
             transform: translateY(-2px);
         }
 
@@ -155,7 +155,7 @@
 
         .category-name {
             font-weight: 600;
-            color: #2A3B47;
+            color: #4e4e4e;
             font-size: 1.1rem;
             display: inline-block;
             margin-right: 0;
@@ -188,7 +188,7 @@
         }
 
         .info-value {
-            color: #333;
+            color: #4e4e4e;
             flex: 1;
             font-size: 0.9rem;
             text-align: left;
@@ -225,17 +225,17 @@
         }
 
         .status-active {
-            background: linear-gradient(135deg, #28a745, #5cc375);
+            background: #28a745;
             color: white;
         }
 
         .status-paused {
-            background: linear-gradient(135deg, #ffc107, #ffdb6d);
-            color: #212529;
+            background: #FFC300;
+            color: #4e4e4e;
         }
 
         .status-canceled {
-            background: linear-gradient(135deg, #6c757d, #9aa0a6);
+            background: #6c757d;
             color: white;
         }
 
@@ -266,9 +266,9 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: #FFC300;
             border: none;
-            color: white;
+            color: #4e4e4e;
             padding: 0.6rem 1.2rem;
             border-radius: 0.75rem;
             font-weight: 500;
@@ -281,35 +281,35 @@
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #FFD43B;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 195, 0, 0.3);
         }
 
         .btn-edit {
-            color: #4288EE;
-            border: 1px solid #4288EE;
+            color: #FFC300;
+            border: 1px solid #FFC300;
             background-color: transparent;
         }
 
         .btn-edit:hover {
-            background-color: #4288EE;
-            color: white;
+            background-color: #FFC300;
+            color: #4e4e4e;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(66, 136, 238, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 195, 0, 0.3);
         }
 
         .btn-pause {
-            color: #ffc107;
-            border: 1px solid #ffc107;
+            color: #FFC300;
+            border: 1px solid #FFC300;
             background-color: transparent;
         }
 
         .btn-pause:hover {
-            background-color: #ffc107;
-            color: #212529;
+            background-color: #FFC300;
+            color: #4e4e4e;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 4px 8px rgba(255, 195, 0, 0.3);
         }
 
         .btn-resume {
@@ -339,15 +339,15 @@
         }
 
         .btn-new {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: #FFC300;
             border: none;
-            color: white;
+            color: #4e4e4e;
         }
 
         .btn-new:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #FFD43B;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 195, 0, 0.3);
         }
 
         /* 빈 상태 스타일 */
@@ -360,7 +360,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            background: #FFF8E1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -371,31 +371,31 @@
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.2);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 10px rgba(255, 195, 0, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0);
             }
         }
 
         .empty-icon svg {
             width: 50px;
             height: 50px;
-            color: #4288EE;
+            color: #FFC300;
         }
 
         .empty-title {
             font-weight: 600;
-            color: #2A3B47;
+            color: #4e4e4e;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
 
         .empty-text {
-            color: #6c757d;
+            color: #666666;
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
             max-width: 500px;
@@ -414,14 +414,14 @@
         }
 
         .faq-item:hover {
-            background-color: #f8f9fa;
+            background-color: #FFF8E1;
             transform: translateX(5px);
-            border-color: #e9ecef;
+            border-color: #FFC300;
         }
 
         .faq-question {
             font-weight: 600;
-            color: #2A3B47;
+            color: #4e4e4e;
             margin-bottom: 0.7rem;
             display: flex;
             align-items: center;
@@ -433,8 +433,8 @@
             display: inline-block;
             width: 24px;
             height: 24px;
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            color: white;
+            background: #FFC300;
+            color: #4e4e4e;
             border-radius: 50%;
             text-align: center;
             line-height: 24px;
@@ -448,7 +448,7 @@
         }
 
         .faq-answer {
-            color: #6c757d;
+            color: #666666;
             margin-left: 2.5rem;
             position: relative;
             font-size: 0.9rem;
@@ -461,8 +461,8 @@
             display: inline-block;
             width: 24px;
             height: 24px;
-            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
-            color: #6c757d;
+            background: #f8f8f8;
+            color: #666666;
             border-radius: 50%;
             text-align: center;
             line-height: 24px;
@@ -481,7 +481,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            background: #FFF8E1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -490,7 +490,7 @@
         }
 
         .benefit-icon svg {
-            color: #4288EE;
+            color: #FFC300;
             transition: all 0.3s ease;
             width: 36px;
             height: 36px;
@@ -777,8 +777,10 @@
                     <div class="card-header">
                         <h5>구독 중인 카테고리</h5>
                         <a href="{% url 'home' %}" class="btn-action btn-new">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                             </svg>
                             새 구독
                         </a>
@@ -817,20 +819,26 @@
 
                                     <div class="subscription-actions">
                                         {% if subscription.status == 'active' %}
-                                            <form method="post" action="{% url 'subscription:pause_subscription' user.uuid subscription.id %}">
+                                            <form method="post"
+                                                  action="{% url 'subscription:pause_subscription' user.uuid subscription.id %}">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn-action btn-pause">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         fill="currentColor" class="bi bi-pause-fill"
+                                                         viewBox="0 0 16 16">
                                                         <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                                                     </svg>
                                                     일시정지
                                                 </button>
                                             </form>
                                         {% elif subscription.status == 'paused' %}
-                                            <form method="post" action="{% url 'subscription:resume_subscription' user.uuid subscription.id %}">
+                                            <form method="post"
+                                                  action="{% url 'subscription:resume_subscription' user.uuid subscription.id %}">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn-action btn-resume">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                         fill="currentColor" class="bi bi-play-fill"
+                                                         viewBox="0 0 16 16">
                                                         <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                                                     </svg>
                                                     활성화
@@ -839,8 +847,10 @@
                                         {% endif %}
 
                                         <!-- 구독 취소는 GET 요청으로 확인 페이지로 이동 -->
-                                        <a href="{% url 'subscription:unsubscribe_by_uuid' user.uuid subscription.id %}" class="btn-action btn-cancel">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <a href="{% url 'subscription:unsubscribe_by_uuid' user.uuid subscription.id %}"
+                                           class="btn-action btn-cancel">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                 fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                                             </svg>
                                             구독취소
@@ -855,7 +865,8 @@
                 <div class="subscription-card">
                     <div class="empty-state">
                         <div class="empty-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                 class="bi bi-envelope-plus" viewBox="0 0 16 16">
                                 <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
                                 <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
                             </svg>
@@ -866,8 +877,10 @@
                             원하는 주제를 선택하여 꾸준한 성장을 시작해보세요.
                         </p>
                         <a href="{% url 'home' %}" class="btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                             </svg>
                             새로운 구독 시작하기
                         </a>
@@ -881,19 +894,23 @@
                     <h5>자주 묻는 질문</h5>
                 </div>
                 <div class="card-body">
-                    <div class="faq-item" style="background-color: #f9f2f4; border-left: 4px solid #4288EE;">
+                    <div class="faq-item" style="background-color: #FFF8E1; border-left: 4px solid #FFC300;">
                         <h6 class="faq-question">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#FFC300"
+                                 class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                             </svg>
                             이메일이 도착하지 않았습니다. 어떻게 해야 하나요?
                         </h6>
-                        <p class="faq-answer">이메일이 수신함에 보이지 않는 경우 <strong>반드시 스팸메일함을 확인해주세요</strong>. 이메일 서비스 제공업체에 따라 자동으로 스팸함으로 분류될 수 있습니다. 스팸함에서 메일을 발견하셨다면, '스팸 아님' 또는 '안전한 발신자'로 표시하여 향후 메일이 정상적으로 수신함에 도착할 수 있도록 설정해주세요. 스팸함에도 없다면 등록하신 이메일 주소가 정확한지 확인하시고, 계속 문제가 발생하면 고객센터로 문의해주세요.</p>
+                        <p class="faq-answer">이메일이 수신함에 보이지 않는 경우 <strong>반드시 스팸메일함을 확인해주세요</strong>. 이메일 서비스 제공업체에 따라
+                            자동으로 스팸함으로 분류될 수 있습니다. 스팸함에서 메일을 발견하셨다면, '스팸 아님' 또는 '안전한 발신자'로 표시하여 향후 메일이 정상적으로 수신함에 도착할 수
+                            있도록 설정해주세요. 스팸함에도 없다면 등록하신 이메일 주소가 정확한지 확인하시고, 계속 문제가 발생하면 고객센터로 문의해주세요.</p>
                     </div>
                     <div class="faq-item">
                         <h6 class="faq-question">당일 구독 설정 시 이메일 발송 시간에 제한이 있나요?</h6>
-                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고 싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
+                        <p class="faq-answer">네, 당일 발송을 원하시면 발송 시간으로부터 최소 10분 이전에 구독 설정을 완료해야 합니다. 예를 들어, 오후 3시에 메일을 받고
+                            싶으시다면 오후 2시 50분 이전에 구독 설정을 완료해야 합니다. 발송 시간 10분 전 이후에 설정하시면 해당 날짜에는 메일이 발송되지 않습니다.</p>
                     </div>
                     <div class="faq-item">
                         <h6 class="faq-question">여러 카테고리를 한 번에 구독할 수 있나요?</h6>
@@ -905,7 +922,8 @@
                     </div>
                     <div class="faq-item">
                         <h6 class="faq-question">이메일 수신 시간을 변경할 수 있나요?</h6>
-                        <p class="faq-answer">아니요, 현재 시스템에서는 기존 구독의 수신 시간을 직접 변경할 수 없습니다. 수신 시간을 변경하시려면 기존 구독을 취소하신 후, 원하시는 시간으로 새롭게 구독을 설정하셔야 합니다. 구독 취소는 '구독취소' 버튼을 통해 간편하게 진행하실 수 있습니다.</p>
+                        <p class="faq-answer">아니요, 현재 시스템에서는 기존 구독의 수신 시간을 직접 변경할 수 없습니다. 수신 시간을 변경하시려면 기존 구독을 취소하신 후,
+                            원하시는 시간으로 새롭게 구독을 설정하셔야 합니다. 구독 취소는 '구독취소' 버튼을 통해 간편하게 진행하실 수 있습니다.</p>
                     </div>
                 </div>
             </div>
@@ -919,8 +937,10 @@
                         꾸준한 성장의 발판을 마련하세요.
                     </p>
                     <a href="{% url 'home' %}" class="btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                         </svg>
                         새로운 카테고리 구독하기
                     </a>
@@ -963,13 +983,13 @@
                 handleMobileDisplay();
 
                 // 화면 크기 변경 시 재실행
-                window.addEventListener('resize', function() {
+                window.addEventListener('resize', function () {
                     forceLeftAlignment();
                     handleMobileDisplay();
                 });
 
                 // 페이지 로드 후 1초 후에 한 번 더 실행 (스타일이 늦게 적용되는 문제 해결)
-                setTimeout(function() {
+                setTimeout(function () {
                     forceLeftAlignment();
                     handleMobileDisplay();
                 }, 1000);

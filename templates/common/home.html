@@ -8,11 +8,31 @@
         /* 아이콘 폰트 추가 */
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
+        /* 기본 색상 변수 정의 - 흑백 + 포인트컬러 */
+        :root {
+            --background-color: #FFFFFF; /* 연한 배경색 */
+            --main-color: #FFC300; /* 포인트 컬러 */
+            --sub-color: #4e4e4e; /* 부드러운 검정색 */
+            --accent-color: #555555; /* 중간 톤 회색 */
+            --text-color: #4e4e4e; /* 기본 텍스트 색상 */
+            --light-text: #666666; /* 부드러운 회색 텍스트 */
+            --pale-bg: white; /* 연한 회색 배경 */
+            --light-shadow: rgba(0, 0, 0, 0.08); /* 그림자 */
+            --card-bg: #FFFFFF; /* 카드 배경 */
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: var(--text-color);
+            font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+        }
+
         /* 히어로 섹션 스타일 */
         .hero-section {
             padding: 6rem 0;
-            background: linear-gradient(135deg, #4288EE 0%, #5b9afa 100%);
-            color: white;
+            background: #FFFFFF;
+            color: var(--text-color);
             position: relative;
             overflow: hidden;
             margin-bottom: 0;
@@ -25,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23ffffff" fill-opacity="0.05" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23FFC300" fill-opacity="0.08" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
             background-position: center bottom;
             background-repeat: no-repeat;
         }
@@ -39,7 +59,8 @@
             font-weight: 800;
             font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: var(--sub-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             animation: fadeInUp 1s ease-out;
         }
 
@@ -47,7 +68,7 @@
             font-size: 1.3rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
-            opacity: 0.95;
+            color: var(--text-color);
             animation: fadeInUp 1s ease-out 0.2s forwards;
             opacity: 0;
         }
@@ -55,14 +76,14 @@
         .hero-description {
             font-size: 1.1rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            color: var(--light-text);
             animation: fadeInUp 1s ease-out 0.3s forwards;
             opacity: 0;
         }
 
         .action-buttons .hero-btn {
-            background: white;
-            color: #4288EE;
+            background: var(--sub-color);
+            color: white;
             font-weight: 600;
             border-radius: 0.75rem;
             padding: 1rem 2.5rem;
@@ -78,8 +99,7 @@
         .hero-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            background-color: #f8f9fa;
-            color: #3070d9;
+            background-color: #222222;
         }
 
         .hero-icon {
@@ -94,39 +114,39 @@
 
         /* 구독 폼 카드 스타일 */
         .subscription-form-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             border-radius: 1.25rem;
             padding: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px var(--light-shadow);
             animation: fadeInUp 1s ease-out 0.6s forwards;
             opacity: 0;
             position: relative;
             padding-bottom: 3.5rem;
-            border: 2px solid rgba(66, 136, 238, 0.4);
+            border: 2px solid rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         .subscription-form-card:hover {
-            border-color: rgba(66, 136, 238, 0.8);
+            border-color: rgba(0, 0, 0, 0.1);
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         .subscription-form-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 0.5rem;
         }
 
         .subscription-form-subtitle {
             font-size: 0.9rem;
-            color: #6c757d;
+            color: var(--light-text);
             margin-bottom: 1.5rem;
         }
 
         .btn-subscription {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: var(--sub-color);
             border: none;
             color: white;
             font-weight: 600;
@@ -137,9 +157,10 @@
         }
 
         .btn-subscription:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #222222;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            color: white;
         }
 
         #subscription-message {
@@ -173,25 +194,25 @@
         }
 
         .features-section {
-            background-color: white;
+            background-color: var(--card-bg);
             margin-bottom: 0;
             padding-top: 5rem;
         }
 
         .examples-section {
-            background-color: #f6f8fd;
+            background-color: var(--pale-bg);
             margin-bottom: 0;
             padding-top: 5rem;
         }
 
         .pain-section {
-            background-color: #f6f8fd;
+            background-color: var(--pale-bg);
             padding-top: 3rem;
             padding-bottom: 3rem;
         }
 
         .stats-section {
-            background-color: white;
+            background-color: var(--card-bg);
         }
 
         .section-title-container {
@@ -203,7 +224,7 @@
             position: relative;
             display: inline-block;
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             font-size: 2.2rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
@@ -217,13 +238,13 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: var(--main-color);
             border-radius: 3px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: #6c757d;
+            color: var(--light-text);
             font-size: 1.2rem;
             margin-bottom: 3rem;
             max-width: 600px;
@@ -238,43 +259,40 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.08);
+            box-shadow: 0 15px 35px var(--light-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            background: linear-gradient(to bottom, var(--card-bg), #FEFEFE);
             padding: 2rem !important;
             text-align: center;
         }
 
         .pain-card:hover {
             transform: translateY(-10px);
-            border-left-color: #4288EE;
+            border-left-color: var(--main-color);
         }
 
         .pain-icon {
-            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
-        }
-
-        .pain-card:nth-child(1) .pain-icon i {
-            color: #4288EE;
+            background: #F5F5F5;
         }
 
         .pain-card:nth-child(2) .pain-icon i {
-            color: #5b9afa;
+            color: var(--main-color);
         }
 
+        .pain-card:nth-child(1) .pain-icon i,
         .pain-card:nth-child(3) .pain-icon i {
-            color: #3070d9;
+            color: var(--sub-color);
         }
 
         .pain-card h3 {
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 0.7rem;
             font-size: 1.3rem;
         }
 
         .pain-card p {
-            color: #526b84;
+            color: var(--light-text);
             font-size: 0.95rem;
             line-height: 1.5;
         }
@@ -284,9 +302,9 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.08);
+            box-shadow: 0 15px 35px var(--light-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            background: linear-gradient(to bottom, var(--card-bg), #FEFEFE);
             padding: 2rem !important;
             text-align: center;
             height: 100%;
@@ -294,45 +312,48 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         .feature-icon {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f0f5ff, #e6eeff);
+            background: #F5F5F5;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
             transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .feature-icon i {
             font-size: 2rem;
-            color: #4288EE;
+            color: var(--sub-color);
             transition: all 0.3s ease;
         }
 
         .feature-card:hover .feature-icon {
             transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            border-color: var(--main-color);
         }
 
         .feature-card:hover .feature-icon i {
             transform: scale(1.1);
+            color: var(--main-color);
         }
 
         .feature-card h3 {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
 
         .feature-card p {
-            color: #6c757d;
+            color: var(--light-text);
             font-size: 1rem;
             line-height: 1.6;
         }
@@ -342,9 +363,9 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
+            box-shadow: 0 10px 30px var(--light-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: #ffffff;
+            background: var(--card-bg);
             padding: 1.5rem !important;
             margin-bottom: 2rem;
             position: relative;
@@ -353,13 +374,13 @@
 
         .example-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
         }
 
         .example-card .category-label {
             position: static;
             display: inline-block;
-            background: #5b9afa;
+            background: var(--accent-color);
             color: white;
             font-size: 0.8rem;
             padding: 0.3rem 0.8rem;
@@ -371,15 +392,15 @@
         .example-card .question {
             display: block;
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--sub-color);
             font-size: 1.2rem;
             margin-bottom: 0.8rem;
-            border-left: 3px solid #4288EE;
+            border-left: 3px solid var(--main-color);
             padding-left: 15px;
         }
 
         .example-card .answer {
-            color: #555;
+            color: var(--text-color);
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             padding-left: 25px;
@@ -390,13 +411,13 @@
             content: '→';
             position: absolute;
             left: 0;
-            color: #4288EE;
+            color: var(--main-color);
             font-weight: bold;
         }
 
         /* 추가: extra-info 스타일 */
         .example-card .extra-info {
-            color: #4288EE;
+            color: var(--accent-color);
             font-size: 0.9rem;
             font-style: italic;
             margin-top: 0.8rem;
@@ -407,7 +428,7 @@
         /* cta-text 스타일 (기존 example-cta 대체) */
         .example-card .cta-text {
             text-align: center;
-            color: #4288EE;
+            color: var(--sub-color);
             font-weight: 600;
             font-size: 1.1rem;
             margin-top: 1rem;
@@ -418,7 +439,7 @@
 
         /* 샘플 섹션 스타일 */
         .sample-section {
-            background-color: #f6f8fd;
+            background-color: var(--pale-bg);
             padding: 6rem 0;
             position: relative;
             overflow: hidden;
@@ -431,7 +452,7 @@
 
         .benefits-title {
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             font-size: 1.8rem;
             margin-bottom: 2rem;
             position: relative;
@@ -445,7 +466,7 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: var(--main-color);
             border-radius: 3px;
         }
 
@@ -464,7 +485,7 @@
         .benefit-icon {
             flex: 0 0 40px;
             font-size: 1.4rem;
-            color: #4288EE;
+            color: var(--main-color);
             margin-right: 1rem;
             margin-top: 0.2rem;
         }
@@ -475,23 +496,23 @@
 
         .benefit-text h4 {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--sub-color);
             font-size: 1.2rem;
             margin-bottom: 0.3rem;
         }
 
         .benefit-text p {
-            color: #666;
+            color: var(--light-text);
             font-size: 1rem;
             margin: 0;
         }
 
         /* 샘플 신청 폼 스타일 */
         .sample-form-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 1.25rem;
             padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 15px 35px var(--light-shadow);
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -500,40 +521,41 @@
 
         .sample-form-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
-            border-color: rgba(66, 136, 238, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.05);
         }
 
         .popular-badge {
             position: absolute;
             top: 0;
             right: 0;
-            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            color: white;
+            background: var(--main-color);
+            color: var(--sub-color);
+            font-weight: 800;
             font-size: 0.9rem;
             font-weight: 600;
             padding: 8px 15px;
             border-radius: 0 0 0 20px;
             z-index: 10;
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .sample-form-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 0.6rem;
         }
 
         .sample-form-subtitle {
             font-size: 1rem;
-            color: #6c757d;
+            color: var(--light-text);
             margin-bottom: 1.5rem;
         }
 
         .form-group label {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--sub-color);
             font-size: 0.9rem;
             margin-bottom: 0.3rem;
         }
@@ -541,18 +563,20 @@
         .form-control {
             height: calc(2.5rem + 2px);
             border-radius: 0.5rem;
-            border: 1px solid #ced4da;
+            border: 1px solid #E0E0E0;
             padding: 0.5rem 1rem;
             transition: all 0.2s ease;
+            background-color: #FAFAFA;
         }
 
         .form-control:focus {
-            border-color: #4288EE;
-            box-shadow: 0 0 0 0.2rem rgba(66, 136, 238, 0.25);
+            border-color: var(--main-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 195, 0, 0.15);
+            background-color: white;
         }
 
         .btn-sample {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: var(--sub-color);
             border: none;
             color: white;
             font-weight: 600;
@@ -565,9 +589,10 @@
         }
 
         .btn-sample:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #222222;
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            color: white;
         }
 
         #sample-message {
@@ -598,7 +623,7 @@
 
         /* 사용자 후기 섹션 스타일 */
         .testimonials-section {
-            background-color: #f6f8fd;
+            background-color: var(--pale-bg);
             padding: 5rem 0;
         }
 
@@ -606,9 +631,9 @@
             border-radius: 1.25rem;
             overflow: hidden;
             border: none;
-            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.08);
+            box-shadow: 0 10px 30px var(--light-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: white;
+            background: var(--card-bg);
             padding: 2rem !important;
             transition: all 0.3s ease;
             text-align: left;
@@ -618,13 +643,13 @@
 
         .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         .testimonial-quote {
             font-size: 1.05rem;
             line-height: 1.7;
-            color: #444;
+            color: var(--text-color);
             margin-bottom: 1.5rem;
             position: relative;
             padding-left: 1.5rem;
@@ -636,9 +661,9 @@
             left: 0;
             top: -5px;
             font-size: 2.5rem;
-            color: #5b9afa;
+            color: var(--main-color);
             font-family: Georgia, serif;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .testimonial-author {
@@ -650,13 +675,13 @@
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background-color: #4288EE;
+            background-color: var(--main-color);
             margin-right: 1rem;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--sub-color);
             font-weight: 700;
             font-size: 1.2rem;
         }
@@ -667,31 +692,31 @@
 
         .testimonial-author-name {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 0.2rem;
             font-size: 1rem;
         }
 
         .testimonial-author-title {
             font-size: 0.85rem;
-            color: #6c757d;
+            color: var(--light-text);
         }
 
         /* 제작자 노트 섹션 스타일 수정 */
         .maker-note-content {
-            background-color: #f8f9fa;
+            background-color: var(--pale-bg);
             border-radius: 1.25rem;
             padding: 2.5rem;
             position: relative;
             margin: 0 auto;
             max-width: 800px;
-            box-shadow: 0 10px 30px rgba(66, 136, 238, 0.05);
+            box-shadow: 0 10px 30px var(--light-shadow);
         }
 
         .maker-note-content h2 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--sub-color);
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -699,28 +724,33 @@
         .maker-note-content p {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #526b84;
+            color: var(--text-color);
             margin-bottom: 1.5rem;
         }
 
         .maker-note-content em {
             font-style: italic;
             font-weight: 600;
-            color: #4288EE;
+            color: var(--sub-color);
         }
 
         /* 통계 섹션 스타일 */
         .counter-box {
             font-size: 3.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--sub-color);
+            margin-bottom: 1rem;
+        }
+
+        .counter-box-accent {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--main-color);
             margin-bottom: 1rem;
         }
 
         .stats-section p {
-            color: #6c757d;
+            color: var(--light-text);
             font-size: 1.1rem;
         }
 
@@ -729,7 +759,7 @@
         }
 
         .action-buttons .btn-primary {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: var(--sub-color);
             border: none;
             color: white;
             font-weight: 600;
@@ -740,9 +770,9 @@
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #222222;
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(66, 136, 238, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         /* 시간 선택기 스타일 수정 */
@@ -754,25 +784,25 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            border: 1px solid #dde1e7;
+            border: 1px solid #E0E0E0;
             border-radius: 0.75rem;
-            background-color: #eef2f8;
-            color: #2a3b47;
+            background-color: #FAFAFA;
+            color: var(--text-color);
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .time-display:hover {
-            border-color: #4288EE;
-            background-color: #f0f5ff;
+            border-color: var(--main-color);
+            background-color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .time-display-icon {
             margin-right: 0.5rem;
-            color: #4288EE;
+            color: var(--sub-color);
         }
 
         .time-picker-container {
@@ -782,14 +812,14 @@
             max-height: 250px;
             overflow-y: auto;
             background-color: white;
-            border: 1px solid #dde1e7;
+            border: 1px solid #E0E0E0;
             border-radius: 0.75rem;
             padding: 0.75rem;
             position: absolute;
             width: 100%;
             z-index: 10;
             margin-top: 5px;
-            box-shadow: 0 10px 25px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
 
         .time-option {
@@ -798,21 +828,21 @@
             cursor: pointer;
             border-radius: 0.5rem;
             transition: all 0.2s ease;
-            background-color: #f8f9fa;
+            background-color: #FAFAFA;
             border: 1px solid transparent;
-            color: #434343;
+            color: var(--text-color);
         }
 
         .time-option:hover {
-            background-color: #f0f5ff;
-            border-color: #4288EE;
+            background-color: #F2F2F2;
+            border-color: #E0E0E0;
         }
 
         .time-option.selected {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
-            color: white;
+            background: var(--main-color);
+            color: var(--sub-color);
             font-weight: 500;
-            box-shadow: 0 2px 5px rgba(66, 136, 238, 0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         /* 주기 선택기 스타일 */
@@ -833,9 +863,9 @@
         .custom-radio-label {
             display: block;
             padding: 0.75rem 0.5rem;
-            background-color: #eef2f8; /* 밝은 파란색 배경으로 통일 */
-            color: #2a3b47;
-            border: 1px solid #dde1e7;
+            background-color: #FAFAFA;
+            color: var(--text-color);
+            border: 1px solid #E0E0E0;
             border-radius: 0.75rem;
             text-align: center;
             cursor: pointer;
@@ -846,17 +876,17 @@
         }
 
         .custom-radio-label:hover {
-            border-color: #4288EE;
-            background-color: #f0f5ff;
+            border-color: var(--main-color);
+            background-color: #F5F5F5;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .custom-radio-input:checked + .custom-radio-label {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: var(--sub-color);
             color: white;
-            border-color: #4288EE;
-            box-shadow: 0 4px 12px rgba(66, 136, 238, 0.2);
+            border-color: var(--sub-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* 애니메이션 */
@@ -973,7 +1003,7 @@
                 text-align: center;
             }
 
-            .counter-box {
+            .counter-box, .counter-box-accent {
                 font-size: 3rem;
             }
 
@@ -1088,7 +1118,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6 col-12 hero-content">
                     <h1 class="hero-title">
-                        <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">
+{#                        <img src="{% static 'images/favicon.ico' %}" alt="하루 한 줄 아이콘" class="hero-icon">#}
                         하루 한 줄
                     </h1>
                     <p class="hero-lead">
@@ -1097,11 +1127,8 @@
                     </p>
                     <p class="hero-description">
                         매일 아침, 가볍게 읽고 오래 기억되는<br>
-                        <strong>‘말하고 싶고, 공유하고 싶은 한 줄’</strong>을 보내드립니다.
+                        <strong>'말하고 싶고, 공유하고 싶은 한 줄'</strong>을 보내드립니다.
                     </p>
-                    <div class="action-buttons">
-                        <a href="#sample-section" class="btn hero-btn">샘플 받아보기</a>
-                    </div>
                 </div>
 
                 <!-- 구독 폼 -->
@@ -1145,20 +1172,25 @@
                                 <label>수신 주기</label>
                                 <div class="custom-radio-group">
                                     <div class="custom-radio-item">
-                                        <input type="radio" id="frequency_daily" name="frequency" value="daily" class="custom-radio-input" checked>
+                                        <input type="radio" id="frequency_daily" name="frequency" value="daily"
+                                               class="custom-radio-input" checked>
                                         <label for="frequency_daily" class="custom-radio-label">매일(월~금)</label>
                                     </div>
                                     <div class="custom-radio-item">
-                                        <input type="radio" id="frequency_three_per_week" name="frequency" value="three_per_week" class="custom-radio-input">
+                                        <input type="radio" id="frequency_three_per_week" name="frequency"
+                                               value="three_per_week" class="custom-radio-input">
                                         <label for="frequency_three_per_week" class="custom-radio-label">월/수/금</label>
                                     </div>
                                     <div class="custom-radio-item">
-                                        <input type="radio" id="frequency_weekly" name="frequency" value="weekly" class="custom-radio-input">
+                                        <input type="radio" id="frequency_weekly" name="frequency" value="weekly"
+                                               class="custom-radio-input">
                                         <label for="frequency_weekly" class="custom-radio-label">월요일만</label>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-subscription">하루 한 줄 구독하기</button>
+                            <button type="submit" class="btn btn-subscription">
+                                <i class="fas fa-paper-plane mr-2"></i> 하루 한 줄 구독하기
+                            </button>
                         </form>
                         <div id="subscription-message"></div>
                         <div class="subscription-note mt-2 text-center">
@@ -1196,7 +1228,7 @@
                             <i class="fas fa-comment-dots"></i>
                         </div>
                         <h3>할 말이 없을 때 꺼내보세요</h3>
-                        <p>“그거 알아요?”로 시작하는 한 줄 상식. 가볍게 툭 던져도 대화가 이어지는 마법을 경험해보세요.</p>
+                        <p>"그거 알아요?"로 시작하는 한 줄 상식. 가볍게 툭 던져도 대화가 이어지는 마법을 경험해보세요.</p>
                     </div>
                 </div>
 
@@ -1207,7 +1239,7 @@
                             <i class="fas fa-language"></i>
                         </div>
                         <h3>영어가 입에서 안 나올 때</h3>
-                        <p>진짜 원어민이 쓰는 표현만 쏙쏙! 회화에 바로 써먹는 ‘찐 표현’을 매일 한 줄씩 배워보세요.</p>
+                        <p>진짜 원어민이 쓰는 표현만 쏙쏙! 회화에 바로 써먹는 '찐 표현'을 매일 한 줄씩 배워보세요.</p>
                     </div>
                 </div>
             </div>
@@ -1232,13 +1264,13 @@
                             사실이에요! 핀란드에서는 사우나가 단순한 휴식 공간이 아니라 중요한 대화의 장소로 여겨집니다. 비즈니스 미팅, 심지어 정치 협상도 사우나에서 이루어지곤 해요.
                         </div>
                         <div class="answer">
-                            인구 550만에 사우나 330만 개! ‘사우나 디플로마시’라는 말이 있을 정도로, 서로의 벽을 허물고 대화를 나누는 상징이죠.
+                            인구 550만에 사우나 330만 개! '사우나 디플로마시'라는 말이 있을 정도로, 서로의 벽을 허물고 대화를 나누는 상징이죠.
                         </div>
                         <div class="answer">
-                            🔍 회식 자리, 아이스브레이킹, 발표 오프닝에 “핀란드는 사우나에서 회의한대요!”처럼 유쾌하게 활용해 보세요.
+                            🔍 회식 자리, 아이스브레이킹, 발표 오프닝에 "핀란드는 사우나에서 회의한대요!"처럼 유쾌하게 활용해 보세요.
                         </div>
                         <div class="cta-text">
-                            → 이렇게 꺼내기 좋은 상식, 매일 하나씩 받아보세요!
+                            <i class="fas fa-pencil-alt mr-2"></i> 이렇게 꺼내기 좋은 상식, 매일 하나씩 받아보세요!
                         </div>
                     </div>
                 </div>
@@ -1248,7 +1280,7 @@
                         <span class="category-label">한 입 영어</span>
                         <div class="question">"Once in a blue moon"</div>
                         <div class="answer">
-                            아주 드물게 일어나는 일을 말할 때 쓰는 표현이에요. ‘블루문’은 약 2~3년에 한 번 보이는 희귀한 보름달입니다.
+                            아주 드물게 일어나는 일을 말할 때 쓰는 표현이에요. '블루문'은 약 2~3년에 한 번 보이는 희귀한 보름달입니다.
                         </div>
                         <div class="answer">
                             <strong>예문 1:</strong> "He only visits his parents once in a blue moon."<br>
@@ -1262,7 +1294,7 @@
                             💡 특별한 일, 가끔 일어나는 일에 자연스럽게 써보세요!
                         </div>
                         <div class="cta-text">
-                            → 이렇게 바로 써먹을 영어 표현, 매일 하나씩 받아보세요!
+                            <i class="fas fa-pencil-alt mr-2"></i> 이렇게 바로 써먹을 영어 표현, 매일 하나씩 받아보세요!
                         </div>
                     </div>
                 </div>
@@ -1315,7 +1347,7 @@
                 <div class="col-md-6 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
                     <div class="testimonial-card">
                         <div class="testimonial-quote">
-                            친구랑 밥 먹다 “핀란드 사우나 외교” 얘기 꺼냈는데 다들 재밌다면서 들었어요. 요즘 아침에 이거 읽는 게 은근히 소소한 재미예요.
+                            친구랑 밥 먹다 "핀란드 사우나 외교" 얘기 꺼냈는데 다들 재밌다면서 들었어요. 요즘 아침에 이거 읽는 게 은근히 소소한 재미예요.
                         </div>
                         <div class="testimonial-author">
                             <div class="testimonial-author-img">M</div>
@@ -1361,21 +1393,21 @@
 
                         <ul class="benefits-list">
                             <li class="benefit-item">
-                                <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="benefit-icon"><i class="fas fa-pencil-alt"></i></div>
                                 <div class="benefit-text">
                                     <h4>진짜 도움이 될지 궁금하다면</h4>
                                     <p>실제 구독자가 받는 콘텐츠를 직접 보고 판단해보세요. 부담 없이 체험 가능합니다.</p>
                                 </div>
                             </li>
                             <li class="benefit-item">
-                                <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="benefit-icon"><i class="fas fa-book-open"></i></div>
                                 <div class="benefit-text">
                                     <h4>카테고리가 고민될 때</h4>
                                     <p>영어, 상식, 개발 등 다양한 분야 중 하나를 골라, 내게 맞는 스타일을 확인해보세요.</p>
                                 </div>
                             </li>
                             <li class="benefit-item">
-                                <div class="benefit-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="benefit-icon"><i class="fas fa-lightbulb"></i></div>
                                 <div class="benefit-text">
                                     <h4>짧고 꾸준한 학습이 궁금하다면</h4>
                                     <p>1분 만에 읽을 수 있는 지식이 어떤 느낌인지, 샘플 메일로 직접 체감해보세요.</p>
@@ -1416,7 +1448,9 @@
                                 <label for="sample-email">이메일 주소</label>
                                 {{ sample_form.email }}
                             </div>
-                            <button type="submit" class="btn btn-sample">샘플 메일 받기</button>
+                            <button type="submit" class="btn btn-sample">
+                                <i class="fas fa-envelope mr-2"></i> 샘플 메일 받기
+                            </button>
                         </form>
 
                         <div id="sample-message" class="mt-3 text-center"></div>
@@ -1446,7 +1480,7 @@
                 </div>
 
                 <div class="col-md-4 col-12 slide-up mb-4" style="animation-delay: 0.4s;">
-                    <div class="counter-box">50+</div>
+                    <div class="counter-box-accent">50+</div>
                     <p>공유된 지식 수</p>
                 </div>
 
@@ -1458,7 +1492,9 @@
 
             <div class="action-buttons text-center stats-cta slide-up" style="animation-delay: 0.8s;">
                 <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"
-                   class="btn btn-primary pulse">망설이면 또 놓칩니다.<br>오늘부터 시작하세요.</a>
+                   class="btn btn-primary pulse">
+                    <i class="fas fa-pencil-alt mr-2"></i> 망설이면 또 놓칩니다.<br>오늘부터 시작하세요.
+                </a>
                 <p class="mt-3 text-muted">언제든지 구독 취소가 가능합니다</p>
             </div>
         </div>

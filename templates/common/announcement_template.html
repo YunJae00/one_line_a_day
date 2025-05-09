@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하루 한 줄 공지사항</title>
+</head>
+<body style="font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #ffffff;">
+<!-- 전체 컨테이너 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff;">
+    <tr>
+        <td align="center" style="padding: 15px 10px;">
+            <!-- 컨텐츠 테이블 -->
+            <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                   style="max-width: 600px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <!-- 헤더 -->
+                <tr>
+                    <td align="center"
+                        style="background-color: #4288EE; padding: 25px 15px; border-radius: 8px 8px 0 0;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td align="center">
+                                    <!-- 로고 -->
+                                    <img src="https://one-day-one-line-static-files.s3.ap-northeast-2.amazonaws.com/favicon.ico"
+                                         alt="하루 한 줄" width="50" style="display: block; margin-bottom: 15px;">
+                                    <!-- 서비스명 -->
+                                    <h1 style="color: #ffffff; font-size: 22px; font-weight: bold; margin: 0; padding: 0;">
+                                        하루 한 줄 공지사항</h1>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- 컨텐츠 -->
+                <tr>
+                    <td style="padding: 25px 20px;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td>
+                                    <p style="color: #333333; font-size: 15px; margin: 0 0 15px 0; padding: 0;">
+                                        안녕하세요!</p>
+
+                                    <!-- 공지 내용 -->
+                                    <div style="color: #333333; font-size: 15px; margin: 0 0 20px 0; padding: 0;">
+                                        {{ content|safe }}
+                                    </div>
+
+                                    {% if button_text and button_url %}
+                                        <!-- 버튼 -->
+                                        <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                                               style="margin: 20px 0;">
+                                            <tr>
+                                                <td align="center">
+                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="center" bgcolor="#4288EE"
+                                                                style="border-radius: 5px;">
+                                                                <a href="{{ button_url }}" target="_blank"
+                                                                   style="display: inline-block; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 5px; width: 200px; text-align: center;">{{ button_text }}</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <p style="color: #333333; font-size: 14px; margin: 0 0 10px 0; padding: 0;">버튼이
+                                            작동하지 않는 경우, 다음 링크를 복사하여 브라우저에 붙여넣으세요:</p>
+                                        <p style="word-break: break-all; font-size: 13px; color: #4288EE; margin: 0 0 15px 0; padding: 0;">{{ button_text }}: {{ button_url }}</p>
+                                    {% endif %}
+
+                                    <p style="color: #333333; font-size: 15px; margin: 15px 0 0 0; padding: 0;">
+                                        감사합니다.<br>하루 한 줄 팀 드림</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- 푸터 -->
+                <tr>
+                    <td align="center"
+                        style="background-color: #f5f7fa; padding: 15px; border-top: 1px solid #eeeeee; border-radius: 0 0 8px 8px;">
+                        <p style="color: #999999; font-size: 12px; margin: 0 0 5px 0; padding: 0;">© 2025 하루 한 줄. All
+                            rights reserved.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
