@@ -25,6 +25,8 @@ from one_day.views import HomeTemplateView
 
 admin_url = get_env_variable('ADMIN_URL')
 
+handler404 = 'one_day.views.handler404'
+
 urlpatterns = [
     path(admin_url, admin.site.urls),
     # 앱 URL 연결

@@ -1,0 +1,137 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}페이지를 찾을 수 없습니다 - 하루 한 줄{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .error-page {
+            padding: 4rem 0;
+            background-color: white;
+            min-height: calc(100vh - 350px);
+        }
+
+        .error-card {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .error-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 195, 0, 0.15);
+        }
+
+        .card-body {
+            padding: 3rem 2rem;
+        }
+
+        .error-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .error-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .error-code {
+            font-size: 7rem;
+            font-weight: 700;
+            color: #4e4e4e;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .error-title {
+            font-weight: 700;
+            color: #4e4e4e;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .error-message {
+            color: #666666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-container .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: #FFC300;
+            border: none;
+            color: #4e4e4e;
+        }
+
+        .btn-primary:hover {
+            background: #FFD43B;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(255, 195, 0, 0.3);
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            border: 1px solid #4e4e4e;
+            color: #4e4e4e;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #f8f8f8;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="error-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="error-card card text-center">
+                        <div class="card-body">
+                            <div class="error-code">404</div>
+                            <h2 class="error-title">페이지를 찾을 수 없습니다</h2>
+                            <p class="error-message">
+                                요청하신 페이지가 존재하지 않거나, 이동되었거나, 일시적으로 사용할 수 없습니다.<br>
+                                URL을 확인하시거나 아래 버튼을 통해 다른 페이지로 이동해보세요.
+                            </p>
+
+                            <div class="btn-container">
+                                <a href="{% url 'home' %}" class="btn btn-primary">
+                                    <i class="fas fa-home me-2"></i>홈으로 가기
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
