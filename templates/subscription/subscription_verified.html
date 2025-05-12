@@ -5,36 +5,56 @@
 
 {% block extra_css %}
     <style>
+        /* 기본 변수 정의 */
+        :root {
+            --main-color: #FFC300;
+            --text-color: #333333;
+            --light-text: #666666;
+            --card-bg: #FFFFFF;
+            --light-bg: #F5F5F5;
+            --border-radius: 1.25rem;
+            --mobile-radius: 1rem;
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 기본 스타일 */
+        body {
+            word-break: keep-all;  /* 한글 단어 단위 줄바꿈 */
+            word-wrap: break-word; /* 긴 단어 줄바꿈 */
+        }
+
         .verification-page {
             padding: 4rem 0;
-            background-color: #f6f8fd;
+            background-color: white;
             min-height: calc(100vh - 350px);
         }
 
         .verification-card {
-            border-radius: 1.25rem;
+            border-radius: var(--border-radius);
             overflow: hidden;
             border: none;
-            box-shadow: 0 15px 35px rgba(66, 136, 238, 0.1);
+            box-shadow: var(--card-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
+            background: var(--card-bg);
             margin-bottom: 1.5rem;
         }
 
         .verification-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(66, 136, 238, 0.15);
+            box-shadow: var(--hover-shadow);
         }
 
         .card-header {
             background: transparent;
             border-bottom: none;
             padding: 1.8rem 1.5rem 0.8rem;
+            text-align: center;
         }
 
         .card-header h3 {
             font-weight: 700;
-            color: #2A3B47;
+            color: var(--text-color);
             margin: 0;
             position: relative;
             display: inline-block;
@@ -48,29 +68,31 @@
             transform: translateX(-50%);
             width: 50px;
             height: 3px;
-            background: linear-gradient(to right, #4288EE, #5b9afa);
+            background: var(--main-color);
             border-radius: 3px;
         }
 
         .card-body {
             padding: 2rem;
+            text-align: center;
         }
 
         .verification-icon {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e8f6fe, #d4e5ed);
+            background: var(--light-bg);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
             position: relative;
             animation: pulse 2s infinite;
+            border: 2px solid rgba(255, 195, 0, 0.2);
         }
 
         .verification-icon svg {
-            color: #4288EE;
+            color: var(--text-color);
             width: 50px;
             height: 50px;
             transition: all 0.3s ease;
@@ -78,72 +100,96 @@
 
         .verification-card:hover .verification-icon svg {
             transform: scale(1.1);
+            color: var(--main-color);
         }
 
         .verification-title {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--text-color);
             margin-bottom: 1rem;
+            word-break: keep-all;
+            line-height: 1.4;
         }
 
         .text-muted {
-            color: #6c757d;
+            color: var(--light-text);
+            word-break: keep-all;
+            line-height: 1.6;
         }
 
         .info-box {
-            background-color: #e8f6fe;
+            background-color: #F9F9F9;
             border-radius: 0.75rem;
             padding: 1.25rem;
             margin: 1.5rem 0;
-            border-left: 4px solid #4288EE;
-            box-shadow: 0 4px 15px rgba(66, 136, 238, 0.1);
+            border-left: 4px solid var(--main-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
         }
 
         .info-box:hover {
-            box-shadow: 0 6px 20px rgba(66, 136, 238, 0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
             transform: translateY(-2px);
         }
 
         .info-box p {
             margin-bottom: 0;
-            color: #4288EE;
+            color: var(--text-color);
+            word-break: keep-all;
+            line-height: 1.5;
+            text-align: left;
         }
 
         .info-box svg {
-            color: #4288EE;
+            color: var(--main-color);
             margin-right: 0.5rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
         }
 
         .subscription-details {
-            border: 1px solid #e2e8f0;
+            border: 1px solid #EEEEEE;
             border-radius: 0.75rem;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            background-color: #f8fafc;
+            background-color: #FAFAFA;
+            text-align: left;
         }
 
         .subscription-details h5 {
             font-weight: 600;
-            color: #2A3B47;
+            color: var(--text-color);
             margin-bottom: 1rem;
+            border-bottom: 1px solid #EEEEEE;
+            padding-bottom: 0.5rem;
+            text-align: center;
         }
 
         .subscription-details .detail-item {
             display: flex;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .subscription-details .detail-item:last-child {
+            margin-bottom: 0;
         }
 
         .subscription-details .detail-label {
             width: 120px;
             font-weight: 500;
-            color: #4B5563;
+            color: #555555;
+            flex-shrink: 0;
         }
 
         .subscription-details .detail-value {
             flex: 1;
-            color: #111827;
+            color: var(--text-color);
             font-weight: 500;
+            word-break: break-all;
+            text-align: left;
         }
 
         .btn-container {
@@ -161,42 +207,76 @@
         }
 
         .btn-home {
-            background: linear-gradient(135deg, #4288EE, #5b9afa);
+            background: #555555;
             border: none;
             color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-home:hover {
-            background: linear-gradient(135deg, #3070d9, #4288EE);
+            background: #333333;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(66, 136, 238, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .btn-home svg {
+            color: var(--main-color);
+            margin-right: 0.4rem;
         }
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0.2);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.2);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 10px rgba(255, 195, 0, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(66, 136, 238, 0);
+                box-shadow: 0 0 0 0 rgba(255, 195, 0, 0);
             }
         }
 
         /* 반응형 */
         @media (max-width: 767.98px) {
             .verification-page {
-                padding: 2rem 0;
+                padding: 2.5rem 0;
+            }
+
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .verification-card {
+                border-radius: var(--mobile-radius);
+                margin: 0 0.5rem 1.2rem;
+            }
+
+            .card-header {
+                padding: 1.5rem 1.2rem 0.7rem;
+            }
+
+            .card-header h3 {
+                font-size: 1.4rem;
+            }
+
+            .card-header h3:after {
+                width: 45px;
+                height: 2.5px;
+                bottom: -8px;
             }
 
             .card-body {
-                padding: 1.5rem;
+                padding: 1.3rem;
             }
 
             .verification-icon {
                 width: 80px;
                 height: 80px;
+                margin-bottom: 1.2rem;
             }
 
             .verification-icon svg {
@@ -206,21 +286,200 @@
 
             .verification-title {
                 font-size: 1.25rem;
+                margin-bottom: 0.8rem;
+                padding: 0 0.5rem;
+            }
+
+            .text-muted {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                padding: 0 0.3rem;
+            }
+
+            .subscription-details {
+                padding: 1.2rem;
+                margin: 1.2rem 0;
+            }
+
+            .subscription-details h5 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+                padding-bottom: 0.4rem;
+            }
+
+            .subscription-details .detail-item {
+                margin-bottom: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .subscription-details .detail-label {
+                width: 90px;
+                min-width: 90px;
+                font-size: 0.9rem;
+                padding-top: 0.1rem;
+            }
+
+            .subscription-details .detail-value {
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+
+            .info-box {
+                padding: 1rem;
+                margin: 1.2rem 0;
+            }
+
+            .info-box p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .info-box svg {
+                margin-top: 0.2rem;
             }
 
             .btn-container {
-                flex-direction: column;
-                gap: 0.5rem;
+                margin-top: 1.5rem;
             }
 
             .active-buttons .btn {
-                width: 100%;
+                width: 80%;
+                max-width: 280px;
+                padding: 0.7rem 1.5rem;
+                font-size: 0.95rem;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .btn-home {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .btn-home svg {
+                margin-right: 0.3rem;
             }
         }
 
         @media (max-width: 575.98px) {
+            .verification-page {
+                padding: 2rem 0 3rem;
+            }
+
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
             .verification-card {
-                margin: 0 1rem 1.5rem;
+                margin: 0 0.2rem 1.2rem;
+                border-radius: 0.8rem;
+            }
+
+            .card-header {
+                padding: 1.3rem 1rem 0.6rem;
+            }
+
+            .card-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .card-header h3:after {
+                width: 40px;
+                height: 2px;
+                bottom: -7px;
+            }
+
+            .card-body {
+                padding: 1rem 0.8rem;
+            }
+
+            .verification-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 1rem;
+            }
+
+            .verification-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .verification-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.7rem;
+                line-height: 1.3;
+            }
+
+            .text-muted {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .subscription-details {
+                padding: 1rem 0.8rem;
+                margin: 1rem 0;
+                border-radius: 0.7rem;
+            }
+
+            .subscription-details h5 {
+                font-size: 1rem;
+                margin-bottom: 0.7rem;
+                padding-bottom: 0.3rem;
+            }
+
+            .subscription-details .detail-item {
+                margin-bottom: 0.6rem;
+                flex-direction: column;
+            }
+
+            .subscription-details .detail-label {
+                width: 100%;
+                margin-bottom: 0.2rem;
+                font-size: 0.85rem;
+                color: #555;
+            }
+
+            .subscription-details .detail-value {
+                font-size: 0.9rem;
+                padding-left: 0.3rem;
+            }
+
+            .info-box {
+                padding: 0.9rem 0.7rem;
+                margin: 0.8rem 0;
+                border-radius: 0.7rem;
+            }
+
+            .info-box svg {
+                width: 18px;
+                height: 18px;
+                margin-top: 0.15rem;
+                margin-right: 0.4rem;
+            }
+
+            .info-box p {
+                font-size: 0.85rem;
+                line-height: 1.35;
+            }
+
+            .btn-container {
+                margin-top: 1.2rem;
+            }
+
+            .btn-home {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+                width: 85%;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+            }
+
+            .btn-home svg {
+                width: 14px;
+                height: 14px;
+                margin-right: 0.3rem;
             }
         }
     </style>
@@ -230,12 +489,12 @@
     <section class="verification-page">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-7 col-sm-10">
+                <div class="col-lg-5 col-md-7 col-12">
                     <div class="verification-card card">
-                        <div class="card-header text-center">
+                        <div class="card-header">
                             <h3>{% if success %}구독 완료{% else %}처리 결과{% endif %}</h3>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             <div class="verification-icon">
                                 {% if success %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
@@ -256,8 +515,8 @@
                                 <h4 class="verification-title">구독이 성공적으로 완료되었습니다</h4>
 
                                 <p class="text-muted">
-                                    이메일 인증이 완료되었으며, 하루 한 줄 구독이 시작되었습니다.<br>
-                                    내일부터 선택한 시간에 메일함으로 배달됩니다.
+                                    이메일 인증이 완료되었으며,<br class="d-block d-md-none"> 하루 한 줄 구독이 시작되었습니다.<br>
+                                    내일부터 선택한 시간에<br class="d-block d-md-none"> 메일함으로 배달됩니다.
                                 </p>
 
                                 <div class="subscription-details">
@@ -276,12 +535,12 @@
                                     </div>
                                 </div>
 
-                                <div class="info-box d-flex align-items-start">
+                                <div class="info-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                          class="bi bi-envelope mt-1" viewBox="0 0 16 16">
                                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
                                     </svg>
-                                    <p class="text-start">
+                                    <p>
                                         구독 확인 이메일을 발송했습니다. 이메일에 포함된 링크를 통해 언제든지 구독을 관리하거나 취소할 수 있습니다.
                                     </p>
                                 </div>
@@ -293,7 +552,7 @@
                                     {% if message %}{{ message }}{% endif %}
                                 </p>
                             {% else %}
-                                <h4 class="verification-title">처리 중 안내사항이 있습니다</h4>
+                                <h4 class="verification-title">처리 중 오류사항이 있습니다</h4>
 
                                 <p class="text-muted">
                                     {% if message %}{{ message }}{% else %}처리 중 오류가 발생했습니다.{% endif %}
@@ -303,7 +562,7 @@
                             <div class="active-buttons btn-container">
                                 <a href="{% url 'home' %}" class="btn btn-home">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-house me-1" viewBox="0 0 16 16">
+                                         class="bi bi-house" viewBox="0 0 16 16">
                                         <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                                     </svg>
                                     홈으로 돌아가기
